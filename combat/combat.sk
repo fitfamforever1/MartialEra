@@ -25,7 +25,7 @@ function EnterCombat(player: player):
     else:
         set bar title of {combat::bar::%{_player}%} to formatted "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &720s"
         set bar progress of {combat::bar::%{_player}%} to 100
-        set bar style of {combat::bar::%{_player}%} segmented 20
+        set bar style of {combat::bar::%{_player}%} to segmented 20
 
 function RemoveCombatBar(player: player):
     if {combat::bar::%{_player}%} is set:
