@@ -41,6 +41,29 @@ function ExitCombat(player: player):
     send action bar "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
     send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
 
+function SpawnDamageIndicator(_victim: player, _dmg: number):
+    set {_loc} to location of {_victim}
+    add 2.3 to y-coordinate of {_loc}
+    add (random number between -0.4 and 0.4) to x-coordinate of {_loc}
+    add (random number between -0.4 and 0.4) to z-coordinate of {_loc}
+
+    spawn text display at {_loc}:
+        set text of event-entity to "&c-%{_dmg}%"
+        set billboard of event-entity to center
+        set gravity of event-entity to false
+        set glowing of event-entity to false
+        set interpolation delay of event-entity to 0 ticks
+        set interpolation duration of event-entity to 15 ticks
+        set {_display} to event-entity
+
+    teleport {_display} to location({_loc}, offset y by 1)
+
+    wait 12 ticks
+    set text opacity of {_display} to 0
+
+    wait 6 ticks
+    delete entity {_display}
+
 every 10 tick:
     loop all players:
         InitCombatTag(loop-player)
@@ -74,7 +97,7 @@ on damage:
 
     set {_dmg} to calculateDamage(attacker, victim)
     set damage to ({_dmg} / 2)
-    send action bar "&c-%{_dmg}%" to attacker
+    SpawnDamageIndicator(victim, {_dmg})
 
 on first join:
     InitCombatTag(player)
