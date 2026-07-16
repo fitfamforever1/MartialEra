@@ -41,7 +41,7 @@ function ExitCombat(player: player):
     send action bar "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
     send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
 
-function SpawnDamageIndicator(_victim: player, _dmg: number):
+function SpawnDamageIndicator(victim: player, dmg: number):
     broadcast "Victim = %{_victim}%"
     set {_loc} to location of {_victim}
     broadcast "Loc = %{_loc}%"
