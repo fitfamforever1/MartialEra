@@ -220,11 +220,12 @@ function SyncHealthBar(p: player):
 
 every 1 second in "world":
     loop all players:
-        RegenPlayer(loop-player)
-        Actionbar(loop-player)
-        SyncHealthBar(loop-player)
-        set loop-player's movement speed attribute to {player::stat::movement_speed::%loop-player%}
-        
+        if loop-player is alive:
+            RegenPlayer(loop-player)
+            Actionbar(loop-player)
+            SyncHealthBar(loop-player)
+            set loop-player's movement speed attribute to {player::stat::movement_speed::%loop-player%}
+            
 function removeHealth(p: player, amount: number):
     remove {_amount} from {player::stat::current_health::%{_p}%}
     if {player::stat::current_health::%{_p}%} <= 0:
