@@ -1,24 +1,19 @@
 on damage:
     attacker is a player
-    
     set {_toolName} to "%type of attacker's held item%" in lowercase
     if attack cooldown of attacker < 1:
         cancel event
         stop
-        
+
     if IsInCombat(victim) is false:
         send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏᴡ &cɪɴ ᴄᴏᴍʙᴀᴛ&7!" to victim
     if IsInCombat(attacker) is false:
         send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏᴡ &cɪɴ ᴄᴏᴍʙᴀᴛ&7!" to attacker
-    
+
     EnterCombat(victim)
     EnterCombat(attacker)
-    execute console command "tab bossbar send %victim% combat 20"
-    execute console command "tab bossbar send %attacker% combat 20"
 
-        
     set {_dmg} to calculateDamage(attacker, victim)
-    
     set damage to ({_dmg} / 2)
     send action bar "&c-%{_dmg}%" to attacker
         
@@ -41,12 +36,41 @@ function EnterCombat(player: player):
     set number data tag "combat:time" of {_player} to 20
     set text data tag "combat:status" of {_player} to "enabled"
 
+    if {combat::bar::%{_player}%} is not set:
+        create bossbar with id "combat-%{_player}%"
+        set {combat::bar::%{_player}%} to bossbar with id "combat-%{_player}%"
+        add {_player} to bar players of {combat::bar::%{_player}%}
+        set bar color of {combat::bar::%{_player}%} to red
+        set bar style of {combat::bar::%{_player}%} to segmented 10
+    set bar title of {combat::bar::%{_player}%} to "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &720s"
+    set bar progress of {combat::bar::%{_player}%} to 100
 
 function ExitCombat(player: player):
     set number data tag "combat:time" of {_player} to 0
     set text data tag "combat:status" of {_player} to "disabled"
+
+    if {combat::bar::%{_player}%} is set:
+        remove {_player} from bar players of {combat::bar::%{_player}%}
+        delete bossbar {combat::bar::%{_player}%}
+    delete {combat::bar::%{_player}%}
+
     send action bar "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
     send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
+
+every 1 second:
+    loop all players:
+        InitCombatTag(loop-player)
+        if text data tag "combat:status" of loop-player is "enabled":
+            set {_time} to number data tag "combat:time" of loop-player
+            if {_time} <= 0:
+                ExitCombat(loop-player)
+            else:
+                subtract 1 from {_time}
+                set number data tag "combat:time" of loop-player to {_time}
+                set the loop-player's balance to {_time}
+                if {combat::bar::%loop-player%} is set:
+                    set bar progress of {combat::bar::%loop-player%} to ({_time} / 20) * 100
+                    set bar title of {combat::bar::%loop-player%} to "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7%{_time}%s"
 
 
 function GetCombatTime(player: player) :: integer:
@@ -57,20 +81,6 @@ function GetCombatTime(player: player) :: integer:
 on first join:
     InitCombatTag(player)
     
-every 5 ticks:
-    loop all players:
-        InitCombatTag(loop-player)
-
-        if text data tag "combat:status" of loop-player is "enabled":
-            set {_time} to number data tag "combat:time" of loop-player
-
-            if {_time} <= 0:
-                ExitCombat(loop-player)
-                set the loop-player's balance to 20
-            else:
-                subtract 0.25 from {_time}
-                set number data tag "combat:time" of loop-player to {_time}
-                set the loop-player's balance to {_time}
 
 
 on quit:
