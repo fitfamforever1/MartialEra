@@ -42,12 +42,12 @@ function ExitCombat(player: player):
     send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
 
 function SpawnDamageIndicator(_victim: player, _dmg: number):
-    broadcast "debug1"
     set {_loc} to location of {_victim}
     add 2.3 to y-coordinate of {_loc}
     add (random number between -0.4 and 0.4) to x-coordinate of {_loc}
     add (random number between -0.4 and 0.4) to z-coordinate of {_loc}
-
+    
+    broadcast "%{_loc}%"
     spawn text display at {_loc}:
         set text of event-entity to "&c-%{_dmg}%"
         set billboard of event-entity to center
