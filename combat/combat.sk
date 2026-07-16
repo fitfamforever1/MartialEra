@@ -47,7 +47,7 @@ every 1 second:
         InitCombatTag(loop-player)
         if text data tag "combat:status" of loop-player is "enabled":
             set {_time} to number data tag "combat:time" of loop-player
-            if {_time} <= 0:
+            if {_time} = 0:
                 ExitCombat(loop-player)
             else:
                 subtract 1 from {_time}
