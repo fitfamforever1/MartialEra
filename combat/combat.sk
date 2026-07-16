@@ -42,8 +42,9 @@ function ExitCombat(player: player):
     send "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ&7." to {_player}
 
 function SpawnDamageIndicator(_victim: player, _dmg: number):
+    broadcast "Victim = %{_victim}%"
     set {_loc} to location of {_victim}
-    broadcast "%{_loc}%"
+    broadcast "Loc = %{_loc}%"
     add 2.3 to y-coordinate of {_loc}
     add (random number between -0.4 and 0.4) to x-coordinate of {_loc}
     add (random number between -0.4 and 0.4) to z-coordinate of {_loc}
@@ -100,6 +101,7 @@ on damage:
 
     set {_dmg} to calculateDamage(attacker, victim)
     set damage to ({_dmg} / 2)
+    broadcast "Victim: %victim%"
     SpawnDamageIndicator(victim, {_dmg})
 
 on first join:
