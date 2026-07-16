@@ -56,13 +56,13 @@ function SpawnDamageIndicator(_victim: player, _dmg: number):
         set interpolation duration of event-entity to 15 ticks
         set {_display} to event-entity
 
-    teleport {_display} to location({_loc}, offset y by 1)
+    teleport {_display} to {_loc} + vector(0, 1, 0)
 
     wait 12 ticks
     set text opacity of {_display} to 0
 
     wait 6 ticks
-    delete entity {_display}
+    kill {_display}
 
 every 10 tick:
     loop all players:
