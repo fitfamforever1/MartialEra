@@ -115,7 +115,14 @@ on quit:
         broadcast "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7%{_player}% &cᴄᴏᴍʙᴀᴛ ʟᴏɢɢᴇᴅ&7!"
         RemoveCombatBar(player)
         kill player
-
+        
+on death:
+    if IsInCombat(player) is true:
+        set {_player} to SmallCaps("%player%")
+        broadcast "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &7%{_player}% &cᴄᴏᴍʙᴀᴛ ʟᴏɢɢᴇᴅ&7!"
+        RemoveCombatBar(player)
+        kill player
+        
 on command:
     if player have permission "admin.combat":
         stop
