@@ -18,15 +18,13 @@ function EnterCombat(player: player):
     InitCombatTag({_player})
     set number data tag "combat:time" of {_player} to 20
     set text data tag "combat:status" of {_player} to "enabled"
+    
+    EnterCombatBar({_player})
 
-    if {combat::bar::%{_player}%} is not set:
-        set {combat::bar::%{_player}%} to boss bar with id "combat-%{_player}%" with title formatted "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &720s" with color red with style segmented 20 with progress 100
-        add {_player} to {combat::bar::%{_player}%}
-    else:
-        set bar title of {combat::bar::%{_player}%} to formatted "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &720s"
-        set bar progress of {combat::bar::%{_player}%} to 100
-        set bar style of {combat::bar::%{_player}%} to segmented 20
-
+function EnterCombatBar(player: player):
+    set {combat::bar::%{_player}%} to boss bar with id "combat-%{_player}%" with title formatted "&8[<#E74C3C>ᴄᴏᴍʙᴀᴛ&8] &720s" with color red with style segmented 20 with progress 100
+    add {_player} to {combat::bar::%{_player}%}
+        
 function RemoveCombatBar(player: player):
     if {combat::bar::%{_player}%} is set:
         loop bar players of {combat::bar::%{_player}%}:
