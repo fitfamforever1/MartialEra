@@ -58,7 +58,7 @@ every 1 second:
 
     loop {combat::bar::*}:
         set {_name} to loop-index
-        if player named {_name} is not online:
+        if player named {_name} is offline:
             loop bar players of loop-value:
                 remove loop-value-2 from bar players of loop-value
             delete loop-value
