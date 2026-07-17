@@ -100,9 +100,13 @@ function SyncSpeed(p: player):
 every 1 second in "world":
     loop all players:
         if loop-player is alive:
-            RegenPlayer(loop-player)
             Actionbar(loop-player)
             SyncSpeed(loop-player)
+            
+loop 2 tick in "world":
+    loop all players:
+        if loop-player is alive:
+            Actionbar(loop-player)
             
 function removeHealth(p: player, amount: number):
     set {_max} to number data tag "playerstat:health" of {_p}
