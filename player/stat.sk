@@ -157,7 +157,7 @@ on join:
     heal(player)
 
 on death:
-    heal(player)
+    heal(victim)
     
 function calculateDamage(attacker: player, defender: player) :: number:
     set {_rawDamage} to {player::stat::physical_damage::%{_attacker}%}
