@@ -115,7 +115,7 @@ function SyncHealthBar(p: player):
     
 function SyncSpeed(p: player):
     set {_temp} to number data tag "playerstat:speed" of {_p}
-    set {_temp} to {_temp} / 1000
+    set {_temp} to {_temp} / 100
     
     set {_p}'s movement speed attribute to {_temp}
 
