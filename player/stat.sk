@@ -176,6 +176,10 @@ on damage of player:
     set damage to 0
     set {_current} to number data tag "current:health" of victim
     if {_current} <= 0:
+        if {respawning::%victim%} is set:
+            stop
+        set {respawning::%victim%} to true
         teleport victim to location(0,0,0,"world")
         heal(victim)
         send "1" to victim
+        delete {respawning::%victim%}
