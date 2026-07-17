@@ -90,18 +90,6 @@ function RegenPlayer(p: player):
     set {_temp} to round({_temp})
     set number data tag "current:health" of {_p} to {_temp}
 
-function SyncHealthBar(p: player):
-    set {_max} to number data tag "playerstat:health" of {_p}
-    set {_current} to number data tag "current:health" of {_p}
-
-    set {_vanillaHealth} to ({_current} / {_max}) * 10
-    
-    if {_vanillaHealth} > 10:
-        set {_vanillaHealth} to 10
-    if {_vanillaHealth} < 0:
-        set {_vanillaHealth} to 0.5
-    
-    set health of {_p} to {_vanillaHealth}
     
 function SyncSpeed(p: player):
     set {_temp} to number data tag "playerstat:speed" of {_p}
@@ -114,7 +102,6 @@ every 1 second in "world":
         if loop-player is alive:
             RegenPlayer(loop-player)
             Actionbar(loop-player)
-            SyncHealthBar(loop-player)
             SyncSpeed(loop-player)
             
 function removeHealth(p: player, amount: number):
