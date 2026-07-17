@@ -40,7 +40,7 @@ command /statreset <player>:
         set number data tag "current:crit_chance" of arg-1 to 30
         set number data tag "current:crit_damage" of arg-1 to 50
             
-command /stat:
+command /stat <player>:
     permission: admin.stat
     trigger:
         set number data tag "playerstat:damage" of arg-1 to 1
