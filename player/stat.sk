@@ -10,6 +10,7 @@ function Actionbar(p: player):
     set {_current2} to number data tag "current:mana" of {_p}
     
     set {_current1} to round({_current1})
+    #
     
     send action bar "&c%{_current1}%&8/&c%{_health}% &8| <##0096FF>%{_current2}%&8/<##0096FF>%{_mana}%" to {_p}
 
