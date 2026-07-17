@@ -188,3 +188,8 @@ function death(p: player):
     teleport {_p} to location(0,0,0,"world")
     heal({_p})
     send title "&4ʏᴏᴜ ʜᴀᴠᴇ ᴅɪᴇᴅ!" with subtitle "&cʀᴇꜱᴘᴀᴡɴᴇᴅ ᴀᴛ ꜱᴘᴀᴡɴ." to {_p} for 0.5 seconds with fadein 0.2 second and fade out 0.2 second
+    
+command /death:
+    permission: admin.stat
+    trigger:
+        death(player)
