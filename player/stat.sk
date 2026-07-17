@@ -179,7 +179,7 @@ on damage of player:
         if {respawning::%victim%} is set:
             stop
         set {respawning::%victim%} to true
-        death(player)
+        death(victim)
         
         
 function death(p: player):
