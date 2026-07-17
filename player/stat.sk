@@ -8,7 +8,7 @@ function Actionbar(p: player):
     set {_mana} to number data tag "playerstat:mana" of {_p}
     set {_current2} to number data tag "current:mana" of {_p}
     
-    send action bar "&c%{_current1}%&8/&c%{_health}% &8| <##0096FF>%{_current2}%&8/<##0096FF>%{_current2}%" to {_p}
+    send action bar "&c%{_current1}%&8/&c%{_health}% &8| <##0096FF>%{_current2}%&8/<##0096FF>%{_mana}%" to {_p}
 
 on join:
     if number data tag "playerstat:lvl" of player is not set:
@@ -43,17 +43,6 @@ command /statreset <player>:
 command /stat <player>:
     permission: admin.stat
     trigger:
-        set number data tag "playerstat:damage" of arg-1 to 1
-        set number data tag "playerstat:defense" of arg-1 to 0
-        set number data tag "playerstat:speed" of arg-1 to 10
-        set number data tag "playerstat:health" of arg-1 to 20
-        set number data tag "playerstat:mana" of arg-1 to 100
-        set number data tag "playerstat:lvl" of arg-1 to 1
-        set number data tag "current:mana" of arg-1 to 100
-        set number data tag "current:health" of arg-1 to 20
-        set number data tag "current:crit_chance" of arg-1 to 30
-        set number data tag "current:crit_damage" of arg-1 to 50
-
         send message "&a&lSTATS SET" to arg-1
         send message "&7Damage: &f%data tag "playerstat:damage" of arg-1%" to arg-1
         send message "&7Defense: &f%data tag "playerstat:defense" of arg-1%" to arg-1
