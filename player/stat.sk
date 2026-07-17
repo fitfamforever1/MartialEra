@@ -134,6 +134,7 @@ function removeHealth(p: player, amount: number):
     remove {_amount} from {_current}
     if {_current} <= 0:
         kill {_p}
+    set {_current} to number data tag "current:health" of {_p}
 
 function removeMana(p: player, amount: number) :: boolean:
     set {_current} to number data tag "current:mana" of {_p}
