@@ -153,7 +153,6 @@ function heal(p: player):
         
     set {_temp} to number data tag "playerstat:health" of {_p}
     set number data tag "current:health" of {_p} to {_temp}
-    set health of {_p} to {_temp}
     
 on join:
     heal(player)
@@ -183,6 +182,5 @@ on damage of player:
         set {respawning::%victim%} to true
         set victim's fall distance to 0
         teleport victim to location(0,0,0,"world")
-        set victim's fall distance to 0
         heal(victim)
         send "1" to victim
