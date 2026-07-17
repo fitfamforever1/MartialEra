@@ -13,7 +13,7 @@ function Actionbar(p: player):
 on join:
     if number data tag "playerstat:lvl" of player is not set:
         set number data tag "playerstat:damage" of player to 1
-        set number data tag "playerstat:armor" of player to 0
+        set number data tag "playerstat:defense" of player to 0
         set number data tag "playerstat:speed" of player to 10
         set number data tag "playerstat:health" of player to 20
         set number data tag "playerstat:mana" of player to 100
@@ -76,15 +76,15 @@ function RegenPlayer(p: player):
     set {_current2} to number data tag "current:mana" of {_p}
 
     set {_temp} to {_mana} / 20
-    set {_current2} to {_temp} + {_current2}
-    if {_current2} >= {_mana}:
+    set {_temp} to {_temp} + {_current2}
+    if {_temp} >= {_mana}:
         set {_temp} to {_mana}
     set {_temp} to round({_temp})
     set number data tag "current:mana" of {_p} to {_temp}
     
     set {_temp} to {_health} / 20
-    set {_current1} to {_temp} + {_current1}
-    if {_current1} >= {_health}:
+    set {_temp} to {_temp} + {_current1}
+    if {_temp} >= {_health}:
         set {_temp} to {_health}
     set {_temp} to round({_temp})
     set number data tag "current:health" of {_p} to {_temp}
@@ -121,9 +121,11 @@ function removeHealth(p: player, amount: number):
     set {_current} to number data tag "current:health" of {_p}
     
     remove {_amount} from {_current}
+    if {_current} < 0:
+        set {_current} to 0
+    set number data tag "current:health" of {_p} to {_current}
     if {_current} <= 0:
         kill {_p}
-    set {_current} to number data tag "current:health" of {_p}
 
 function removeMana(p: player, amount: number) :: boolean:
     set {_current} to number data tag "current:mana" of {_p}
@@ -131,9 +133,8 @@ function removeMana(p: player, amount: number) :: boolean:
     if {_current} >= {_amount}:
         remove {_amount} from {_current}
         if {_current} < 0:
-            set number data tag "current:mana" of {_p} to 0
+            set {_current} to 0
         set number data tag "current:mana" of {_p} to {_current}
-            
         return true
     else:
         send action bar "&cɴᴏᴛ ᴇɴᴏᴜɢʜ ᴍᴀɴᴀ." to {_p}
