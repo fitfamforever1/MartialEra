@@ -176,4 +176,4 @@ on damage of player:
     set number data tag "current:health" of victim to {_current}
     set damage to 0
     if {_current} <= 0:
-        kill victim
+        set health of victim to 0
