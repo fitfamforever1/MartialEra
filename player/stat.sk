@@ -178,6 +178,6 @@ on damage of player:
     cancel event
     removeHealth(victim, damage)
     
-    set {_current} to number data tag "current:health" of {_p}
+    set {_current} to number data tag "current:health" of victim
     if {_current} <= 0:
-        set health of {_p} to 0
+        set health of victim to 0
