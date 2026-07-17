@@ -88,14 +88,14 @@ function RegenPlayer(p: player):
 
     set {_temp} to {_mana} / 20
     set {_current2} to {_temp} + {_current2}
-    if {_current2} >= {_mana}
+    if {_current2} >= {_mana}:
         set {_temp} to {_mana}
     set {_temp} to round({_temp})
     set number data tag "current:mana" of {_p} to {_temp}
     
     set {_temp} to {_health} / 20
     set {_current1} to {_temp} + {_current1}
-    if {_current1} >= {_health}
+    if {_current1} >= {_health}:
         set {_temp} to {_health}
     set {_temp} to round({_temp})
     set number data tag "current:health" of {_p} to {_temp}
@@ -117,7 +117,7 @@ function SyncSpeed(p: player):
     set {_temp} to number data tag "playerstat:speed" of {_p}
     set {_temp} to {_temp} / 1000
     
-    set loop-player's movement speed attribute to {_temp}
+    set {_p}'s movement speed attribute to {_temp}
 
 every 1 second in "world":
     loop all players:
@@ -141,8 +141,8 @@ function removeMana(p: player, amount: number) :: boolean:
     if {_current} >= {_amount}:
         remove {_amount} from {_current}
         if {_current} < 0:
-            set number data tag "current:mana" of player to 0
-        set number data tag "current:mana" of player to {_current}
+            set number data tag "current:mana" of {_p} to 0
+        set number data tag "current:mana" of {_p} to {_current}
             
         return true
     else:
@@ -169,7 +169,6 @@ function heal(p: player):
     set number data tag "current:health" of {_p} to {_temp}
     
 on join:
-    updateStats(player)
     heal(player)
 
 on respawn:
