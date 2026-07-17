@@ -177,3 +177,4 @@ function calculateDamage(attacker: player, defender: player) :: number:
     
 on damage of player:
     removeHealth(victim, damage)
+    set damage to 0
