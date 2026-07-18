@@ -124,6 +124,18 @@ function removeHealth(p: player, amount: number):
         set {respawning::%{_p}%} to true
         death({_p})
 
+function DamagePlayer(p: player, damage: number):
+    set {_defense} to number data tag "playerstat:defense" of {_p}
+    
+    if {_defense} < 0:
+        set {_defense} to 0
+
+    set {_finalDamage} to {_damage} * (100 / (100 + {_defense}))
+
+    if {_finalDamage} < 1:
+        set {_finalDamage} to 1
+
+    removeHealth({_p}, {_finalDamage})
 
 function removeMana(p: player, amount: number) :: boolean:
     set {_current} to number data tag "current:mana" of {_p}
@@ -178,7 +190,7 @@ function calculateDamage(attacker: player, defender: player) :: number:
     
 on damage of player:
     if victim is player:
-        removeHealth(victim, damage)
+        DamagePlayer(victim, damage)
         set damage to 0
         
         
