@@ -55,6 +55,17 @@ function spawnMob(locId: number, roomId: number, mob: text, amount: number):
     loop {_amount} times:
         set {_am} to spawn mythicmob {_mob} at location {_loc} in world "world"
 
+function FreeRoom(max: number) :: number:
+    loop {_max} times:
+        set {_roll} to a random integer between 1 and {_max}
+        if boolean data tag "room%{_roll}%:status" of world "world" is not true:
+            set boolean data tag "room%{_roll}%:status" of world "world" to true
+            return {_roll}
+    return 0
+
+function StartRoom(p: player, room: number):
+    teleportToRoom({_p}, {_room})
+
 command /room <number>:
     permission: admin.dungeon
     trigger:
@@ -64,3 +75,20 @@ command /spawn <number> <number> <text> <number>:
     permission: admin.dungeon
     trigger:
         spawnMob(arg-1, arg-2, arg-3, arg-4)
+        
+command /floor:
+    trigger:
+        set {_room} to FreeRoom(10)
+        if {_room} is 0:
+            send "&cNo rooms are currently available." to player
+            stop
+        send "&aYou have been assigned Room %{_room}%!" to player
+        teleportToRoom(player, {_room})
+        
+command /floor-reset:
+    permission: admin.dungeon
+    trigger:
+        loop 10 times:
+            set boolean data tag "room%loop-number%:status" of world "world" to false
+        send "&eAll rooms have been reset." to player
+        
