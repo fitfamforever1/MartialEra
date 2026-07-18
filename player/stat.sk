@@ -192,13 +192,29 @@ command /damage <player> <number>:
     trigger:
         DamagePlayer(arg-1, arg-2)
         
-        
+function calculateAttack(p: player) :: number:
+    set {_base} to number data tag "playerstat:damage" of {_p}
+    set {_critChance} to number data tag "current:crit_chance" of {_p}
+    set {_critDamage} to number data tag "current:crit_damage" of {_p}
+
+    set {_roll} to a random number between 1 and 100
+
+    if {_roll} <= {_critChance}:
+        set {_critDamage} to {_critDamage} / 100
+        set {_finalDamage} to {_base} + ({_base} * {_critDamage} / 100)
+    else:
+        set {_finalDamage} to {_base}
+
+    return {_finalDamage}
     
 on damage:
     if victim is player:
         DamagePlayer(victim, damage)
         set damage to 0
         stop
+    else:
+        set damage to calculateAttack(attacker)
+        
         
         
 function death(p: player):
