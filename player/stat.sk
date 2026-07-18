@@ -118,6 +118,11 @@ function removeHealth(p: player, amount: number):
     
     remove {_amount} from {_current}
     set number data tag "current:health" of {_p} to {_current}
+    if {_current} <= 0:
+        if {respawning::%victim%} is set:
+            stop
+        set {respawning::%victim%} to true
+        death(victim)
 
 
 function removeMana(p: player, amount: number) :: boolean:
@@ -144,6 +149,7 @@ command /removehealth <player> <number>:
     trigger:
         removeHealth(arg-1, arg-2)
         send "&cRemoved &f%arg-2%&c health from &f%arg-1%" to player
+        
        
 function heal(p: player):
     set {_temp} to number data tag "playerstat:mana" of {_p}
@@ -174,11 +180,6 @@ on damage of player:
     removeHealth(victim, damage)
     set damage to 0
     set {_current} to number data tag "current:health" of victim
-    if {_current} <= 0:
-        if {respawning::%victim%} is set:
-            stop
-        set {respawning::%victim%} to true
-        death(victim)
         
         
 function death(p: player):
