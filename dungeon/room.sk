@@ -1,7 +1,7 @@
 function teleportToRoom(p: player, room: number):
-    set {_baseX} to 88.5
+    set {_baseX} to 88.9
     set {_baseY} to 1
-    set {_baseZ} to 99.5
+    set {_baseZ} to 99.9
     set {_spacing} to 32
 
     set {_targetZ} to {_baseZ} + (({_room} - 1) * {_spacing})
