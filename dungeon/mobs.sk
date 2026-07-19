@@ -6,14 +6,19 @@ function spawn(loc: location, mob: text):
 function spawnUndead2(loc: location) :: entity:
     spawn skeleton at {_loc}
     set {_e} to last spawned entity
-
     set custom name of {_e} to "&cSkeleton"
-    set custom name visibility of {_e} to true
-
     set max health of {_e} to 35
     set health of {_e} to 35
     set movement speed attribute of {_e} to 0.18
-
-    equip {_e} with bow
-
+    set tool of {_e} to bow
+    set number data tag "mobstat:damage" of {_e} to 6
     return {_e}
+    
+on shoot:
+    if projectile is an arrow:
+        if shooter is not player:
+            set {_arrow} to event-projectile
+            set {_temp} number data tag "mobstat:damage" of shooter
+            set number data tag "mobstat:damage" of {_arrow} to {_temp}
+            wait 10 seconds
+            delete {_arrow}

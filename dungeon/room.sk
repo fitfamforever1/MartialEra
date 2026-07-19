@@ -55,9 +55,9 @@ function spawnMob(locId: number, roomId: number, mob: text, amount: number):
     loop {_amount} times:
         spawn({_loc}, {_mob})
         
-command /test1:
+command /test1 <text>:
     trigger:
-        spawnMob(8, 1, "undead2", 1)
+        spawnMob(8, 1, arg-1, 1)
 
 function FreeRoom(max: number) :: number:
     loop {_max} times:
