@@ -1,5 +1,5 @@
 function spawn(mob: text):
-    if {_mob} is "undead2"
+    if {_mob} is "undead2":
         spawnUndead2({loc})
 
 
