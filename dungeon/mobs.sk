@@ -40,7 +40,7 @@ function spawnUndead3(loc: location, roomId: number, floorId: number) :: entity:
     set health of {_e} to 75
     set movement speed attribute of {_e} to 0.14
     set tool of {_e} to air
-    set victim's scale attribute to 1.4
+    set scale attribute of {_e} to 1.4
     set number data tag "mobstat:damage" of {_e} to 8
     set number data tag "mob:floor" of {_e} to {_floorId}
     set number data tag "mob:room" of {_e} to {_roomId}
