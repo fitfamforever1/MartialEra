@@ -21,7 +21,7 @@ function spawnMob(locId: number, roomId: number, floorId: number, mob: text, amo
     set {_baseX::3} to 108.9
     set {_baseZ::3} to 107.9
     set {_yaw::3} to 115
-
+#
     set {_baseX::4} to 108.9
     set {_baseZ::4} to 99.9
     set {_yaw::4} to 90
