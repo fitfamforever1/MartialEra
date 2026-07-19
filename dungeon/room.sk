@@ -67,9 +67,11 @@ function FreeRoom(max: number) :: number:
             return {_roll}
     return 0
 
-function StartRoom(p: player, room: number):
+function StartRoom(p: player, room: number, floor: number):
+    set number data tag "room%{_room}%:floor" of world "world" to {_floor}
     teleportToRoom({_p}, {_room})
-
+    StartFloor({_floor})
+    
 command /room <number>:
     permission: admin.dungeon
     trigger:
@@ -80,14 +82,14 @@ command /spawn <number> <number> <number> <text> <number>:
     trigger:
         spawnMob(arg-1, arg-2, arg-3, arg-4, arg-5)
         
-command /floor:
+command /floor <number>:
     trigger:
         set {_room} to FreeRoom(22)
         if {_room} is 0:
             send "&cNo rooms are currently available." to player
             stop
         send "&aYou have been assigned Room" to player
-        StartRoom(player, {_room})
+        StartRoom(player, {_room}, arg-1)
         
 command /dungeonreset:
     permission: admin.dungeon
