@@ -70,7 +70,7 @@ function FreeRoom(max: number) :: number:
 function StartRoom(p: player, room: number, floor: number):
     set number data tag "room%{_room}%:floor" of world "world" to {_floor}
     teleportToRoom({_p}, {_room})
-    StartFloor({_floor})
+    StartFloor({_room}, {_floor})
     
 command /room <number>:
     permission: admin.dungeon
