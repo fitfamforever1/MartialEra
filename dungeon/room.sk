@@ -41,7 +41,7 @@ function spawnMob(locId: number, roomId: number, floorId: number, mob: text, amo
     set {_x} to {spawnPoints::baseX::%{_locId}%}
     set {_z} to {spawnPoints::baseZ::%{_locId}%} + (({_roomId} - 1) * 32)
     set {_yaw} to {spawnPoints::yaw::%{_locId}%}
-    set {_loc} to location({_x}, 1, {_z}, world "world", {_yaw}, 0)
+    set {_loc} to location({_x}, 1, {_z}, world "world", {_yaw}, 0) 
 
     loop {_amount} times:
         spawn({_loc}, {_mob}, {_roomId}, {_floorId})
