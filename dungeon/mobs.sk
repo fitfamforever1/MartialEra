@@ -11,6 +11,7 @@ function applyMobStats(e: entity, mobName: text, health: number, speed: number, 
     set max health of {_e} to {_health}
     set health of {_e} to {_health}
     set movement speed attribute of {_e} to {_speed}
+    set age of {_e} to 0
     set number data tag "mobstat:damage" of {_e} to {_damage}
     set number data tag "mob:floor" of {_e} to {_floorId}
     set number data tag "mob:room" of {_e} to {_roomId}
@@ -55,6 +56,11 @@ on projectile hit:
     if projectile is an arrow:
         if (number data tag "mobstat:damage" of projectile) is set:
             delete projectile
+            
+on target:
+    if target is not player:
+        if event-entity is a enderman, spider, witch, skeleton or zombie:
+            cancel the event
 
 on death:
     if victim is not a player:

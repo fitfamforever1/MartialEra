@@ -33,6 +33,21 @@ on load:
     set {spawnPoints::baseZ::8} to 99
     set {spawnPoints::yaw::8} to 90
 
+    resetDungeon()
+
+function resetDungeon():
+    loop {maxRooms} times:
+        set boolean data tag "room%loop-number%:status" of world "world" to false
+        set number data tag "room%loop-number%:floor" of world "world" to 0
+        clearRoomMobs(loop-number)
+
+    loop all players:
+        set {_room} to number data tag "room:id" of loop-player
+        if {_room} is not 0:
+            set {_floor} to number data tag "room%{_room}%:floor" of loop-player
+            EndRoom(loop-player, {_room}, {_floor})
+            set number data tag "current:health" of loop-player to (number data tag "playerstat:health" of loop-player)
+
 function teleportToRoom(p: player, room: number):
     set {_loc} to location(88.99, 1, 99.99 + (({_room} - 1) * 32), world of {_p}, -90, 0)
     teleport {_p} to {_loc}
@@ -109,16 +124,5 @@ command /dungeonreset:
 command /dungeonresetall:
     permission: admin.dungeon
     trigger:
-        loop {maxRooms} times:
-            set boolean data tag "room%loop-number%:status" of world "world" to false
-            set number data tag "room%loop-number%:floor" of world "world" to 0
-            clearRoomMobs(loop-number)
-
-        loop all players:
-            set {_room} to number data tag "room:id" of loop-player
-            if {_room} is not 0:
-                set {_floor} to number data tag "room%{_room}%:floor" of loop-player
-                EndRoom(loop-player, {_room}, {_floor})
-                set number data tag "current:health" of loop-player to (number data tag "playerstat:health" of loop-player)
-
+        resetDungeon()
         send "&eThe dungeon has been fully reset." to player
