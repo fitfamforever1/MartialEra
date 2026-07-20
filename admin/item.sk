@@ -43,6 +43,11 @@ function openItemDialog(p: player):
                 width: 200
                 max_length: 32
             add text input:
+                key: "level"
+                label: "Level Requirement"
+                initial: "0"
+                width: 200
+            add text input:
                 key: "damage"
                 label: "Damage"
                 initial: "0"
@@ -89,6 +94,7 @@ function openItemDialog(p: player):
                     set {_name} to string tag "item_name" of {_nbt}
                     set {_rarity} to string tag "item_rarity" of {_nbt}
                     set {_type} to string tag "item_type" of {_nbt}
+                    set {_level} to string tag "level" of {_nbt}
                     set {_damage} to string tag "damage" of {_nbt}
                     set {_critchance} to string tag "crit_chance" of {_nbt}
                     set {_critdamage} to string tag "crit_damage" of {_nbt}
@@ -115,11 +121,12 @@ function openItemDialog(p: player):
                     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
                     set line 2 of lore of {_item} to "&8┃ &7ᴛʏᴘᴇ &8» &e%{_typeline}%"
                     set line 3 of lore of {_item} to "&8┃ &7ʀᴀʀɪᴛʏ &8» %{_rarityline}%"
+                    set line 4 of lore of {_item} to "&8┃ &7ʟᴇᴠᴇʟ&8» &c%{_level}%"
 
                     if {_max} is 1:
-                        set line 4 of lore of {_item} to ""
-                        set line 5 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ꜱᴛᴀᴛꜱ"
-                        set {_line} to 5
+                        set line 5 of lore of {_item} to ""
+                        set line 6 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ꜱᴛᴀᴛꜱ"
+                        set {_line} to 6
 
                         if {_damage} is not "0":
                             add 1 to {_line}
