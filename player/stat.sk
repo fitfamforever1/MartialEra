@@ -267,32 +267,35 @@ command /suicide:
         
 
 function stat(p: player):
-    set number data tag "stat:damage" of {_p} to (number data tag "playerstat:damage" of {_p})
-    set number data tag "stat:defense" of {_p} to (number data tag "playerstat:defense" of {_p})
-    set number data tag "stat:speed" of {_p} to (number data tag "playerstat:speed" of {_p})
-    set number data tag "stat:health" of {_p} to (number data tag "playerstat:health" of {_p})
-    set number data tag "stat:mana" of {_p} to (number data tag "playerstat:mana" of {_p})
-    set number data tag "stat:crit_chance" of {_p} to (number data tag "playerstat:crit_chance" of {_p})
-    set number data tag "stat:crit_damage" of {_p} to (number data tag "playerstat:crit_damage" of {_p})
+    set {_damage} to number data tag "playerstat:damage" of {_p}
+    set {_defense} to number data tag "playerstat:defense" of {_p}
+    set {_speed} to number data tag "playerstat:speed" of {_p}
+    set {_health} to number data tag "playerstat:health" of {_p}
+    set {_mana} to number data tag "playerstat:mana" of {_p}
+    set {_crit_chance} to number data tag "playerstat:crit_chance" of {_p}
+    set {_crit_damage} to number data tag "playerstat:crit_damage" of {_p}
 
-    item({_p}, tool of {_p})
-    item({_p}, helmet of {_p})
-    item({_p}, chestplate of {_p})
-    item({_p}, leggings of {_p})
-    item({_p}, boots of {_p})
+    loop tool of {_p}, helmet of {_p}, chestplate of {_p}, leggings of {_p} and boots of {_p}:
+        if loop-value is air:
+            next loop
 
-function item(p: player, item: item):
-    if {_item} is air:
-        stop
+        add number data tag "itemstat:damage" of loop-value to {_damage}
+        add number data tag "itemstat:defense" of loop-value to {_defense}
+        add number data tag "itemstat:speed" of loop-value to {_speed}
+        add number data tag "itemstat:health" of loop-value to {_health}
+        add number data tag "itemstat:mana" of loop-value to {_mana}
+        add number data tag "itemstat:crit_chance" of loop-value to {_crit_chance}
+        add number data tag "itemstat:crit_damage" of loop-value to {_crit_damage}
 
-    add (number data tag "itemstat:damage" of {_item}) to number data tag "stat:damage" of {_p}
-    add (number data tag "itemstat:defense" of {_item}) to number data tag "stat:defense" of {_p}
-    add (number data tag "itemstat:speed" of {_item}) to number data tag "stat:speed" of {_p}
-    add (number data tag "itemstat:health" of {_item}) to number data tag "stat:health" of {_p}
-    add (number data tag "itemstat:mana" of {_item}) to number data tag "stat:mana" of {_p}
-    add (number data tag "itemstat:crit_chance" of {_item}) to number data tag "stat:crit_chance" of {_p}
-    add (number data tag "itemstat:crit_damage" of {_item}) to number data tag "stat:crit_damage" of {_p}
+    set number data tag "stat:damage" of {_p} to {_damage}
+    set number data tag "stat:defense" of {_p} to {_defense}
+    set number data tag "stat:speed" of {_p} to {_speed}
+    set number data tag "stat:health" of {_p} to {_health}
+    set number data tag "stat:mana" of {_p} to {_mana}
+    set number data tag "stat:crit_chance" of {_p} to {_crit_chance}
+    set number data tag "stat:crit_damage" of {_p} to {_crit_damage}
 
 command /statreload:
     trigger:
         stat(player)
+
