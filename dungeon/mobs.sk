@@ -37,6 +37,14 @@ function spawnUndead3(loc: location, roomId: number, floorId: number) :: entity:
     set scale attribute of {_e} to 1.4
     applyMobStats({_e}, "&cBrute", 75, 0.14, 8, {_roomId}, {_floorId})
     return {_e}
+    
+function spawnUndead4(loc: location, roomId: number, floorId: number) :: entity:
+    spawn zombie at {_loc}
+    set {_e} to last spawned entity
+    set tool of {_e} to air
+    set scale attribute of {_e} to 1.2
+    applyMobStats({_e}, "&cZombie Lord", 150, 0.22, 14, {_roomId}, {_floorId})
+    return {_e}
 
 function clearRoomMobs(room: number):
     loop all entities in world "world":
@@ -56,7 +64,7 @@ on projectile hit:
     if projectile is an arrow:
         if (number data tag "mobstat:damage" of projectile) is set:
             delete projectile
-            
+                
 
 on death:
     if victim is not a player:
@@ -69,6 +77,9 @@ on death:
             set number data tag "floor:current" of attacker to {_current}
 
             set {_target} to number data tag "floor%{_floorId}%:max" of world "world"
+            set {_target2} to number data tag "floor%{_floorId}%:min" of world "world"
+            if {_target2} is set:
+                StartBoss({_room}, {_floor})
             if {_current} = {_target}:
                 EndRoom(attacker, {_room}, {_floor})
                 send "&aYou have completed the run." to attacker
