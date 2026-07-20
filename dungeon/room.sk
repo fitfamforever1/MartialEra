@@ -101,6 +101,7 @@ command /exit:
         if {_room} is not 0:
             set {_floor} to number data tag "room%{_room}%:floor" of player
             EndRoom(player, {_room}, {_floor})
+            send "&aYou have exited the dungeon." to player
         else:
             send "&cYou are not within an dungeon." to player
 
@@ -130,13 +131,6 @@ command /floor <number>:
             send "&cNot a valid floor."
 
 command /dungeonreset:
-    permission: admin.dungeon
-    trigger:
-        loop {maxRooms} times:
-            set boolean data tag "room%loop-number%:status" of world "world" to false
-        send "&eAll rooms have been reset." to player
-
-command /dungeonresetall:
     permission: admin.dungeon
     trigger:
         resetDungeon()
