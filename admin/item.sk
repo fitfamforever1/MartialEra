@@ -149,38 +149,30 @@ function openItemDialog(p: player):
                         if {_damage} is not "0":
                             add 1 to {_line}
                             set line {_line} of lore of {_item} to "&8┃ &7ᴅᴀᴍᴀɢᴇ &8» &c+%{_damage}%"
+                            set number data tag "itemstat:damage" of {_item} to {_damage}
                         if {_critchance} is not "0":
                             add 1 to {_line}
                             set line {_line} of lore of {_item} to "&8┃ &7ᴄʀɪᴛ ᴄʜᴀɴᴄᴇ &8» &a+%{_critchance}%%%"
+                            set number data tag "itemstat:crit_chance" of {_item} to {_damage}
                         if {_critdamage} is not "0":
                             add 1 to {_line}
                             set line {_line} of lore of {_item} to "&8┃ &7ᴄʀɪᴛ ᴅᴀᴍᴀɢᴇ &8» &6+%{_critdamage}%%%"
+                            set number data tag "itemstat:crit_damage" of {_item} to {_damage}
                         if {_health} is not "0":
                             add 1 to {_line}
                             set line {_line} of lore of {_item} to "&8┃ &7ʜᴇᴀʟᴛʜ &8» &2+%{_health}%"
+                            set number data tag "itemstat:health" of {_item} to {_damage}
                         if {_mana} is not "0":
                             add 1 to {_line}
+                            set number data tag "itemstat:mana" of {_item} to {_damage}
                             set line {_line} of lore of {_item} to "&8┃ &7ᴍᴀɴᴀ &8» &b+%{_mana}%"
                         if {_defense} is not "0":
                             add 1 to {_line}
                             set line {_line} of lore of {_item} to "&8┃ &7ᴅᴇғᴇɴꜱᴇ &8» &7+%{_defense}%"
+                            set number data tag "itemstat:defense" of {_item} to {_damage}
                         if {_speed} is not "0":
                             add 1 to {_line}
                             set line {_line} of lore of {_item} to "&8┃ &7ꜱᴘᴇᴇᴅ &8» &f+%{_speed}%"
-
-                        if {_damage} is not "0":
-                            set number data tag "itemstat:damage" of {_item} to {_damage}
-                        if {_critchance} is not "0":
-                            set number data tag "itemstat:crit_chance" of {_item} to {_damage}
-                        if {_critdamage} is not "0":
-                            set number data tag "itemstat:crit_damage" of {_item} to {_damage}
-                        if {_health} is not "0":
-                            set number data tag "itemstat:health" of {_item} to {_damage}
-                        if {_mana} is not "0":
-                            set number data tag "itemstat:mana" of {_item} to {_damage}
-                        if {_defense} is not "0":
-                            set number data tag "itemstat:defense" of {_item} to {_damage}
-                        if {_speed} is not "0":
                             set number data tag "itemstat:speed" of {_item} to {_damage}
 
                     set {_p}'s tool to {_item}
