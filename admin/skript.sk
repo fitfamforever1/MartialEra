@@ -8,20 +8,19 @@ command /checkfiles:
     trigger:
         send "&aScanning Skripts" to player
         set {_folder} to new File("plugins/Skript/scripts/")
-        set {_root} to {_folder}.toPath()
-        set {_total} to 0
-        set {_count} to 0
-        
-        set {_paths::*} to Files.walk({_root}).toArray()
-        
-        loop {_paths::*}:
-            set {_path} to loop-value
-            set {_f} to {_path}.toFile()
-            if {_f}.isFile() is true:
-                if {_f}.getName().endsWith(".sk") is true:
-                    set {_lines} to Files.lines({_path}).count()
-                    add {_lines} to {_total}
-                    add 1 to {_count}
-                    send "&e%{_f}.getName()%&7: &b%{_lines}% lines" to player
-                    
-        send "&aScan complete! &7Found &b%{_count}%&7 files, &7Total: &b%{_total}% lines" to player
+        set {SkriptScan::total} to 0
+        set {SkriptScan::count} to 0
+        scanFolder({_folder}, player)
+        send "&aScan complete! &7Found &b%{SkriptScan::count}%&7 files, &7Total: &b%{SkriptScan::total}% lines" to player
+        delete {SkriptScan::*}
+
+function scanFolder(folder: object, p: object):
+    loop {_folder}.listFiles():
+        set {_item} to loop-value
+        if {_item}.isDirectory() is true:
+            scanFolder({_item}, {_p})
+        else if {_item}.getName().endsWith(".sk") is true:
+            set {_lines} to Files.lines({_item}.toPath()).count()
+            add {_lines} to {SkriptScan::total}
+            add 1 to {SkriptScan::count}
+            send "&e%{_item}.getName()%&7: &b%{_lines}% lines" to {_p}
