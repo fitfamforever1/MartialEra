@@ -212,7 +212,7 @@ function calculateCrit(p: player) :: number:
     
     return {_finalDamage}
 
-function displayDamage(attacker: player, victim: entity, damage: number):
+function displayDamage(victim: entity, damage: number):
     set {_radius} to 0.6
     set {_theta} to random number between 0 and 360
     set {_phi} to random number between 0 and 180
@@ -258,11 +258,11 @@ on damage:
 
         if {_roll} <= {_critChance}:
             set {_temp} to calculateCrit(attacker)
-            displayDamage(attacker, victim, {_temp})
+            displayDamage(victim, {_temp})
             set damage to {_temp}
         else:
             set {_temp} to calculateAttack(attacker)
-            displayDamage(attacker, victim, {_temp})
+            displayDamage(victim, {_temp})
             set damage to {_temp}
     else:
         cancel event
