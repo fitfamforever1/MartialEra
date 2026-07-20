@@ -73,6 +73,6 @@ on death:
             set number data tag "floor:current" of attacker to {_current}
             send "%{_current}% / %{_target}%" to attacker
             if {_current} = {_target}:
-                EndRoom({_p}, {_room}, {_floor})
-                send "&aYou have completed the run." to {_p}
+                EndRoom(attacker, {_room}, {_floor})
+                send "&aYou have completed the run." to attacker
         
