@@ -226,7 +226,7 @@ function displayDamage(attacker: player, victim: entity, damage: number):
     spawn text display at {_loc}
     set {_display} to last spawned text display
     
-    set background of {_display} to rgb(0,0,0,0)
+    set color of {_display} to rgb(0,0,0,0)
     set billboard of {_display} to center
     set interpolation duration of {_display} to 2 ticks
 
