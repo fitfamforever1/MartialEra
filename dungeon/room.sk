@@ -1,35 +1,35 @@
 on load:
     set {maxRooms} to 22
 
-    set {spawnPoints::baseX::1} to 92.9
-    set {spawnPoints::baseZ::1} to 107.9
+    set {spawnPoints::baseX::1} to 92.99
+    set {spawnPoints::baseZ::1} to 107.99
     set {spawnPoints::yaw::1} to -180
 
-    set {spawnPoints::baseX::2} to 100.9
-    set {spawnPoints::baseZ::2} to 107.9
+    set {spawnPoints::baseX::2} to 100.99
+    set {spawnPoints::baseZ::2} to 107.99
     set {spawnPoints::yaw::2} to 134
 
-    set {spawnPoints::baseX::3} to 108.9
-    set {spawnPoints::baseZ::3} to 107.9
+    set {spawnPoints::baseX::3} to 108.99
+    set {spawnPoints::baseZ::3} to 107.99
     set {spawnPoints::yaw::3} to 115
 
-    set {spawnPoints::baseX::4} to 108.9
-    set {spawnPoints::baseZ::4} to 99.9
+    set {spawnPoints::baseX::4} to 108.99
+    set {spawnPoints::baseZ::4} to 99.99
     set {spawnPoints::yaw::4} to 90
 
-    set {spawnPoints::baseX::5} to 108.9
-    set {spawnPoints::baseZ::5} to 91.9
+    set {spawnPoints::baseX::5} to 108.99
+    set {spawnPoints::baseZ::5} to 91.99
     set {spawnPoints::yaw::5} to 60
 
-    set {spawnPoints::baseX::6} to 100.9
-    set {spawnPoints::baseZ::6} to 91.9
+    set {spawnPoints::baseX::6} to 100.99
+    set {spawnPoints::baseZ::6} to 91.99
     set {spawnPoints::yaw::6} to 40
 
-    set {spawnPoints::baseX::7} to 92.9
-    set {spawnPoints::baseZ::7} to 91.9
+    set {spawnPoints::baseX::7} to 92.99
+    set {spawnPoints::baseZ::7} to 91.99
     set {spawnPoints::yaw::7} to 0
 
-    set {spawnPoints::baseX::8} to 100.9
+    set {spawnPoints::baseX::8} to 100.99
     set {spawnPoints::baseZ::8} to 99
     set {spawnPoints::yaw::8} to 90
 
