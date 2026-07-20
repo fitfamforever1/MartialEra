@@ -30,7 +30,7 @@ on load:
     set {spawnPoints::yaw::7} to 0
 
     set {spawnPoints::baseX::8} to 100.99
-    set {spawnPoints::baseZ::8} to 99
+    set {spawnPoints::baseZ::8} to 99.99
     set {spawnPoints::yaw::8} to 90
 
     resetDungeon()
