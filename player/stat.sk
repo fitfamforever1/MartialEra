@@ -259,14 +259,11 @@ on damage:
 
         if {_roll} <= {_critChance}:
             set {_temp} to calculateCrit(attacker)
-            displayDamage(attacker, victim, {_test})
-            send "%{_temp}%" to attacker
+            displayDamage(attacker, victim, {_temp})
             set damage to {_temp}
         else:
             set {_temp} to calculateAttack(attacker)
-            displayDamage(attacker, victim, {_test})
-            
-            send "%{_temp}%" to attacker
+            displayDamage(attacker, victim, {_temp})
             set damage to {_temp}
     else:
         cancel event
