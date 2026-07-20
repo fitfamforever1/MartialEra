@@ -1,0 +1,22 @@
+import:
+    java.io.File
+    java.nio.file.Files
+    java.nio.file.Paths
+
+command /checkfiles:
+    permission: admin.skript
+    trigger:
+        send "&aScanning Skripts" to player
+        set {_folder} to new File("plugins/Skript/scripts/")
+        set {_files::*} to {_folder}.listFiles()
+        set {_total} to 0
+        
+        loop {_files::*}:
+            set {_file} to loop-value
+            if {_file}.isFile() is true:
+                if {_file}.getName().endsWith(".sk") is true:
+                    set {_path} to Paths.get({_file}.getAbsolutePath(), new String[0])
+                    set {_lines} to Files.lines({_path}).count()
+                    add {_lines} to {_total}
+                    
+        send "&aScan complete! &7Total: &b%{_total}% lines" to player
