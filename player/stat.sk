@@ -293,7 +293,13 @@ function stat(p: player):
     set number data tag "stat:crit_chance" of {_p} to {_crit_chance}
     set number data tag "stat:crit_damage" of {_p} to {_crit_damage}
 
-command /statreload:
-    trigger:
-        stat(player)
-
+on join:
+    stat(player)
+    
+on armor change:
+    wait 1 tick
+    stat(player)
+    
+on player's held item change:
+    wait 1 tick
+    stat(player)
