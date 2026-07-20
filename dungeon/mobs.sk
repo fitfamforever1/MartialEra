@@ -64,6 +64,9 @@ on death:
         set {_room} to number data tag "room:id" of attacker
         set {_floor} to number data tag "room%{_room}%:floor" of attacker
         
+        send "%{_floor}% | %{_room}%"
+        send "%{_current}% / %{_target}%"
+        
         if {_floor} = {_floorId}:
             set {_current} to number data tag "floor:current" of attacker
             set {_current} to {_current} + 1
