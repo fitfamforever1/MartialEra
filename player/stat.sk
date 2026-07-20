@@ -274,6 +274,7 @@ function stat(p: player):
     loop tool of {_p}, helmet of {_p}, chestplate of {_p}, leggings of {_p} and boots of {_p}:
         if loop-value is not air:
             if levelreq({_p}, loop-value) is true:
+                send "true" to {_p}
                 add number data tag "itemstat:damage" of loop-value to {_damage}
                 add number data tag "itemstat:defense" of loop-value to {_defense}
                 add number data tag "itemstat:speed" of loop-value to {_speed}
@@ -295,6 +296,7 @@ function levelreq(p: player, item: item) :: boolean:
     set {_temp2} to number data tag "itemstat:level" of {_item}
     if {_temp1} >= {_temp2}:
         return true
+    send "false" to {_p}
     return false
 
 on join:
