@@ -3,6 +3,23 @@ command /modifyitem:
     trigger:
         openItemDialog(player)
 
+function getRarityLine(rarity: text) :: text:
+    if {_rarity} is "common":
+        return "&fᴄᴏᴍᴍᴏɴ "
+    if {_rarity} is "uncommon":
+        return "&aᴜɴᴄᴏᴍᴍᴏɴ "
+    if {_rarity} is "rare":
+        return "&9ʀᴀʀᴇ "
+    if {_rarity} is "epic":
+        return "&5ᴇᴘɪᴄ "
+    if {_rarity} is "legendary":
+        return "&6ʟᴇɢᴇɴᴅᴀʀʏ"
+    if {_rarity} is "mythic":
+        return "&dᴍʏᴛʜɪᴄᴀʟ "
+    if {_rarity} is "special":
+        return "&cꜱᴘᴇᴄɪᴀʟ "
+    return ""
+
 function openItemDialog(p: player):
     open new multi action dialog to {_p}:
         title: "&bItem Editor"
@@ -80,7 +97,7 @@ function openItemDialog(p: player):
                     set {_defense} to string tag "defense" of {_nbt}
                     set {_speed} to string tag "speed" of {_nbt}
 
-                    set {_rarity} to SmallCaps({_rarity})
+                    set {_rarity} to getRarityLine({_rarity})
                     set {_type} to SmallCaps({_type})
                     
                     send "&7Name: &f%{_name}%" to {_p}
@@ -100,3 +117,11 @@ function openItemDialog(p: player):
                         send "&7Defense: &f%{_defense}%" to {_p}
                     if {_speed} is not "0":
                         send "&7Speed: &f%{_speed}%" to {_p}
+                        
+                    set {_item} to {_p}'s tool
+                    set the name of the {_item} to "&f%{_name}%"
+                    set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
+                    set line 2 of lore of {_item} to "&8┃ &7ᴛʏᴘᴇ &8» &e{_type}"
+                    set line 3 of lore of {_item} to "&8┃ &7ʀᴀʀɪᴛʏ &8» %{_rarity}%"
+                    
+                    set {_p}'s tool to {_item}
