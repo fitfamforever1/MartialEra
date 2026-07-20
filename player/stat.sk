@@ -225,16 +225,12 @@ function displayDamage(attacker: player, victim: entity, damage: number):
 
     spawn text display at {_loc}
     set {_display} to last spawned text display
-
+    
+    set background of {_display} to rgb(0,0,0,0)
     set billboard of {_display} to center
     set interpolation duration of {_display} to 2 ticks
 
-    if {_damage} >= 20:
-        set text of {_display} to "&4&l%round({_damage}, 1)%"
-    else if {_damage} >= 10:
-        set text of {_display} to "&c%round({_damage}, 1)%"
-    else:
-        set text of {_display} to "&e%round({_damage}, 1)%"
+    set text of {_display} to "&c%round({_damage}, 1)%"
 
     wait 1 second
     kill {_display}
