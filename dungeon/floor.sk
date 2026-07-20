@@ -1,3 +1,6 @@
+on load:
+    set number data tag "floor1:max" of world "world" to 1
+
 function StartFloor(room: number, floor: number):
     if {_floor} = 1:
         floor1({_room})

@@ -57,6 +57,18 @@ on shoot:
             
 on death:
     if victim is not player:
-        set {_roomId} to number data tag "mob:floor" of victim
-        set {_floorId} to number data tag "mob:room" of victim
+        set {_FloorId} to number data tag "mob:floor" of victim
+        set {_roomId} to number data tag "mob:room" of victim
         send "%{_roomId}% | %{_floorId}%" to attacker
+        set {_target} to number data tag "floor1:max" of world "world"
+        set {_room} to number data tag "room:id" of attacker
+        set {_floor} to number data tag "room%{_room}%:floor" of attacker
+        
+        if {_floor} = {_floorId}:
+            set {_current} to number data tag "floor:current" of attacker
+            set {_current} to {_current} + 1
+            set number data tag "floor:current" of attacker to {_current}
+            if {_current} >= {_target}:
+                EndRoom({_p})
+                send "&aYou have completed the run." to {_p}
+        
