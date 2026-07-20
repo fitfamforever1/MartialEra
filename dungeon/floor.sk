@@ -32,6 +32,10 @@ function StartFloor(room: number, floor: number):
         floor7({_room})
     if {_floor} = 8:
         floor8({_room})
+    if {_floor} = 9:
+        floor9({_room})
+    if {_floor} = 10:
+        floor10({_room})
 
 #   [5][4][3]
 #   [6][8][2]
