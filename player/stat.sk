@@ -235,9 +235,7 @@ function displayDamage(attacker: player, victim: entity, damage: number):
 
     set text of {_display} to "<##FF2400>%round({_damage})%"
 
-    wait 12 tick
-    set gravity of {_display} to true
-    wait 12 tick
+    wait 1.2 second
     kill {_display}
     
 on damage:
