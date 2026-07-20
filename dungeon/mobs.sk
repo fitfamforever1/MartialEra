@@ -58,4 +58,12 @@ on death:
             set {_target} to number data tag "floor%{_floorId}%:max" of world "world"
             if {_current} = {_target}:
                 EndRoom(attacker, {_room}, {_floor})
-                send "&aYou have completed the run." to attacker
+                send "&aYou have completed the run." to attacker    
+                
+function clearRoomMobs(room: number):
+    loop all entities in world "world":
+        if loop-entity is not a player:
+            if (number data tag "mob:room" of loop-entity) is {_room}:
+                delete loop-entity
+                
+                

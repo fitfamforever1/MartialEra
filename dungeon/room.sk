@@ -41,7 +41,7 @@ function spawnMob(locId: number, roomId: number, floorId: number, mob: text, amo
     set {_x} to {spawnPoints::baseX::%{_locId}%}
     set {_z} to {spawnPoints::baseZ::%{_locId}%} + (({_roomId} - 1) * 32)
     set {_yaw} to {spawnPoints::yaw::%{_locId}%}
-    set {_loc} to location({_x}, 1, {_z}, world "world", {_yaw}, 0) 
+    set {_loc} to location({_x}, 1, {_z}, world "world", {_yaw}, 0)
 
     loop {_amount} times:
         spawn({_loc}, {_mob}, {_roomId}, {_floorId})
@@ -66,10 +66,19 @@ function StartRoom(p: player, room: number, floor: number):
 
 function EndRoom(p: player, room: number, floor: number):
     set boolean data tag "room%{_room}%:status" of world "world" to false
+    set number data tag "room:id" of {_p} to 0
     set number data tag "room%{_room}%:floor" of {_p} to 0
     set number data tag "room%{_room}%:floor" of world "world" to 0
     set number data tag "floor:current" of {_p} to 0
+    delete {respawning::%{_p}%}
+    clearRoomMobs({_room})
     teleport {_p} to location(0, 0, 0, "world")
+
+on quit:
+    set {_room} to number data tag "room:id" of player
+    if {_room} is not 0:
+        set {_floor} to number data tag "room%{_room}%:floor" of player
+        EndRoom(player, {_room}, {_floor})
 
 command /room <number>:
     permission: admin.dungeon
@@ -96,3 +105,20 @@ command /dungeonreset:
         loop {maxRooms} times:
             set boolean data tag "room%loop-number%:status" of world "world" to false
         send "&eAll rooms have been reset." to player
+
+command /dungeonresetall:
+    permission: admin.dungeon
+    trigger:
+        loop {maxRooms} times:
+            set boolean data tag "room%loop-number%:status" of world "world" to false
+            set number data tag "room%loop-number%:floor" of world "world" to 0
+            clearRoomMobs(loop-number)
+
+        loop all players:
+            set {_room} to number data tag "room:id" of loop-player
+            if {_room} is not 0:
+                set {_floor} to number data tag "room%{_room}%:floor" of loop-player
+                EndRoom(loop-player, {_room}, {_floor})
+                set number data tag "current:health" of loop-player to (number data tag "playerstat:health" of loop-player)
+
+        send "&eThe dungeon has been fully reset." to player
