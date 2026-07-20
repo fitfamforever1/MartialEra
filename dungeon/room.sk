@@ -94,6 +94,15 @@ on quit:
     if {_room} is not 0:
         set {_floor} to number data tag "room%{_room}%:floor" of player
         EndRoom(player, {_room}, {_floor})
+        
+command /exit:
+    trigger:
+        set {_room} to number data tag "room:id" of player
+        if {_room} is not 0:
+            set {_floor} to number data tag "room%{_room}%:floor" of player
+            EndRoom(player, {_room}, {_floor})
+        else:
+            send "&cYou are not within an dungeon." to player
 
 command /room <number>:
     permission: admin.dungeon
@@ -111,8 +120,14 @@ command /floor <number>:
         if {_room} is 0:
             send "&cNo rooms are currently available." to player
             stop
-        send "&aYou have been assigned Room" to player
-        StartRoom(player, {_room}, arg-1)
+        if all:
+            arg-1 > 0
+            arg-1 <= 10
+        then:
+            send "&aYou entered floor %arg-1%." to player
+            StartRoom(player, {_room}, arg-1)
+        else:
+            send "&cNot a valid floor."
 
 command /dungeonreset:
     permission: admin.dungeon
