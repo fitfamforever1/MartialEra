@@ -188,6 +188,8 @@ function sword(item: item, level: number):
     set number data tag "itemstat:crit_chance" of {_item} to {_critchance}
     set number data tag "itemstat:crit_damage" of {_item} to {_critdamage}
     
+    return {_item}
+    
 function axe(item: item, level: number):
     set {_type} to "axe"
 
@@ -210,6 +212,8 @@ function axe(item: item, level: number):
     set number data tag "itemstat:crit_chance" of {_item} to {_critchance}
     set number data tag "itemstat:crit_damage" of {_item} to {_critdamage}
     
+    return {_item}
+    
 function dagger(item: item, level: number):
     set {_type} to "dagger"
 
@@ -231,6 +235,8 @@ function dagger(item: item, level: number):
     set number data tag "itemstat:damage" of {_item} to {_damage}
     set number data tag "itemstat:crit_chance" of {_item} to {_critchance}
     set number data tag "itemstat:crit_damage" of {_item} to {_critdamage}
+    
+    return {_item}
     
 command /modifyweapon <text> <number>:
     permission: op
