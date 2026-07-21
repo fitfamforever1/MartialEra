@@ -239,6 +239,20 @@ on damage:
             set damage to 0
             stop
     else if attacker is a player:
+        if victim is armor stand:
+            set {_critChance} to number data tag "stat:crit_chance" of attacker
+            set {_roll} to a random number between 1 and 100
+    
+            if {_roll} <= {_critChance}:
+                set {_temp} to calculateCrit(attacker)
+                displayDamage(victim, {_temp})
+                set damage to 0
+            else:
+                set {_temp} to calculateAttack(attacker)
+                displayDamage(victim, {_temp})
+                set damage to 0
+          
+          
         set {_critChance} to number data tag "stat:crit_chance" of attacker
         set {_roll} to a random number between 1 and 100
 
