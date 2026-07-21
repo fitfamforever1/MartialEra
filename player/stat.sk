@@ -221,7 +221,7 @@ function displayDamage(victim: entity, damage: number):
 
     set text of {_display} to "<##FF2400>%round({_damage})%"
 
-    wait 1.2 second
+    wait 1 second
     kill {_display}
     
 on damage:
