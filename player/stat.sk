@@ -251,6 +251,7 @@ on damage:
                 set {_temp} to calculateAttack(attacker)
                 displayDamage(victim, {_temp})
                 set damage to 0
+            stop
           
           
         set {_critChance} to number data tag "stat:crit_chance" of attacker
