@@ -248,14 +248,14 @@ command /modifyweapon <text> <number>:
             stop
 
         if arg-1 is "sword":
-            sword({_item}, arg-2)
+            set {_item} to sword({_item}, arg-2)
         else if arg-1 is "axe":
-            axe({_item}, arg-2)
+            set {_item} to axe({_item}, arg-2)
         else if arg-1 is "dagger":
-            dagger({_item}, arg-2)
+            set {_item} to dagger({_item}, arg-2)
         else:
             send "&cTypes: sword, axe, dagger"
             stop
-
+        
         set player's tool to {_item}
-        send "&aModified weapon to &eLvl %arg-2% %arg-1%&7)."
+        send "&aModified weapon to &eLvl %arg-2% %arg-1%&a."
