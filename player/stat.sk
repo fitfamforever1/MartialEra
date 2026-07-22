@@ -237,7 +237,6 @@ on damage:
                 set {_temp} to 0
             DamagePlayer(victim, {_temp})
             set damage to 0
-        damage tick victim for 2 ticks
     else if attacker is a player:
         if victim is armor stand:
             set {_critChance} to number data tag "stat:crit_chance" of attacker
@@ -262,11 +261,8 @@ on damage:
             set {_temp} to calculateAttack(attacker)
         
         displayDamage(victim, {_temp})
-        damageMob(victim, {_temp})
+        set damage to {_temp}
         
-function damageMob(victim: player, dmg: number):
-    damage {_victim} by {_dmg}
-    damage tick {_victim} for 10 ticks
         
 function death(p: player):
     delete {respawning::%{_p}%}
