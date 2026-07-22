@@ -287,7 +287,7 @@ command /modifyweapon <text> <number> <text> <item type>:
 function helmet(name: text, level: number, base: text):: item:
     set {_item} to {_baseitem}
     set {_type} to "helmet"
-    set {_item} to head from value "%{_base}%"
+    set the skull texture of {_item} to "%{_base}%"
     set {_health} to round((30 + ({_level} * 3)) * 1.15)
     set {_defense} to round(8 + ({_level} * 1.2))
     set {_mana} to round(15 + ({_level} * 2))
