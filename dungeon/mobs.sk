@@ -131,30 +131,49 @@ on projectile hit:
 
 on death:
     set {_floorId} to number data tag "mob:floor" of victim
+    send "&7[DEBUG] mob:floor = %{_floorId}%" to attacker
     if {_floorId} is not set:
-        send "debug1" to attacker
-        stop
-    set {_room} to number data tag "room:id" of attacker
-    if {_room} is not set:
-        send "debug2" to attacker
-        stop
-    set {_floor} to number data tag "room%{_room}%:floor" of attacker
-    if {_floor} is not set:
-        send "debug3" to attacker
+        send "&c[DEBUG] debug1 - mob:floor not set" to attacker
         stop
 
+    set {_room} to number data tag "room:id" of attacker
+    send "&7[DEBUG] room:id = %{_room}%" to attacker
+    if {_room} is not set:
+        send "&c[DEBUG] debug2 - room:id not set" to attacker
+        stop
+
+    set {_floor} to number data tag "room%{_room}%:floor" of attacker
+    send "&7[DEBUG] player floor = %{_floor}%" to attacker
+    if {_floor} is not set:
+        send "&c[DEBUG] debug3 - room floor not set" to attacker
+        stop
+
+    send "&7[DEBUG] Comparing %{_floor}% == %{_floorId}%" to attacker
     if {_floor} = {_floorId}:
+        send "&a[DEBUG] Floor matched." to attacker
+
         set {_current} to (number data tag "floor:current" of attacker) + 1
         set number data tag "floor:current" of attacker to {_current}
+        send "&7[DEBUG] floor:current = %{_current}%" to attacker
 
         set {_target} to number data tag "floor%{_floorId}%:max" of world "world"
         set {_target2} to number data tag "floor%{_floorId}%:min" of world "world"
 
+        send "&7[DEBUG] target(min) = %{_target2}% | target(max) = %{_target}%" to attacker
+
         if {_current} = {_target2}:
+            send "&a[DEBUG] Boss condition met." to attacker
             send title "" with subtitle "&cᴛʜᴇ ʙᴏꜱꜱ ʜᴀꜱ ʙᴇᴇɴ ꜱᴘᴀᴡɴᴇᴅ." to attacker for 0.8 seconds with fadein 0.2 second and fade out 0.2 second
             wait 1 second
+            send "&7[DEBUG] Calling StartBoss(%{_room}%, %{_floor}%)" to attacker
             StartBoss({_room}, {_floor})
 
         if {_current} = {_target}:
+            send "&a[DEBUG] Room completion condition met." to attacker
+            send "&7[DEBUG] Calling EndRoom(%{_room}%, %{_floor}%)" to attacker
             EndRoom(attacker, {_room}, {_floor})
             send "&aYou have completed the run." to attacker
+    else:
+        send "&c[DEBUG] Floor mismatch. Player floor=%{_floor}% Mob floor=%{_floorId}%" to attacker
+
+
