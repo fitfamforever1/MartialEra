@@ -225,6 +225,7 @@ function displayDamage(victim: entity, damage: number):
     kill {_display}
     
 on damage:
+    cancel event
     if victim is a player:
         if projectile is an arrow:
             set {_temp} to number data tag "mobstat:damage" of projectile
