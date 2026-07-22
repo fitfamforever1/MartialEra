@@ -169,7 +169,7 @@ command /pdcset [<text>] [<text>]:
 function sword(item: item, level: number):: item:
     set {_type} to "sword"
 
-    set {_damage} to round(8 + ({_level} * 1.8))
+    set {_damage} to round(5 + ({_level} * 1.8))
     set {_critchance} to round(5 + ({_level} * 0.3))
     set {_critdamage} to round(50 + ({_level} * 1.0))
     
@@ -198,7 +198,7 @@ function sword(item: item, level: number):: item:
 function axe(item: item, level: number):: item:
     set {_type} to "axe"
 
-    set {_damage} to round((8 + ({_level} * 1.8)) * 1.15)
+    set {_damage} to round((5 + ({_level} * 1.8)) * 1.15)
     set {_critchance} to round(2 + ({_level} * 0.08))
     set {_critdamage} to round(35 + ({_level} * 0.5))
     
@@ -227,7 +227,7 @@ function axe(item: item, level: number):: item:
 function dagger(item: item, level: number):: item:
     set {_type} to "dagger"
 
-    set {_damage} to round((8 + ({_level} * 1.8)) * 0.8)
+    set {_damage} to round((5 + ({_level} * 1.8)) * 0.8)
     set {_critchance} to round(10 + ({_level} * 0.5))
     set {_critdamage} to round(80 + ({_level} * 1.4))
     
@@ -327,7 +327,7 @@ function chestplate(item: item, level: number):: item:
 function leggings(item: item, level: number):: item:
     set {_type} to "leggings"
     set {_health} to round((35 + ({_level} * 3)) * 1.15)
-    set {_damage} to round(4 + ({_level} * 0.8))
+    set {_damage} to round(3 + ({_level} * 0.8))
     set {_critdamage} to round(10 + ({_level} * 0.3))
     
     set {_typeline} to SmallCaps({_type})
