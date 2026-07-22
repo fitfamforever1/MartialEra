@@ -297,8 +297,8 @@ function stat(p: player):
                 add number data tag "itemstat:crit_chance" of loop-value to {_crit_chance}
                 add number data tag "itemstat:crit_damage" of loop-value to {_crit_damage}
             
-     set {_item} to {_p}'s tool
-     if {_item} is not air:
+    set {_item} to {_p}'s tool
+    if {_item} is not air:
         if levelreq({_p}, {_item}) is true:
             set {_temp} to data tag "itemstat:type" of {_item}
             if {_temp} is "sword", "dagger" or "axe":                
