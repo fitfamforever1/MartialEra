@@ -214,7 +214,17 @@ command /givearmor <number>:
     trigger:
         giveArmor(player, arg-1)
            
-command /giveweapon <number>:
+command /givesword <number>:
     permission: admin.item
     trigger:
-        giveWeapon(player, arg-1)
+        giveSword(player, arg-1)
+
+command /giveaxe <number>:
+    permission: admin.item
+    trigger:
+        giveAxe(player, arg-1)
+
+command /givedagger <number>:
+    permission: admin.item
+    trigger:
+        giveDagger(player, arg-1)
