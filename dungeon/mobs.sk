@@ -130,22 +130,32 @@ on projectile hit:
                 
 
 on death:
-    if victim is not a player:
-        set {_floorId} to number data tag "mob:floor" of victim
-        set {_room} to number data tag "room:id" of attacker
-        set {_floor} to number data tag "room%{_room}%:floor" of attacker
+    if victim is a player:
+        stop
+    if attacker is not a player:
+        stop
+    set {_floorId} to number data tag "mob:floor" of victim
+    if {_floorId} is not set:
+        stop
+    set {_room} to number data tag "room:id" of attacker
+    if {_room} is not set:
+        stop
+    set {_floor} to number data tag "room%{_room}%:floor" of attacker
+    if {_floor} is not set:
+        stop
 
-        if {_floor} = {_floorId}:
-            set {_current} to (number data tag "floor:current" of attacker) + 1
-            set number data tag "floor:current" of attacker to {_current}
+    if {_floor} = {_floorId}:
+        set {_current} to (number data tag "floor:current" of attacker) + 1
+        set number data tag "floor:current" of attacker to {_current}
 
-            set {_target} to number data tag "floor%{_floorId}%:max" of world "world"
-            set {_target2} to number data tag "floor%{_floorId}%:min" of world "world"
-            if {_current} is set:
-                if {_current} = {_target2}:
-                    send title "" with subtitle "&cᴛʜᴇ ʙᴏꜱꜱ ʜᴀꜱ ʙᴇᴇɴ ꜱᴘᴀᴡɴᴇᴅ." to attacker for 0.8 seconds with fadein 0.2 second and fade out 0.2 second
-                    wait 1 second
-                    StartBoss({_room}, {_floor})
-            if {_current} = {_target}:
-                EndRoom(attacker, {_room}, {_floor})
-                send "&aYou have completed the run." to attacker
+        set {_target} to number data tag "floor%{_floorId}%:max" of world "world"
+        set {_target2} to number data tag "floor%{_floorId}%:min" of world "world"
+
+        if {_current} = {_target2}:
+            send title "" with subtitle "&cᴛʜᴇ ʙᴏꜱꜱ ʜᴀꜱ ʙᴇᴇɴ ꜱᴘᴀᴡɴᴇᴅ." to attacker for 0.8 seconds with fadein 0.2 second and fade out 0.2 second
+            wait 1 second
+            StartBoss({_room}, {_floor})
+
+        if {_current} = {_target}:
+            EndRoom(attacker, {_room}, {_floor})
+            send "&aYou have completed the run." to attacker
