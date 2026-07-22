@@ -122,7 +122,537 @@ function giveWeapon(p: player, id: number):
             give axe(diamond axe named "&fEternal Executioner", 30) to {_p}
         default:
             send "&cInvalid weapon ID." to {_p}
-            
+           
+function giveArmor(p: player, setId: number):
+    switch {_setId}:
+        case 1:
+            set {_item} to diamond helmet named "&fWanderer Helmet"
+            set {_item} to helmet({_item}, 1)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fWanderer Chestplate"
+            set {_item} to chestplate({_item}, 1)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fWanderer Leggings"
+            set {_item} to leggings({_item}, 1)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fWanderer Boots"
+            set {_item} to boots({_item}, 1)
+            give {_item} to {_p}
+        case 2:
+            set {_item} to diamond helmet named "&fScout Helmet"
+            set {_item} to helmet({_item}, 1)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fScout Chestplate"
+            set {_item} to chestplate({_item}, 1)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fScout Leggings"
+            set {_item} to leggings({_item}, 1)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fScout Boots"
+            set {_item} to boots({_item}, 1)
+            give {_item} to {_p}
+        case 3:
+            set {_item} to diamond helmet named "&fMilitia Helmet"
+            set {_item} to helmet({_item}, 2)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fMilitia Chestplate"
+            set {_item} to chestplate({_item}, 2)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fMilitia Leggings"
+            set {_item} to leggings({_item}, 2)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fMilitia Boots"
+            set {_item} to boots({_item}, 2)
+            give {_item} to {_p}
+        case 4:
+            set {_item} to diamond helmet named "&fGuard Helmet"
+            set {_item} to helmet({_item}, 2)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fGuard Chestplate"
+            set {_item} to chestplate({_item}, 2)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fGuard Leggings"
+            set {_item} to leggings({_item}, 2)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fGuard Boots"
+            set {_item} to boots({_item}, 2)
+            give {_item} to {_p}
+        case 5:
+            set {_item} to diamond helmet named "&fHunter Helmet"
+            set {_item} to helmet({_item}, 3)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fHunter Chestplate"
+            set {_item} to chestplate({_item}, 3)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fHunter Leggings"
+            set {_item} to leggings({_item}, 3)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fHunter Boots"
+            set {_item} to boots({_item}, 3)
+            give {_item} to {_p}
+        case 6:
+            set {_item} to diamond helmet named "&fMercenary Helmet"
+            set {_item} to helmet({_item}, 3)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fMercenary Chestplate"
+            set {_item} to chestplate({_item}, 3)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fMercenary Leggings"
+            set {_item} to leggings({_item}, 3)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fMercenary Boots"
+            set {_item} to boots({_item}, 3)
+            give {_item} to {_p}
+        case 7:
+            set {_item} to diamond helmet named "&fRaider Helmet"
+            set {_item} to helmet({_item}, 4)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fRaider Chestplate"
+            set {_item} to chestplate({_item}, 4)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fRaider Leggings"
+            set {_item} to leggings({_item}, 4)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fRaider Boots"
+            set {_item} to boots({_item}, 4)
+            give {_item} to {_p}
+        case 8:
+            set {_item} to diamond helmet named "&fSentinel Helmet"
+            set {_item} to helmet({_item}, 4)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fSentinel Chestplate"
+            set {_item} to chestplate({_item}, 4)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fSentinel Leggings"
+            set {_item} to leggings({_item}, 4)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fSentinel Boots"
+            set {_item} to boots({_item}, 4)
+            give {_item} to {_p}
+        case 9:
+            set {_item} to diamond helmet named "&fSteel Helmet"
+            set {_item} to helmet({_item}, 5)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fSteel Chestplate"
+            set {_item} to chestplate({_item}, 5)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fSteel Leggings"
+            set {_item} to leggings({_item}, 5)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fSteel Boots"
+            set {_item} to boots({_item}, 5)
+            give {_item} to {_p}
+        case 10:
+            set {_item} to diamond helmet named "&fKnight Helmet"
+            set {_item} to helmet({_item}, 5)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fKnight Chestplate"
+            set {_item} to chestplate({_item}, 5)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fKnight Leggings"
+            set {_item} to leggings({_item}, 5)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fKnight Boots"
+            set {_item} to boots({_item}, 5)
+            give {_item} to {_p}
+        case 11:
+            set {_item} to diamond helmet named "&fTemplar Helmet"
+            set {_item} to helmet({_item}, 6)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fTemplar Chestplate"
+            set {_item} to chestplate({_item}, 6)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fTemplar Leggings"
+            set {_item} to leggings({_item}, 6)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fTemplar Boots"
+            set {_item} to boots({_item}, 6)
+            give {_item} to {_p}
+        case 12:
+            set {_item} to diamond helmet named "&fCrimson Helmet"
+            set {_item} to helmet({_item}, 6)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fCrimson Chestplate"
+            set {_item} to chestplate({_item}, 6)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fCrimson Leggings"
+            set {_item} to leggings({_item}, 6)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fCrimson Boots"
+            set {_item} to boots({_item}, 6)
+            give {_item} to {_p}
+        case 13:
+            set {_item} to diamond helmet named "&fMoonsteel Helmet"
+            set {_item} to helmet({_item}, 7)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fMoonsteel Chestplate"
+            set {_item} to chestplate({_item}, 7)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fMoonsteel Leggings"
+            set {_item} to leggings({_item}, 7)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fMoonsteel Boots"
+            set {_item} to boots({_item}, 7)
+            give {_item} to {_p}
+        case 14:
+            set {_item} to diamond helmet named "&fWarden Helmet"
+            set {_item} to helmet({_item}, 7)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fWarden Chestplate"
+            set {_item} to chestplate({_item}, 7)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fWarden Leggings"
+            set {_item} to leggings({_item}, 7)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fWarden Boots"
+            set {_item} to boots({_item}, 7)
+            give {_item} to {_p}
+        case 15:
+            set {_item} to diamond helmet named "&fPaladin Helmet"
+            set {_item} to helmet({_item}, 8)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fPaladin Chestplate"
+            set {_item} to chestplate({_item}, 8)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fPaladin Leggings"
+            set {_item} to leggings({_item}, 8)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fPaladin Boots"
+            set {_item} to boots({_item}, 8)
+            give {_item} to {_p}
+        case 16:
+            set {_item} to diamond helmet named "&fFrost Helmet"
+            set {_item} to helmet({_item}, 8)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fFrost Chestplate"
+            set {_item} to chestplate({_item}, 8)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fFrost Leggings"
+            set {_item} to leggings({_item}, 8)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fFrost Boots"
+            set {_item} to boots({_item}, 8)
+            give {_item} to {_p}
+        case 17:
+            set {_item} to diamond helmet named "&fPhantom Helmet"
+            set {_item} to helmet({_item}, 9)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fPhantom Chestplate"
+            set {_item} to chestplate({_item}, 9)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fPhantom Leggings"
+            set {_item} to leggings({_item}, 9)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fPhantom Boots"
+            set {_item} to boots({_item}, 9)
+            give {_item} to {_p}
+        case 18:
+            set {_item} to diamond helmet named "&fDragonbone Helmet"
+            set {_item} to helmet({_item}, 9)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fDragonbone Chestplate"
+            set {_item} to chestplate({_item}, 9)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fDragonbone Leggings"
+            set {_item} to leggings({_item}, 9)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fDragonbone Boots"
+            set {_item} to boots({_item}, 9)
+            give {_item} to {_p}
+        case 19:
+            set {_item} to diamond helmet named "&fRoyal Helmet"
+            set {_item} to helmet({_item}, 10)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fRoyal Chestplate"
+            set {_item} to chestplate({_item}, 10)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fRoyal Leggings"
+            set {_item} to leggings({_item}, 10)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fRoyal Boots"
+            set {_item} to boots({_item}, 10)
+            give {_item} to {_p}
+        case 20:
+            set {_item} to diamond helmet named "&fSunfire Helmet"
+            set {_item} to helmet({_item}, 10)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fSunfire Chestplate"
+            set {_item} to chestplate({_item}, 10)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fSunfire Leggings"
+            set {_item} to leggings({_item}, 10)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fSunfire Boots"
+            set {_item} to boots({_item}, 10)
+            give {_item} to {_p}
+        case 21:
+            set {_item} to diamond helmet named "&fShadow Helmet"
+            set {_item} to helmet({_item}, 11)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fShadow Chestplate"
+            set {_item} to chestplate({_item}, 11)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fShadow Leggings"
+            set {_item} to leggings({_item}, 11)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fShadow Boots"
+            set {_item} to boots({_item}, 11)
+            give {_item} to {_p}
+        case 22:
+            set {_item} to diamond helmet named "&fInfernal Helmet"
+            set {_item} to helmet({_item}, 11)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fInfernal Chestplate"
+            set {_item} to chestplate({_item}, 11)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fInfernal Leggings"
+            set {_item} to leggings({_item}, 11)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fInfernal Boots"
+            set {_item} to boots({_item}, 11)
+            give {_item} to {_p}
+        case 23:
+            set {_item} to diamond helmet named "&fTitan Helmet"
+            set {_item} to helmet({_item}, 12)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fTitan Chestplate"
+            set {_item} to chestplate({_item}, 12)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fTitan Leggings"
+            set {_item} to leggings({_item}, 12)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fTitan Boots"
+            set {_item} to boots({_item}, 12)
+            give {_item} to {_p}
+        case 24:
+            set {_item} to diamond helmet named "&fBlood Helmet"
+            set {_item} to helmet({_item}, 12)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fBlood Chestplate"
+            set {_item} to chestplate({_item}, 12)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fBlood Leggings"
+            set {_item} to leggings({_item}, 12)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fBlood Boots"
+            set {_item} to boots({_item}, 12)
+            give {_item} to {_p}
+        case 25:
+            set {_item} to diamond helmet named "&fKing Helmet"
+            set {_item} to helmet({_item}, 13)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fKing Chestplate"
+            set {_item} to chestplate({_item}, 13)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fKing Leggings"
+            set {_item} to leggings({_item}, 13)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fKing Boots"
+            set {_item} to boots({_item}, 13)
+            give {_item} to {_p}
+        case 26:
+            set {_item} to diamond helmet named "&fCelestial Helmet"
+            set {_item} to helmet({_item}, 13)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fCelestial Chestplate"
+            set {_item} to chestplate({_item}, 13)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fCelestial Leggings"
+            set {_item} to leggings({_item}, 13)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fCelestial Boots"
+            set {_item} to boots({_item}, 13)
+            give {_item} to {_p}
+        case 27:
+            set {_item} to diamond helmet named "&fAbyss Helmet"
+            set {_item} to helmet({_item}, 14)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fAbyss Chestplate"
+            set {_item} to chestplate({_item}, 14)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fAbyss Leggings"
+            set {_item} to leggings({_item}, 14)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fAbyss Boots"
+            set {_item} to boots({_item}, 14)
+            give {_item} to {_p}
+        case 28:
+            set {_item} to diamond helmet named "&fLeviathan Helmet"
+            set {_item} to helmet({_item}, 14)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fLeviathan Chestplate"
+            set {_item} to chestplate({_item}, 14)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fLeviathan Leggings"
+            set {_item} to leggings({_item}, 14)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fLeviathan Boots"
+            set {_item} to boots({_item}, 14)
+            give {_item} to {_p}
+        case 29:
+            set {_item} to diamond helmet named "&fTempest Helmet"
+            set {_item} to helmet({_item}, 15)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fTempest Chestplate"
+            set {_item} to chestplate({_item}, 15)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fTempest Leggings"
+            set {_item} to leggings({_item}, 15)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fTempest Boots"
+            set {_item} to boots({_item}, 15)
+            give {_item} to {_p}
+        case 30:
+            set {_item} to diamond helmet named "&fEmperor Helmet"
+            set {_item} to helmet({_item}, 15)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fEmperor Chestplate"
+            set {_item} to chestplate({_item}, 15)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fEmperor Leggings"
+            set {_item} to leggings({_item}, 15)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fEmperor Boots"
+            set {_item} to boots({_item}, 15)
+            give {_item} to {_p}
+        case 31:
+            set {_item} to diamond helmet named "&fRunic Helmet"
+            set {_item} to helmet({_item}, 16)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fRunic Chestplate"
+            set {_item} to chestplate({_item}, 16)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fRunic Leggings"
+            set {_item} to leggings({_item}, 16)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fRunic Boots"
+            set {_item} to boots({_item}, 16)
+            give {_item} to {_p}
+        case 32:
+            set {_item} to diamond helmet named "&fStorm Helmet"
+            set {_item} to helmet({_item}, 16)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fStorm Chestplate"
+            set {_item} to chestplate({_item}, 16)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fStorm Leggings"
+            set {_item} to leggings({_item}, 16)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fStorm Boots"
+            set {_item} to boots({_item}, 16)
+            give {_item} to {_p}
+        case 33:
+            set {_item} to diamond helmet named "&fObsidian Helmet"
+            set {_item} to helmet({_item}, 17)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fObsidian Chestplate"
+            set {_item} to chestplate({_item}, 17)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fObsidian Leggings"
+            set {_item} to leggings({_item}, 17)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fObsidian Boots"
+            set {_item} to boots({_item}, 17)
+            give {_item} to {_p}
+        case 34:
+            set {_item} to diamond helmet named "&fVoid Helmet"
+            set {_item} to helmet({_item}, 17)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fVoid Chestplate"
+            set {_item} to chestplate({_item}, 17)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fVoid Leggings"
+            set {_item} to leggings({_item}, 17)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fVoid Boots"
+            set {_item} to boots({_item}, 17)
+            give {_item} to {_p}
+        case 35:
+            set {_item} to diamond helmet named "&fEclipse Helmet"
+            set {_item} to helmet({_item}, 18)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fEclipse Chestplate"
+            set {_item} to chestplate({_item}, 18)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fEclipse Leggings"
+            set {_item} to leggings({_item}, 18)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fEclipse Boots"
+            set {_item} to boots({_item}, 18)
+            give {_item} to {_p}
+        case 36:
+            set {_item} to diamond helmet named "&fMythic Helmet"
+            set {_item} to helmet({_item}, 18)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fMythic Chestplate"
+            set {_item} to chestplate({_item}, 18)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fMythic Leggings"
+            set {_item} to leggings({_item}, 18)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fMythic Boots"
+            set {_item} to boots({_item}, 18)
+            give {_item} to {_p}
+        case 37:
+            set {_item} to diamond helmet named "&fAncient Helmet"
+            set {_item} to helmet({_item}, 19)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fAncient Chestplate"
+            set {_item} to chestplate({_item}, 19)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fAncient Leggings"
+            set {_item} to leggings({_item}, 19)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fAncient Boots"
+            set {_item} to boots({_item}, 19)
+            give {_item} to {_p}
+        case 38:
+            set {_item} to diamond helmet named "&fDivine Helmet"
+            set {_item} to helmet({_item}, 19)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fDivine Chestplate"
+            set {_item} to chestplate({_item}, 19)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fDivine Leggings"
+            set {_item} to leggings({_item}, 19)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fDivine Boots"
+            set {_item} to boots({_item}, 19)
+            give {_item} to {_p}
+        case 39:
+            set {_item} to diamond helmet named "&fChaos Helmet"
+            set {_item} to helmet({_item}, 20)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fChaos Chestplate"
+            set {_item} to chestplate({_item}, 20)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fChaos Leggings"
+            set {_item} to leggings({_item}, 20)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fChaos Boots"
+            set {_item} to boots({_item}, 20)
+            give {_item} to {_p}
+        case 40:
+            set {_item} to diamond helmet named "&fEternal Helmet"
+            set {_item} to helmet({_item}, 20)
+            give {_item} to {_p}
+            set {_item} to diamond chestplate named "&fEternal Chestplate"
+            set {_item} to chestplate({_item}, 20)
+            give {_item} to {_p}
+            set {_item} to diamond leggings named "&fEternal Leggings"
+            set {_item} to leggings({_item}, 20)
+            give {_item} to {_p}
+            set {_item} to diamond boots named "&fEternal Boots"
+            set {_item} to boots({_item}, 20)
+            give {_item} to {_p}
+        default:
+            send "&cInvalid armor set ID." to {_p}
+
+command /givearmor <number>:
+    permission: admin.item
+    trigger:
+        giveArmor(player, arg-1)
+           
 command /giveweapon <number>:
     permission: admin.item
     trigger:
