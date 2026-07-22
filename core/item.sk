@@ -1,197 +1,212 @@
 function giveSword(p: player, id: number):
     switch {_id}:
         case 1:
-            give sword(wooden sword, "Wooden Twig Blade", 1) to {_p}
+            give sword(wooden sword, "Rotten Blade", 1) to {_p}
         case 2:
-            give sword(wooden sword, "Wooden Splinter Sword", 2) to {_p}
+            give sword(diamond sword, "Frosted Fang", 2) to {_p}
         case 3:
-            give sword(wooden sword, "Wooden Sapling Saber", 3) to {_p}
+            give sword(golden sword, "Molten Cutlass", 3) to {_p}
         case 4:
-            give sword(wooden sword, "Wooden Bark Blade", 4) to {_p}
+            give sword(stone sword, "Gravedigger's Edge", 4) to {_p}
         case 5:
-            give sword(wooden sword, "Wooden Knot Sword", 5) to {_p}
+            give sword(iron sword, "Shadow Saber", 5) to {_p}
         case 6:
-            give sword(stone sword, "Stone Pebble Blade", 6) to {_p}
+            give sword(wooden sword, "Splintered Reaper", 6) to {_p}
         case 7:
-            give sword(stone sword, "Stone Gravel Sword", 7) to {_p}
+            give sword(diamond sword, "Glacier Fang", 7) to {_p}
         case 8:
-            give sword(stone sword, "Stone Flint Saber", 8) to {_p}
+            give sword(golden sword, "Cinderblade", 8) to {_p}
         case 9:
-            give sword(stone sword, "Stone Cobble Blade", 9) to {_p}
+            give sword(stone sword, "Bonecrusher", 9) to {_p}
         case 10:
-            give sword(stone sword, "Stone Boulder Sword", 10) to {_p}
+            give sword(iron sword, "Rustbite Edge", 10) to {_p}
         case 11:
-            give sword(stone sword, "Stone Granite Fang", 11) to {_p}
+            give sword(wooden sword, "Timberfang", 11) to {_p}
         case 12:
-            give sword(stone sword, "Stone Cairn Blade", 12) to {_p}
+            give sword(diamond sword, "Frostbite Saber", 12) to {_p}
         case 13:
-            give sword(iron sword, "Iron Recruit's Sword", 13) to {_p}
+            give sword(golden sword, "Blazing Cutlass", 13) to {_p}
         case 14:
-            give sword(iron sword, "Iron Squire's Blade", 14) to {_p}
+            give sword(stone sword, "Tombstone Blade", 14) to {_p}
         case 15:
-            give sword(iron sword, "Iron Sentinel's Saber", 15) to {_p}
+            give sword(iron sword, "Ironshank", 15) to {_p}
         case 16:
-            give sword(iron sword, "Iron Vanguard's Sword", 16) to {_p}
+            give sword(wooden sword, "Withered Edge", 16) to {_p}
         case 17:
-            give sword(iron sword, "Iron Marshal's Blade", 17) to {_p}
+            give sword(diamond sword, "Crystal Fang", 17) to {_p}
         case 18:
-            give sword(iron sword, "Iron Crusader's Fang", 18) to {_p}
+            give sword(golden sword, "Emberfall Blade", 18) to {_p}
         case 19:
-            give sword(iron sword, "Iron Champion's Sword", 19) to {_p}
+            give sword(stone sword, "Cairnbreaker", 19) to {_p}
         case 20:
-            give sword(iron sword, "Iron Warlord's Blade", 20) to {_p}
+            give sword(iron sword, "Steelclaw Saber", 20) to {_p}
         case 21:
-            give sword(iron sword, "Iron Oathblade", 21) to {_p}
+            give sword(wooden sword, "Rotwood Blade", 21) to {_p}
         case 22:
-            give sword(diamond sword, "Diamond Ascendant Blade", 22) to {_p}
+            give sword(diamond sword, "Starlight Fang", 22) to {_p}
         case 23:
-            give sword(diamond sword, "Diamond Paragon Sword", 23) to {_p}
+            give sword(golden sword, "Wildfire Saber", 23) to {_p}
         case 24:
-            give sword(diamond sword, "Diamond Warden's Saber", 24) to {_p}
+            give sword(stone sword, "Gravebound Edge", 24) to {_p}
         case 25:
-            give sword(diamond sword, "Diamond Aegis Blade", 25) to {_p}
+            give sword(iron sword, "Bloodiron Blade", 25) to {_p}
         case 26:
-            give sword(diamond sword, "Diamond Sovereign Sword", 26) to {_p}
+            give sword(wooden sword, "Driftwood Fang", 26) to {_p}
         case 27:
-            give sword(diamond sword, "Diamond Zenith Blade", 27) to {_p}
+            give sword(diamond sword, "Icebound Saber", 27) to {_p}
         case 28:
-            give sword(diamond sword, "Diamond Apex Saber", 28) to {_p}
+            give sword(golden sword, "Ashfall Blade", 28) to {_p}
         case 29:
-            give sword(diamond sword, "Diamond Eternal Blade", 29) to {_p}
+            give sword(stone sword, "Boneyard Edge", 29) to {_p}
         case 30:
-            give sword(diamond sword, "Diamond Transcendent Sword", 30) to {_p}
+            give sword(iron sword, "Warforged Saber", 30) to {_p}
         default:
             send "&cInvalid weapon ID." to {_p}
 
 function giveAxe(p: player, id: number):
     switch {_id}:
         case 1:
-            give axe(wooden axe, "Wooden Twig Cleaver", 1) to {_p}
+            give axe(wooden axe, "Rotten Hatchet", 1) to {_p}
         case 2:
-            give axe(wooden axe, "Wooden Splinter Axe", 2) to {_p}
+            give axe(diamond axe, "Frosted Cleaver", 2) to {_p}
         case 3:
-            give axe(wooden axe, "Wooden Sapling Hewer", 3) to {_p}
+            give axe(golden axe, "Molten Chopper", 3) to {_p}
         case 4:
-            give axe(wooden axe, "Wooden Bark Chopper", 4) to {_p}
+            give axe(stone axe, "Gravedigger's Axe", 4) to {_p}
         case 5:
-            give axe(wooden axe, "Wooden Knot Axe", 5) to {_p}
+            give axe(iron axe, "Shadow Hewer", 5) to {_p}
         case 6:
-            give axe(stone axe, "Stone Pebble Hewer", 6) to {_p}
+            give axe(wooden axe, "Splintered Cleaver", 6) to {_p}
         case 7:
-            give axe(stone axe, "Stone Gravel Axe", 7) to {_p}
+            give axe(diamond axe, "Glacier Hatchet", 7) to {_p}
         case 8:
-            give axe(stone axe, "Stone Flint Cleaver", 8) to {_p}
+            give axe(golden axe, "Cinderchop", 8) to {_p}
         case 9:
-            give axe(stone axe, "Stone Cobble Chopper", 9) to {_p}
+            give axe(stone axe, "Bonecrusher Axe", 9) to {_p}
         case 10:
-            give axe(stone axe, "Stone Boulder Axe", 10) to {_p}
+            give axe(iron axe, "Rustbite Hewer", 10) to {_p}
         case 11:
-            give axe(stone axe, "Stone Granite Hewer", 11) to {_p}
+            give axe(wooden axe, "Timberfang Hatchet", 11) to {_p}
         case 12:
-            give axe(stone axe, "Stone Cairn Cleaver", 12) to {_p}
+            give axe(diamond axe, "Frostbite Cleaver", 12) to {_p}
         case 13:
-            give axe(iron axe, "Iron Recruit's Axe", 13) to {_p}
+            give axe(golden axe, "Blazing Chopper", 13) to {_p}
         case 14:
-            give axe(iron axe, "Iron Squire's Hewer", 14) to {_p}
+            give axe(stone axe, "Tombstone Axe", 14) to {_p}
         case 15:
-            give axe(iron axe, "Iron Sentinel's Cleaver", 15) to {_p}
+            give axe(iron axe, "Ironshank Hewer", 15) to {_p}
         case 16:
-            give axe(iron axe, "Iron Vanguard's Axe", 16) to {_p}
+            give axe(wooden axe, "Withered Hatchet", 16) to {_p}
         case 17:
-            give axe(iron axe, "Iron Marshal's Hewer", 17) to {_p}
+            give axe(diamond axe, "Crystal Cleaver", 17) to {_p}
         case 18:
-            give axe(iron axe, "Iron Crusader's Cleaver", 18) to {_p}
+            give axe(golden axe, "Emberfall Chopper", 18) to {_p}
         case 19:
-            give axe(iron axe, "Iron Champion's Axe", 19) to {_p}
+            give axe(stone axe, "Cairnbreaker Axe", 19) to {_p}
         case 20:
-            give axe(iron axe, "Iron Warlord's Hewer", 20) to {_p}
+            give axe(iron axe, "Steelclaw Hewer", 20) to {_p}
         case 21:
-            give axe(iron axe, "Iron Oathcleaver", 21) to {_p}
+            give axe(wooden axe, "Rotwood Hatchet", 21) to {_p}
         case 22:
-            give axe(diamond axe, "Diamond Ascendant Axe", 22) to {_p}
+            give axe(diamond axe, "Starlight Cleaver", 22) to {_p}
         case 23:
-            give axe(diamond axe, "Diamond Paragon Hewer", 23) to {_p}
+            give axe(golden axe, "Wildfire Chopper", 23) to {_p}
         case 24:
-            give axe(diamond axe, "Diamond Warden's Cleaver", 24) to {_p}
+            give axe(stone axe, "Gravebound Axe", 24) to {_p}
         case 25:
-            give axe(diamond axe, "Diamond Aegis Axe", 25) to {_p}
+            give axe(iron axe, "Bloodiron Hewer", 25) to {_p}
         case 26:
-            give axe(diamond axe, "Diamond Sovereign Hewer", 26) to {_p}
+            give axe(wooden axe, "Driftwood Hatchet", 26) to {_p}
         case 27:
-            give axe(diamond axe, "Diamond Zenith Cleaver", 27) to {_p}
+            give axe(diamond axe, "Icebound Cleaver", 27) to {_p}
         case 28:
-            give axe(diamond axe, "Diamond Apex Axe", 28) to {_p}
+            give axe(golden axe, "Ashfall Chopper", 28) to {_p}
         case 29:
-            give axe(diamond axe, "Diamond Eternal Hewer", 29) to {_p}
+            give axe(stone axe, "Boneyard Axe", 29) to {_p}
         case 30:
-            give axe(diamond axe, "Diamond Transcendent Cleaver", 30) to {_p}
+            give axe(iron axe, "Warforged Hewer", 30) to {_p}
         default:
             send "&cInvalid weapon ID." to {_p}
 
 function giveDagger(p: player, id: number):
     switch {_id}:
         case 1:
-            give dagger(wooden sword, "Wooden Twig Shiv", 1) to {_p}
+            give dagger(wooden sword, "Rotten Shiv", 1) to {_p}
         case 2:
-            give dagger(wooden sword, "Wooden Splinter Knife", 2) to {_p}
+            give dagger(diamond sword, "Frosted Dirk", 2) to {_p}
         case 3:
-            give dagger(wooden sword, "Wooden Sapling Dirk", 3) to {_p}
+            give dagger(golden sword, "Molten Knife", 3) to {_p}
         case 4:
-            give dagger(wooden sword, "Wooden Bark Shank", 4) to {_p}
+            give dagger(stone sword, "Gravedigger's Shank", 4) to {_p}
         case 5:
-            give dagger(wooden sword, "Wooden Knot Dagger", 5) to {_p}
+            give dagger(iron sword, "Shadow Fang", 5) to {_p}
         case 6:
-            give dagger(stone sword, "Stone Pebble Shiv", 6) to {_p}
+            give dagger(wooden sword, "Splintered Shiv", 6) to {_p}
         case 7:
-            give dagger(stone sword, "Stone Gravel Knife", 7) to {_p}
+            give dagger(diamond sword, "Glacier Dirk", 7) to {_p}
         case 8:
-            give dagger(stone sword, "Stone Flint Dirk", 8) to {_p}
+            give dagger(golden sword, "Cinderknife", 8) to {_p}
         case 9:
-            give dagger(stone sword, "Stone Cobble Shank", 9) to {_p}
+            give dagger(stone sword, "Bonecrusher Shank", 9) to {_p}
         case 10:
-            give dagger(stone sword, "Stone Boulder Dagger", 10) to {_p}
+            give dagger(iron sword, "Rustbite Fang", 10) to {_p}
         case 11:
-            give dagger(stone sword, "Stone Granite Shiv", 11) to {_p}
+            give dagger(wooden sword, "Timberfang Shiv", 11) to {_p}
         case 12:
-            give dagger(stone sword, "Stone Cairn Knife", 12) to {_p}
+            give dagger(diamond sword, "Frostbite Dirk", 12) to {_p}
         case 13:
-            give dagger(iron sword, "Iron Recruit's Dagger", 13) to {_p}
+            give dagger(golden sword, "Blazing Knife", 13) to {_p}
         case 14:
-            give dagger(iron sword, "Iron Squire's Shiv", 14) to {_p}
+            give dagger(stone sword, "Tombstone Shank", 14) to {_p}
         case 15:
-            give dagger(iron sword, "Iron Sentinel's Knife", 15) to {_p}
+            give dagger(iron sword, "Ironshank Fang", 15) to {_p}
         case 16:
-            give dagger(iron sword, "Iron Vanguard's Dirk", 16) to {_p}
+            give dagger(wooden sword, "Withered Shiv", 16) to {_p}
         case 17:
-            give dagger(iron sword, "Iron Marshal's Shank", 17) to {_p}
+            give dagger(diamond sword, "Crystal Dirk", 17) to {_p}
         case 18:
-            give dagger(iron sword, "Iron Crusader's Dagger", 18) to {_p}
+            give dagger(golden sword, "Emberfall Knife", 18) to {_p}
         case 19:
-            give dagger(iron sword, "Iron Champion's Shiv", 19) to {_p}
+            give dagger(stone sword, "Cairnbreaker Shank", 19) to {_p}
         case 20:
-            give dagger(iron sword, "Iron Warlord's Knife", 20) to {_p}
+            give dagger(iron sword, "Steelclaw Fang", 20) to {_p}
         case 21:
-            give dagger(iron sword, "Iron Oathdagger", 21) to {_p}
+            give dagger(wooden sword, "Rotwood Shiv", 21) to {_p}
         case 22:
-            give dagger(diamond sword, "Diamond Ascendant Dagger", 22) to {_p}
+            give dagger(diamond sword, "Starlight Dirk", 22) to {_p}
         case 23:
-            give dagger(diamond sword, "Diamond Paragon Shiv", 23) to {_p}
+            give dagger(golden sword, "Wildfire Knife", 23) to {_p}
         case 24:
-            give dagger(diamond sword, "Diamond Warden's Knife", 24) to {_p}
+            give dagger(stone sword, "Gravebound Shank", 24) to {_p}
         case 25:
-            give dagger(diamond sword, "Diamond Aegis Dirk", 25) to {_p}
+            give dagger(iron sword, "Bloodiron Fang", 25) to {_p}
         case 26:
-            give dagger(diamond sword, "Diamond Sovereign Shank", 26) to {_p}
+            give dagger(wooden sword, "Driftwood Shiv", 26) to {_p}
         case 27:
-            give dagger(diamond sword, "Diamond Zenith Dagger", 27) to {_p}
+            give dagger(diamond sword, "Icebound Dirk", 27) to {_p}
         case 28:
-            give dagger(diamond sword, "Diamond Apex Shiv", 28) to {_p}
+            give dagger(golden sword, "Ashfall Knife", 28) to {_p}
         case 29:
-            give dagger(diamond sword, "Diamond Eternal Knife", 29) to {_p}
+            give dagger(stone sword, "Boneyard Shank", 29) to {_p}
         case 30:
-            give dagger(diamond sword, "Diamond Transcendent Dagger", 30) to {_p}
+            give dagger(iron sword, "Warforged Fang", 30) to {_p}
         default:
             send "&cInvalid weapon ID." to {_p}
+
+command /givesword <number>:
+    permission: admin.item
+    trigger:
+        giveSword(player, arg-1)
+
+command /giveaxe <number>:
+    permission: admin.item
+    trigger:
+        giveAxe(player, arg-1)
+
+command /givedagger <number>:
+    permission: admin.item
+    trigger:
+        giveDagger(player, arg-1)
            
 function giveArmor(p: player, setId: number):
     switch {_setId}:
@@ -213,18 +228,3 @@ command /givearmor <number>:
     permission: admin.item
     trigger:
         giveArmor(player, arg-1)
-           
-command /givesword <number>:
-    permission: admin.item
-    trigger:
-        giveSword(player, arg-1)
-
-command /giveaxe <number>:
-    permission: admin.item
-    trigger:
-        giveAxe(player, arg-1)
-
-command /givedagger <number>:
-    permission: admin.item
-    trigger:
-        giveDagger(player, arg-1)
