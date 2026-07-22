@@ -384,16 +384,16 @@ command /modifyarmor <number>:
             send "&cYou must be holding a piece of armor."
             stop
         
-        if minecraft item tags of {_item} contains "minecraft:helmets":
+        if minecraft item tags of {_item} contains "helmets":
             set {_item} to helmet({_item}, arg-1)
             set {_slot} to "helmet"
-        else if minecraft item tags of {_item} contains "minecraft:chestplates":
+        else if minecraft item tags of {_item} contains "chestplates":
             set {_item} to chestplate({_item}, arg-1)
             set {_slot} to "chestplate"
-        else if minecraft item tags of {_item} contains "minecraft:leggings":
+        else if minecraft item tags of {_item} contains "leggings":
             set {_item} to leggings({_item}, arg-1)
             set {_slot} to "leggings"
-        else if minecraft item tags of {_item} contains "minecraft:boots":
+        else if minecraft item tags of {_item} contains "boots":
             set {_item} to boots({_item}, arg-1)
             set {_slot} to "boots"
         else:
