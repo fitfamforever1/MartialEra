@@ -1,3 +1,44 @@
+function getFloorLevel(floorId: number) :: number:
+    set {_level} to {_floorId}
+    if {_level} < 1:
+        set {_level} to 1
+    return {_level}
+
+function scaleStat(base: number, level: number, growth: number) :: number:
+    return {_base} + (({_level} - 1) * {_growth})
+
+function getCategoryStat(category: text, stat: text, level: number) :: number:
+    if {_category} is "balanced":
+        if {_stat} is "health":
+            return scaleStat(100, {_level}, 15)
+        else if {_stat} is "speed":
+            return scaleStat(0.2, {_level}, 0.002)
+        else if {_stat} is "damage":
+            return scaleStat(12, {_level}, 2)
+    else if {_category} is "tank":
+        if {_stat} is "health":
+            return scaleStat(200, {_level}, 30)
+        else if {_stat} is "speed":
+            return scaleStat(0.14, {_level}, 0.001)
+        else if {_stat} is "damage":
+            return scaleStat(28, {_level}, 4)
+    else if {_category} is "ranged":
+        if {_stat} is "health":
+            return scaleStat(80, {_level}, 12)
+        else if {_stat} is "speed":
+            return scaleStat(0.18, {_level}, 0.0015)
+        else if {_stat} is "damage":
+            return scaleStat(16, {_level}, 2.5)
+    else if {_category} is "boss":
+        if {_stat} is "health":
+            return scaleStat(500, {_level}, 75)
+        else if {_stat} is "speed":
+            return scaleStat(0.22, {_level}, 0.002)
+        else if {_stat} is "damage":
+            return scaleStat(60, {_level}, 8)
+    return 0
+
+
 function spawn(loc: location, mob: text, roomId: number, floorId: number):
     if {_mob} is "undead1":
         spawnUndead1({_loc}, {_roomId}, {_floorId})
@@ -8,45 +49,72 @@ function spawn(loc: location, mob: text, roomId: number, floorId: number):
     else if {_mob} is "undead4":
         spawnUndead4({_loc}, {_roomId}, {_floorId})
 
-function applyMobStats(e: entity, mobName: text, health: number, speed: number, damage: number, roomId: number, floorId: number):
-    set custom name of {_e} to {_mobName}
+function applyMobStats(e: entity, mobName: text, category: text, health: number, speed: number, damage: number, roomId: number, floorId: number, level: number):
+    set custom name of {_e} to "%{_mobName}% &7[Lv. %{_level}%]"
     set max health of {_e} to {_health}
     set health of {_e} to {_health}
     set movement speed attribute of {_e} to {_speed}
     set age of {_e} to 0
     set knockback resistance attribute of {_e} to 100
     set number data tag "mobstat:damage" of {_e} to {_damage}
+    set number data tag "mobstat:level" of {_e} to {_level}
+    set text data tag "mobstat:category" of {_e} to {_category}
     set number data tag "mob:floor" of {_e} to {_floorId}
     set number data tag "mob:room" of {_e} to {_roomId}
 
+
 function spawnUndead1(loc: location, roomId: number, floorId: number) :: entity:
+    set {_level} to getFloorLevel({_floorId})
+    set {_category} to "balanced"
+    set {_health} to getCategoryStat({_category}, "health", {_level})
+    set {_speed} to getCategoryStat({_category}, "speed", {_level})
+    set {_damage} to getCategoryStat({_category}, "damage", {_level})
+
     spawn zombie at {_loc}
     set {_e} to last spawned entity
     set tool of {_e} to air
-    applyMobStats({_e}, "&cZombie", 100, 0.2, 12, {_roomId}, {_floorId})
+    applyMobStats({_e}, "&cZombie", {_category}, {_health}, {_speed}, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
 
 function spawnUndead2(loc: location, roomId: number, floorId: number) :: entity:
+    set {_level} to getFloorLevel({_floorId})
+    set {_category} to "ranged"
+    set {_health} to getCategoryStat({_category}, "health", {_level})
+    set {_speed} to getCategoryStat({_category}, "speed", {_level})
+    set {_damage} to getCategoryStat({_category}, "damage", {_level})
+
     spawn skeleton at {_loc}
     set {_e} to last spawned entity
     set tool of {_e} to bow
-    applyMobStats({_e}, "&cSkeleton", 80, 0.18, 16, {_roomId}, {_floorId})
+    applyMobStats({_e}, "&cSkeleton", {_category}, {_health}, {_speed}, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
 
 function spawnUndead3(loc: location, roomId: number, floorId: number) :: entity:
+    set {_level} to getFloorLevel({_floorId})
+    set {_category} to "tank"
+    set {_health} to getCategoryStat({_category}, "health", {_level})
+    set {_speed} to getCategoryStat({_category}, "speed", {_level})
+    set {_damage} to getCategoryStat({_category}, "damage", {_level})
+
     spawn zombie at {_loc}
     set {_e} to last spawned entity
     set tool of {_e} to air
     set scale attribute of {_e} to 1.4
-    applyMobStats({_e}, "&cBrute", 200, 0.14, 28, {_roomId}, {_floorId})
+    applyMobStats({_e}, "&cBrute", {_category}, {_health}, {_speed}, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
-    
+
 function spawnUndead4(loc: location, roomId: number, floorId: number) :: entity:
+    set {_level} to getFloorLevel({_floorId})
+    set {_category} to "boss"
+    set {_health} to getCategoryStat({_category}, "health", {_level})
+    set {_speed} to getCategoryStat({_category}, "speed", {_level})
+    set {_damage} to getCategoryStat({_category}, "damage", {_level})
+
     spawn zombie at {_loc}
     set {_e} to last spawned entity
     set tool of {_e} to air
     set scale attribute of {_e} to 1.2
-    applyMobStats({_e}, "&cZombie Lord", 500, 0.22, 60, {_roomId}, {_floorId})
+    applyMobStats({_e}, "&cZombie Lord", {_category}, {_health}, {_speed}, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
 
 function clearRoomMobs(room: number):
