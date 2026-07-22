@@ -123,7 +123,7 @@ function giveWeapon(p: player, id: number):
         default:
             send "&cInvalid weapon ID." to {_p}
             
-command /testweapon <number>:
+command /giveweapon <number>:
     permission: admin.item
     trigger:
         giveWeapon(player, arg-1)
