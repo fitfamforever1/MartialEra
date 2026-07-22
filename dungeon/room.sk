@@ -80,6 +80,7 @@ function StartRoom(p: player, room: number, floor: number):
     send title "" with subtitle "&cʏᴏᴜ ʜᴀᴠᴇ ᴇɴᴛᴇʀᴇᴅ ꜰʟᴏᴏʀ %{_floor}%." to {_p} for 0.8 seconds with fadein 0.2 second and fade out 0.2 second
     wait 1 second
     StartFloor({_room}, {_floor})
+    heal({_p})
 
 function EndRoom(p: player, room: number, floor: number):
     set boolean data tag "room%{_room}%:status" of world "world" to false
