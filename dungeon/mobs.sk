@@ -3,14 +3,14 @@ function getCategoryStat(category: text, stat: text, level: number) :: number:
         if {_stat} is "health":
             return 90 + (({_level} - 1) * 10)
         else if {_stat} is "speed":
-            return 0.2
+            return 0.25
         else if {_stat} is "damage":
             return 8 + (({_level} - 1) * 1.2)
     else if {_category} is "tank":
         if {_stat} is "health":
             return 180 + (({_level} - 1) * 20)
         else if {_stat} is "speed":
-            return 0.14
+            return 0.2
         else if {_stat} is "damage":
             return 18 + (({_level} - 1) * 2.5)
     else if {_category} is "ranged":
@@ -24,7 +24,7 @@ function getCategoryStat(category: text, stat: text, level: number) :: number:
         if {_stat} is "health":
             return 400 + (({_level} - 1) * 50)
         else if {_stat} is "speed":
-            return 0.2
+            return 0.3
         else if {_stat} is "damage":
             return 40 + (({_level} - 1) * 5)
     return 0
