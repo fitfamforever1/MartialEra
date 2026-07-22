@@ -253,7 +253,6 @@ on damage:
                 set damage to 0
             stop
         
-        cancel event
         set {_critChance} to number data tag "stat:crit_chance" of attacker
         set {_roll} to a random number between 1 and 100
 
@@ -263,7 +262,7 @@ on damage:
             set {_temp} to calculateAttack(attacker)
         
         displayDamage(victim, {_temp})
-        damage victim by {_temp}
+        set damage to {_temp}
         
         
 function death(p: player):
