@@ -225,7 +225,6 @@ function displayDamage(victim: entity, damage: number):
     kill {_display}
     
 on damage:
-    cancel event
     if victim is a player:
         if projectile is an arrow:
             set {_temp} to number data tag "mobstat:damage" of projectile
@@ -254,7 +253,7 @@ on damage:
                 set damage to 0
             stop
           
-          
+        cancel event
         set {_critChance} to number data tag "stat:crit_chance" of attacker
         set {_roll} to a random number between 1 and 100
 
