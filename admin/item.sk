@@ -410,26 +410,3 @@ function boots(baseitem: item, name: text, level: number, c1: number, c2: number
     
     return {_item}
     
-command /modifyarmor <number> <text> <item type>:
-    permission: admin.item
-    trigger:
-        set {_baseitem} to arg-3
-        
-        if {_baseitem} is tagged as item tag "helmets":
-            set {_item} to helmet({_baseitem}, arg-2, arg-1)
-            set {_slot} to "helmet"
-        else if {_baseitem} is tagged as item tag "chestplates":
-            set {_item} to chestplate({_baseitem}, arg-2, arg-1)
-            set {_slot} to "chestplate"
-        else if {_baseitem} is tagged as item tag "leggings":
-            set {_item} to leggings({_baseitem}, arg-2, arg-1)
-            set {_slot} to "leggings"
-        else if {_baseitem} is tagged as item tag "boots":
-            set {_item} to boots({_baseitem}, arg-2, arg-1)
-            set {_slot} to "boots"
-        else:
-            send "&cYou must specify a piece of armor (helmet/chestplate/leggings/boots)."
-            stop
-        
-        give {_item} to player
-        send "&aGave &eLvl %arg-1% %{_slot}% (%arg-2%)&a."
