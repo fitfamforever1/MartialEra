@@ -122,3 +122,8 @@ function giveWeapon(p: player, id: number):
             give axe(diamond axe named "&fEternal Executioner", 30) to {_p}
         default:
             send "&cInvalid weapon ID." to {_p}
+            
+command /testweapon <number>:
+    permission: admin.item
+    trigger:
+        giveWeapon(player, arg-1)
