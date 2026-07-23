@@ -11,7 +11,7 @@ function giveHelmet(p: player, id: number):
         case 5:
             give helmet(leather helmet, "Shadow Helm", 5, " ") to {_p}
         case 6:
-            give helmet(leather helmet, "Splintered Cap", 6, " ", " ") to {_p}
+            give helmet(leather helmet, "Splintered Cap", 6, " ") to {_p}
         case 7:
             give helmet(leather helmet, "Glacier Casque", 7, " ") to {_p}
         case 8:
