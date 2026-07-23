@@ -17,57 +17,38 @@ function spinBoxes(p: player, type: text, id: number):
     # --- roll the ONE item the player actually keeps ---
     set {_giveid} to {_base} + (a random integer between 1 and 10)
 
-    # --- setup ---
-    set {_origin} to location of {_p}
+    delete {_item::*}
     delete {_displays::*}
     delete {_baseangle::*}
 
+    # --- step 1: grab all 10 item textures into {_item::1} through {_item::10} ---
     loop 10 times:
-        set {_thisid} to {_base} + loop-number   # cycles 1-10 within the tier, just for the visual
-
-        # temporarily equip this variant just to grab its item texture for the display
+        set {_thisid} to {_base} + loop-number
         if {_type} is "helmet":
             giveHelmet({_p}, {_thisid})
-            set {_item} to helmet of {_p}
+            set {_item::%loop-number%} to helmet of {_p}
         else if {_type} is "chestplate":
             giveChestplate({_p}, {_thisid})
-            set {_item} to chestplate of {_p}
+            set {_item::%loop-number%} to chestplate of {_p}
         else if {_type} is "leggings":
             giveLeggings({_p}, {_thisid})
-            set {_item} to leggings of {_p}
+            set {_item::%loop-number%} to leggings of {_p}
         else if {_type} is "boots":
             giveBoots({_p}, {_thisid})
-            set {_item} to boots of {_p}
+            set {_item::%loop-number%} to boots of {_p}
         else if {_type} is "sword":
             giveSword({_p}, {_thisid})
-            set {_item} to {_p}'s tool
+            set {_item::%loop-number%} to {_p}'s tool
         else if {_type} is "axe":
             giveAxe({_p}, {_thisid})
-            set {_item} to {_p}'s tool
+            set {_item::%loop-number%} to {_p}'s tool
         else if {_type} is "dagger":
             giveDagger({_p}, {_thisid})
-            set {_item} to {_p}'s tool
+            set {_item::%loop-number%} to {_p}'s tool
         else:
             stop
 
-        set {_baseangle::%loop-number%} to (loop-number - 1) * 36
-        set {_dx} to {_radius} * cos({_baseangle::%loop-number%})
-        set {_dz} to {_radius} * sin({_baseangle::%loop-number%})
-
-        set {_facex} to {_origin}'s x - ({_origin}'s x + {_dx})
-        set {_facez} to {_origin}'s z - ({_origin}'s z + {_dz})
-        set {_faceyaw} to atan2({_facex}, {_facez})
-        set {_faceyaw} to {_faceyaw} * -1
-
-        set {_spawnloc} to location({_origin}'s x + {_dx}, {_origin}'s y + 1, {_origin}'s z + {_dz}, world of {_origin}, {_faceyaw}, 0)
-        spawn item display at {_spawnloc}
-        set {_display} to last spawned entity
-        set item of {_display} to {_item}
-        set interpolation duration of {_display} to 0 tick
-        set interpolation delay of {_display} to 0 ticks
-        add {_display} to {_displays::*}
-
-    # --- lock in the ONE rolled item now that all displays are showing their own variant ---
+    # --- lock in the ONE rolled item the player actually keeps ---
     if {_type} is "helmet":
         giveHelmet({_p}, {_giveid})
     else if {_type} is "chestplate":
@@ -83,7 +64,27 @@ function spinBoxes(p: player, type: text, id: number):
     else if {_type} is "dagger":
         giveDagger({_p}, {_giveid})
 
-    # --- spin loop (orbits around the fixed origin, not the player) ---
+    # --- step 2: spawn 10 displays, one per stored item ---
+    set {_origin} to location of {_p}
+    loop 10 times:
+        set {_baseangle::%loop-number%} to (loop-number - 1) * 36
+        set {_dx} to {_radius} * cos({_baseangle::%loop-number%})
+        set {_dz} to {_radius} * sin({_baseangle::%loop-number%})
+
+        set {_facex} to {_origin}'s x - ({_origin}'s x + {_dx})
+        set {_facez} to {_origin}'s z - ({_origin}'s z + {_dz})
+        set {_faceyaw} to atan2({_facex}, {_facez})
+        set {_faceyaw} to {_faceyaw} * -1
+
+        set {_spawnloc} to location({_origin}'s x + {_dx}, {_origin}'s y + 1, {_origin}'s z + {_dz}, world of {_origin}, {_faceyaw}, 0)
+        spawn item display at {_spawnloc}
+        set {_display} to last spawned entity
+        set item of {_display} to {_item::%loop-number%}
+        set interpolation duration of {_display} to 0 tick
+        set interpolation delay of {_display} to 0 ticks
+        add {_display} to {_displays::*}
+
+    # --- step 3: spin loop (orbits around the fixed origin, not the player) ---
     set {_yawoffset} to 0
     loop {_ticks} times:
         add {_speed} to {_yawoffset}
@@ -104,12 +105,13 @@ function spinBoxes(p: player, type: text, id: number):
             teleport {_disp} to {_newloc}
         wait 1 tick
 
-    # --- cleanup ---
+    # --- step 4: cleanup ---
     loop {_displays::*}:
         set {_disp} to {_displays::%loop-index%}
         kill {_disp}
     delete {_displays::*}
     delete {_baseangle::*}
+    delete {_item::*}
 
 command /spinboxes <text> <number>:
     trigger:
