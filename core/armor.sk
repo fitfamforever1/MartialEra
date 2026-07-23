@@ -96,7 +96,7 @@ function giveChestplate(p: player, id: number):
         case 15:
             give chestplate(leather chestplate, "Warden Plate", 15, 84, 72, 86) to {_p}
         case 16:
-            give chestplate(leather chestplate, "Wither Vest", 16, 48, 47, 46 to {_p}
+            give chestplate(leather chestplate, "Wither Vest", 16, 48, 47, 46) to {_p}
         case 17:
             give chestplate(leather chestplate, "Crystal Cuirass", 17, 87, 86, 134) to {_p}
         case 18:
