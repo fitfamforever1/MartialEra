@@ -5,7 +5,7 @@ function giveHelmet(p: player, id: number):
         case 2:
             give helmet("Frosted Casque", 2, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODA4NzQ0NjJhN2QzNjE4ZWFmYTFjNThlZjdjNTY2ZjQ4ZDgzOGVmNTNiNGY1MjBhMzhkNGJhNmExYWRjMTgxMSJ9fX0=") to {_p}
         case 3:
-            give helmet("Molten Cap", 3, " ") to {_p}
+            give helmet("Molten Mask", 3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTExNGRiZDJiMGNjZjcyNDRiM2ZjYzI1ZWY0Y2RjYzBhNTYwYTQyOGU5OTNkNGU3YTI4ZGIzZGRhYjNmOGVlOSJ9fX0=") to {_p}
         case 4:
             give helmet("Gravedigger's Hood", 4, " ") to {_p}
         case 5:
@@ -70,7 +70,7 @@ function giveChestplate(p: player, id: number):
         case 2:
             give chestplate(leather chestplate, "Frosted Cuirass", 2, 113, 178, 201) to {_p}
         case 3:
-            give chestplate(leather chestplate, "Molten Plate", 3, 0, 0, 0) to {_p}
+            give chestplate(leather chestplate, "Molten Plate", 3, 35, 35, 39) to {_p}
         case 4:
             give chestplate(leather chestplate, "Gravedigger's Guard", 4, 0, 0, 0) to {_p}
         case 5:
@@ -135,7 +135,7 @@ function giveLeggings(p: player, id: number):
         case 2:
             give leggings(leather leggings, "Frosted Greaves", 2, 113, 178, 201) to {_p}
         case 3:
-            give leggings(leather leggings, "Molten Chausses", 3, 0, 0, 0) to {_p}
+            give leggings(leather leggings, "Molten Chausses", 3, 35, 35, 39) to {_p}
         case 4:
             give leggings(leather leggings, "Gravedigger's Legguard", 4, 0, 0, 0) to {_p}
         case 5:
@@ -200,7 +200,7 @@ function giveBoots(p: player, id: number):
         case 2:
             give boots(leather boots, "Frosted Treads", 2, 113, 178, 201) to {_p}
         case 3:
-            give boots(leather boots, "Molten Striders", 3, 0, 0, 0) to {_p}
+            give boots(leather boots, "Molten Striders", 3, 35, 35, 39) to {_p}
         case 4:
             give boots(leather boots, "Gravedigger's Boots", 4, 0, 0, 0) to {_p}
         case 5:
