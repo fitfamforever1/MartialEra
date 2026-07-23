@@ -14,15 +14,18 @@ function spinBoxes(p: player, type: text, id: number):
     else:
         stop
 
+    # --- roll the ONE item the player actually keeps ---
+    set {_giveid} to {_base} + (a random integer between 1 and 10)
+
     # --- setup ---
     set {_origin} to location of {_p}
     delete {_displays::*}
     delete {_baseangle::*}
 
     loop 10 times:
-        set {_thisid} to {_base} + loop-number   # e.g. tier 1 -> 1,2,3...10
+        set {_thisid} to {_base} + loop-number   # cycles 1-10 within the tier, just for the visual
 
-        # give/equip this specific item and grab it for display
+        # temporarily equip this variant just to grab its item texture for the display
         if {_type} is "helmet":
             giveHelmet({_p}, {_thisid})
             set {_item} to helmet of {_p}
@@ -63,6 +66,22 @@ function spinBoxes(p: player, type: text, id: number):
         set interpolation duration of {_display} to 0 tick
         set interpolation delay of {_display} to 0 ticks
         add {_display} to {_displays::*}
+
+    # --- lock in the ONE rolled item now that all displays are showing their own variant ---
+    if {_type} is "helmet":
+        giveHelmet({_p}, {_giveid})
+    else if {_type} is "chestplate":
+        giveChestplate({_p}, {_giveid})
+    else if {_type} is "leggings":
+        giveLeggings({_p}, {_giveid})
+    else if {_type} is "boots":
+        giveBoots({_p}, {_giveid})
+    else if {_type} is "sword":
+        giveSword({_p}, {_giveid})
+    else if {_type} is "axe":
+        giveAxe({_p}, {_giveid})
+    else if {_type} is "dagger":
+        giveDagger({_p}, {_giveid})
 
     # --- spin loop (orbits around the fixed origin, not the player) ---
     set {_yawoffset} to 0
