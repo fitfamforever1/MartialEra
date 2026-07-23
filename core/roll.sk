@@ -1,27 +1,24 @@
 function spinBoxes(p: player, type: text, id: number):
     # --- config ---
     set {_radius} to 2.5
-    set {_ticks} to 100      # 5 seconds * 20 ticks/sec
-    set {_speed} to 6        # degrees added to yaw each tick
+    set {_ticks} to 60     
+    set {_speed} to 6        
 
-    # --- convert tier (1/2/3) into the starting id of its range ---
     if {_id} is 1:
-        set {_base} to 0     # ids 1-10
+        set {_base} to 0 
     else if {_id} is 2:
-        set {_base} to 10    # ids 11-20
+        set {_base} to 10  
     else if {_id} is 3:
-        set {_base} to 20    # ids 21-30
+        set {_base} to 20   
     else:
         stop
 
-    # --- roll the ONE item the player will actually get ---
     set {_giveid} to {_base} + (a random integer between 1 and 10)
 
     delete {_item::*}
     delete {_displays::*}
     delete {_baseangle::*}
 
-    # --- step 1: cycle through all 10 variants, capturing each returned item ---
     loop 10 times:
         set {_thisid} to {_base} + loop-number
         if {_type} is "helmet":
@@ -41,7 +38,6 @@ function spinBoxes(p: player, type: text, id: number):
         else:
             stop
 
-    # --- step 2: spawn 10 displays, one per captured item ---
     set {_origin} to location of {_p}
     loop 10 times:
         set {_baseangle::%loop-number%} to (loop-number - 1) * 36
@@ -61,7 +57,6 @@ function spinBoxes(p: player, type: text, id: number):
         set interpolation delay of {_display} to 0 ticks
         add {_display} to {_displays::*}
 
-    # --- step 3: spin loop (orbits around the fixed origin, not the player) ---
     set {_yawoffset} to 0
     loop {_ticks} times:
         add {_speed} to {_yawoffset}
@@ -82,14 +77,12 @@ function spinBoxes(p: player, type: text, id: number):
             teleport {_disp} to {_newloc}
         wait 1 tick
 
-    # --- step 4: cleanup ---
     loop {_displays::*}:
         set {_disp} to {_displays::%loop-index%}
         kill {_disp}
     delete {_displays::*}
     delete {_baseangle::*}
 
-    # --- step 5: NOW actually give the player the one rolled item ---
     if {_type} is "helmet":
         give giveHelmet({_p}, {_giveid}) to {_p}
     else if {_type} is "chestplate":
