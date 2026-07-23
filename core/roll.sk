@@ -3,7 +3,7 @@ command /spinboxes:
         # --- config ---
         set {_radius} to 2.0
         set {_ticks} to 100      # 5 seconds * 20 ticks/sec
-        set {_speed} to 6        # degrees added to yaw each tick (360/100*ticks-per-full-spin)
+        set {_speed} to 6        # degrees added to yaw each tick
 
         # --- setup ---
         set {_origin} to location of player
@@ -26,16 +26,18 @@ command /spinboxes:
             set {_center} to location of player
             set {_i} to 0
             loop {_displays::*}:
+                set {_disp} to loop-value
                 add 1 to {_i}
                 set {_angle} to {_baseangle::%{_i}%} + {_yawoffset}
                 set {_dx} to {_radius} * cos({_angle})
                 set {_dz} to {_radius} * sin({_angle})
                 set {_newloc} to location({_center}'s x + {_dx}, {_center}'s y + 1, {_center}'s z + {_dz}, world of {_center})
-                teleport loop-value to {_newloc}
+                teleport {_disp} to {_newloc}
             wait 1 tick
 
         # --- cleanup ---
         loop {_displays::*}:
-            delete loop-value
+            set {_disp} to loop-value
+            kill {_disp}
         delete {_displays::*}
         delete {_baseangle::*}
