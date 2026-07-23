@@ -1,4 +1,4 @@
-function giveLoot(p: player, id: number):: item:
+function giveLoot1(p: player, id: number):: item:
     switch {_id}:
         case 1:
             set {_item} to lootbox("Sword", "sword", 1)
@@ -19,6 +19,14 @@ function giveLoot(p: player, id: number):: item:
 command /test2 <number>:
     trigger:
         giveLoot(player, arg-1)
+
+on right click with player head:
+    set {_item} to player's tool
+    set {_status} to number data tag "lootbox:status" of {_item}
+    if {_status} is 1:
+        set {_id} to number data tag "lootbox:level" of {_item}
+        set {_type} to data tag "lootbox:type" of {_item}
+        spinBoxes(player, "%{_type}%", {_id})
 
 function spinBoxes(p: player, type: text, id: number):
     set {_radius} to 2.5
