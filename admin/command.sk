@@ -45,7 +45,7 @@ function SmallCaps(text: text) :: text:
 command /admin:
     permission: admin.area
     trigger:
-        teleport player to location(-463.5, 1, -493.5,"world",180,0)
+        teleport player to location(-493.5, 1, -493.5,"world",180,0)
         
 command /gmc:
     permission: admin.gamemode
