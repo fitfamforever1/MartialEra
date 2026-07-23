@@ -1,7 +1,7 @@
 function giveLoot(p: player, id: number):: item:
     switch {_id}:
         case 1:
-            set {_item} to helmet("Sword", "sword", 1)
+            set {_item} to lootbox("Sword", "sword", 1)
     give {_item} to {_p}
         
 command /test2 <number>:
