@@ -18,7 +18,7 @@ function giveLoot1(p: player, id: number):: item:
         
 command /test2 <number>:
     trigger:
-        giveLoot(player, arg-1)
+        giveLoot1(player, arg-1)
 
 on right click with player head:
     set {_item} to player's tool
