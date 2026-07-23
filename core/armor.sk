@@ -114,7 +114,7 @@ function giveChestplate(p: player, id: number):
         case 24:
             give chestplate(leather chestplate, "Fallen Guard", 24, 70, 70, 70) to {_p}
         case 25:
-            give chestplate(leather chestplate, "Blood Plate", 25, 240, 103, 102) to {_p}
+            give chestplate(leather chestplate, "Blood Plate", 25, 208, 36, 68) to {_p}
         case 26:
             give chestplate(leather chestplate, "Fairy Vest", 26, 78, 65, 189) to {_p}
         case 27:
@@ -179,7 +179,7 @@ function giveLeggings(p: player, id: number):
         case 24:
             give leggings(leather leggings, "Fallen Legguard", 24, 70, 70, 70) to {_p}
         case 25:
-            give leggings(leather leggings, "Blood Greaves", 25, 240, 103, 102) to {_p}
+            give leggings(leather leggings, "Blood Greaves", 25, 208, 36, 68) to {_p}
         case 26:
             give leggings(leather leggings, "Fairy Leggings", 26, 78, 65, 189) to {_p}
         case 27:
@@ -244,7 +244,7 @@ function giveBoots(p: player, id: number):
         case 24:
             give boots(leather boots, "Fallen Boots", 24, 70, 70, 70) to {_p}
         case 25:
-            give boots(leather boots, "Blood Treads", 25, 240, 103, 102) to {_p}
+            give boots(leather boots, "Blood Treads", 25, 208, 36, 68) to {_p}
         case 26:
             give boots(leather boots, "Fairy Boots", 26, 78, 65, 189) to {_p}
         case 27:
