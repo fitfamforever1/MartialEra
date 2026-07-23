@@ -278,3 +278,10 @@ command /giveboots <number>:
     trigger:
         giveBoots(player, arg-1)
 
+command /giveset <number>:
+    permission: admin.item
+    trigger:
+        giveHelmet(player, arg-1)
+        giveChestplate(player, arg-1)
+        giveLeggings(player, arg-1)
+        giveBoots(player, arg-1)
