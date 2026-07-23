@@ -98,7 +98,7 @@ function giveChestplate(p: player, id: number):
         case 16:
             give chestplate(leather chestplate, "Wither Vest", 16, 48, 47, 46) to {_p}
         case 17:
-            give chestplate(leather chestplate, "Crystal Cuirass", 17, 87, 86, 134) to {_p}
+            give chestplate(leather chestplate, "Crystal Cuirass", 17, 177, 7, 224) to {_p}
         case 18:
             give chestplate(leather chestplate, "Ember Plate", 18, 0, 0, 0) to {_p}
         case 19:
@@ -163,7 +163,7 @@ function giveLeggings(p: player, id: number):
         case 16:
             give leggings(leather leggings, "Wither Leggings", 16, 48, 47, 46) to {_p}
         case 17:
-            give leggings(leather leggings, "Crystal Greaves", 17, 87, 86, 134) to {_p}
+            give leggings(leather leggings, "Crystal Greaves", 17, 177, 7, 224) to {_p}
         case 18:
             give leggings(leather leggings, "Ember Chausses", 18, 0, 0, 0) to {_p}
         case 19:
@@ -228,7 +228,7 @@ function giveBoots(p: player, id: number):
         case 16:
             give boots(leather boots, "Wither Boots", 16, 48, 47, 46) to {_p}
         case 17:
-            give boots(leather boots, "Crystal Treads", 17, 87, 86, 134) to {_p}
+            give boots(leather boots, "Crystal Treads", 17, 177, 7, 224) to {_p}
         case 18:
             give boots(leather boots, "Ember Striders", 18, 0, 0, 0) to {_p}
         case 19:
