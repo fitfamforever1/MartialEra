@@ -438,3 +438,7 @@ function lootbox(name: text, type: text, level: number):: item:
     
     return {_item}
     
+command /giveloot <number> <number>:
+    permission: admin.item
+    trigger:
+        giveLoot(player, arg-1, arg-2)
