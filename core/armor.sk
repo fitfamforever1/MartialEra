@@ -35,7 +35,7 @@ function giveHelmet(p: player, id: number):
         case 17:
             give helmet("Crystal Casque", 17, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTY1NDAxODZlYjBlNzQ4NjY4ZGZjZGIwODAwZDkwMzJlMjFjYTY2NTg2ZjM2OTU0ODA0NjY4Y2ExOGVhMDBkMyJ9fX0=") to {_p}
         case 18:
-            give helmet("Ember Cap", 18, " ") to {_p}
+            give helmet("Ember Cap", 18, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjBiMTcwMTFhOGRkMWU5NjdkMThkMmI5MDAwMTcyZjNmYTdjYTY0MmYxOWE3YWFhM2M2NjFkNWJlNjk1MDBiYiJ9fX0=") to {_p}
         case 19:
             give helmet("Chaos Helm", 19, " ") to {_p}
         case 20:
@@ -100,7 +100,7 @@ function giveChestplate(p: player, id: number):
         case 17:
             give chestplate(leather chestplate, "Crystal Cuirass", 17, 177, 7, 224) to {_p}
         case 18:
-            give chestplate(leather chestplate, "Ember Plate", 18, 0, 0, 0) to {_p}
+            give chestplate(leather chestplate, "Ember Plate", 18, 254, 231, 97) to {_p}
         case 19:
             give chestplate(leather chestplate, "Chaos Guard", 19, 0, 0, 0) to {_p}
         case 20:
@@ -165,7 +165,7 @@ function giveLeggings(p: player, id: number):
         case 17:
             give leggings(leather leggings, "Crystal Greaves", 17, 177, 7, 224) to {_p}
         case 18:
-            give leggings(leather leggings, "Ember Chausses", 18, 0, 0, 0) to {_p}
+            give leggings(leather leggings, "Ember Chausses", 18, 254, 231, 97) to {_p}
         case 19:
             give leggings(leather leggings, "Chaos Legguard", 19, 0, 0, 0) to {_p}
         case 20:
@@ -230,7 +230,7 @@ function giveBoots(p: player, id: number):
         case 17:
             give boots(leather boots, "Crystal Treads", 17, 177, 7, 224) to {_p}
         case 18:
-            give boots(leather boots, "Ember Striders", 18, 0, 0, 0) to {_p}
+            give boots(leather boots, "Ember Striders", 18, 254, 231, 97) to {_p}
         case 19:
             give boots(leather boots, "Chaos Boots", 19, 0, 0, 0) to {_p}
         case 20:
