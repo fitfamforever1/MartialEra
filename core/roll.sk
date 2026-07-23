@@ -2,11 +2,23 @@ function giveLoot(p: player, id: number):: item:
     switch {_id}:
         case 1:
             set {_item} to lootbox("Sword", "sword", 1)
+        case 2:
+            set {_item} to lootbox("Dagger", "dagger", 1)
+        case 3:
+            set {_item} to lootbox("Axe", "axe", 1)
+        case 4:
+            set {_item} to lootbox("Helmet", "helmet", 1)
+        case 5:
+            set {_item} to lootbox("Chestplate", "chestplate", 1)
+        case 6:
+            set {_item} to lootbox("Leggings", "leggings", 1)
+        case 7:
+            set {_item} to lootbox("Boots", "boots", 1)
     give {_item} to {_p}
         
 command /test2 <number>:
     trigger:
-        giveLoot(player, 1)
+        giveLoot(player, arg-1)
 
 function spinBoxes(p: player, type: text, id: number):
     set {_radius} to 2.5
