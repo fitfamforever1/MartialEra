@@ -9,7 +9,7 @@ function giveHelmet(p: player, id: number):
         case 4:
             give helmet("Gravedigger's Hood", 4, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmUwZDRkM2YyYWQ0ZjZkMzcwOTcxMTNjODc4NjhiOWQ4MmE1YjU1YjQwNzdmOGZmMGFhYmEzMDM2NDdkNTliNSJ9fX0=") to {_p}
         case 5:
-            give helmet("Shadow Helm", 5, " ") to {_p}
+            give helmet("Shadow Helm", 5, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFmMDJjYzE5OTg4MzkwMDZhODQ1MWViOWE5MThmZGYyMjgyZjY0ZWM4MGM3ODJmMzQyOTc5ZGZkMmMxNjU5ZiJ9fX0=") to {_p}
         case 6:
             give helmet("Splintered Cap", 6, " ") to {_p}
         case 7:
@@ -74,7 +74,7 @@ function giveChestplate(p: player, id: number):
         case 4:
             give chestplate(leather chestplate, "Gravedigger's Guard", 4, 63, 37, 43) to {_p}
         case 5:
-            give chestplate(leather chestplate, "Shadow Plate", 5, 0, 0, 0) to {_p}
+            give chestplate(leather chestplate, "Shadow Plate", 5, 61, 61, 61) to {_p}
         case 6:
             give chestplate(leather chestplate, "Splintered Vest", 6, 0, 0, 0) to {_p}
         case 7:
@@ -139,7 +139,7 @@ function giveLeggings(p: player, id: number):
         case 4:
             give leggings(leather leggings, "Gravedigger's Legguard", 4, 63, 37, 43) to {_p}
         case 5:
-            give leggings(leather leggings, "Shadow Greaves", 5, 0, 0, 0) to {_p}
+            give leggings(leather leggings, "Shadow Greaves", 5, 61, 61, 61) to {_p}
         case 6:
             give leggings(leather leggings, "Splintered Leggings", 6, 0, 0, 0) to {_p}
         case 7:
@@ -204,7 +204,7 @@ function giveBoots(p: player, id: number):
         case 4:
             give boots(leather boots, "Gravedigger's Boots", 4, 63, 37, 43) to {_p}
         case 5:
-            give boots(leather boots, "Shadow Treads", 5, 0, 0, 0) to {_p}
+            give boots(leather boots, "Shadow Treads", 5, 61, 61, 61) to {_p}
         case 6:
             give boots(leather boots, "Splintered Boots", 6, 0, 0, 0) to {_p}
         case 7:
