@@ -153,5 +153,7 @@ on death:
             if {_current} = {_target}:
                 EndRoom(attacker, {_room}, {_floor})
                 send "&aYou have completed the run." to attacker
-                set {_floorId} to {_floorId} + 1
-                lootroll(attacker, {_floorId})
+                set {_temp} to text data tag "mobstat:category" of victim
+                if {_temp} is "boss":
+                    set {_floorId} to {_floorId} + 1
+                    lootroll(attacker, {_floorId})
