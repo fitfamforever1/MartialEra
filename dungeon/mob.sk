@@ -97,19 +97,19 @@ function spawnGoblin4(loc: location, roomId: number, floorId: number) :: entity:
     set {_damage} to getCategoryStat({_category}, "damage", {_level})
     
     set {_chest} to leather chestplate
-    dye {_chest} (100, 100, 100)
+    dye {_chest} (135, 188, 121)
     set chestplate of {_e} to {_chest}
     
     set {_legs} to leather leggings
-    dye {_legs} (100, 100, 100)
+    dye {_legs} (135, 188, 121)
     set leggings of {_e} to {_legs}
     
     set {_boots} to leather boots
-    dye {_boots} (100, 100, 100)
+    dye {_boots} (135, 188, 121)
     set boots of {_e} to {_boots}
         
     set {_head} to a player head
-    set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdlYzQxZTBkZjhlMTcwZDk3ZjliOWFmMWQ2NWVkYWQ0OTc5Yzc4Yzg5YjAxYjE4MGYzODllZTA4YTYxYWY4MiJ9fX0="
+    set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjZiYWQ5ODhjZjNlN2E0MGVhYzlmYTE2OTgyODM5OTRkMTM1OTJlMzRhZjg0NTJiOTZkMTgyNjU4Y2Y0YmY2MCJ9fX0="
     set helmet of {_e} to {_head}
     
     spawn zombie at {_loc}
@@ -121,4 +121,4 @@ function spawnGoblin4(loc: location, roomId: number, floorId: number) :: entity:
     
 command /test3:
     trigger:
-        spawnMob(8, 1, 11, "goblin3", 1)
+        spawnMob(8, 1, 20, "goblin3", 1)
