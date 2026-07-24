@@ -25,7 +25,7 @@ function spawnGoblin1(loc: location, roomId: number, floorId: number) :: entity:
     set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2ZlNDM5NjFkOTliNGJkMTI2MzUzYzgyMjAxNWVkMGIzN2U5YzMyMTQ0MTFhNmQ2MzdiYTY1NDE5NWE4YTFjZiJ9fX0="
     set helmet of {_e} to {_head}
 
-    applyMobStats({_e}, "&cGoblin", {_category}, {_health}, 3, {_damage}, {_roomId}, {_floorId}, {_level})
+    applyMobStats({_e}, "&cGoblin", {_category}, {_health}, 0.3, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
 
 function spawnGoblin2(loc: location, roomId: number, floorId: number) :: entity:
@@ -84,7 +84,7 @@ function spawnGoblin3(loc: location, roomId: number, floorId: number) :: entity:
     set {_e} to last spawned entity
     set tool of {_e} to air
     set scale attribute of {_e} to 1.4
-    applyMobStats({_e}, "&cHobgoblin", {_category}, {_health}, 2.2, {_damage}, {_roomId}, {_floorId}, {_level})
+    applyMobStats({_e}, "&cHobgoblin", {_category}, {_health}, 0.22, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
 
 function spawnGoblin4(loc: location, roomId: number, floorId: number) :: entity:
