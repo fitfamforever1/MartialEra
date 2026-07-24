@@ -35,6 +35,10 @@ function spawnGoblin2(loc: location, roomId: number, floorId: number) :: entity:
     set {_speed} to getCategoryStat({_category}, "speed", {_level})
     set {_damage} to getCategoryStat({_category}, "damage", {_level})
     
+    spawn skeleton at {_loc}
+    set {_e} to last spawned entity
+    set tool of {_e} to bow
+    
     set {_chest} to leather chestplate
     dye {_chest} (97, 121, 69)
     set chestplate of {_e} to {_chest}
@@ -51,9 +55,6 @@ function spawnGoblin2(loc: location, roomId: number, floorId: number) :: entity:
     set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2ZlNDM5NjFkOTliNGJkMTI2MzUzYzgyMjAxNWVkMGIzN2U5YzMyMTQ0MTFhNmQ2MzdiYTY1NDE5NWE4YTFjZiJ9fX0="
     set helmet of {_e} to {_head}
     
-    spawn skeleton at {_loc}
-    set {_e} to last spawned entity
-    set tool of {_e} to bow
     applyMobStats({_e}, "&cGoblin Archer", {_category}, {_health}, {_speed}, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
 
