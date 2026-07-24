@@ -36,19 +36,19 @@ function spawnGoblin2(loc: location, roomId: number, floorId: number) :: entity:
     set {_damage} to getCategoryStat({_category}, "damage", {_level})
     
     set {_chest} to leather chestplate
-    dye {_chest} (100, 100, 100)
+    dye {_chest} (97, 121, 69)
     set chestplate of {_e} to {_chest}
     
     set {_legs} to leather leggings
-    dye {_legs} (100, 100, 100)
+    dye {_legs} (97, 121, 69)
     set leggings of {_e} to {_legs}
     
     set {_boots} to leather boots
-    dye {_boots} (100, 100, 100)
+    dye {_boots} (97, 121, 69)
     set boots of {_e} to {_boots}
         
     set {_head} to a player head
-    set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdlYzQxZTBkZjhlMTcwZDk3ZjliOWFmMWQ2NWVkYWQ0OTc5Yzc4Yzg5YjAxYjE4MGYzODllZTA4YTYxYWY4MiJ9fX0="
+    set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2ZlNDM5NjFkOTliNGJkMTI2MzUzYzgyMjAxNWVkMGIzN2U5YzMyMTQ0MTFhNmQ2MzdiYTY1NDE5NWE4YTFjZiJ9fX0="
     set helmet of {_e} to {_head}
     
     spawn skeleton at {_loc}
