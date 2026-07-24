@@ -121,4 +121,4 @@ function spawnGoblin4(loc: location, roomId: number, floorId: number) :: entity:
     
 command /test3:
     trigger:
-        spawnMob(8, 1, 20, "goblin3", 1)
+        spawnMob(8, 1, 20, "goblin4", 1)
