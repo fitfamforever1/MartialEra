@@ -96,6 +96,10 @@ function spawnGoblin4(loc: location, roomId: number, floorId: number) :: entity:
     set {_speed} to getCategoryStat({_category}, "speed", {_level})
     set {_damage} to getCategoryStat({_category}, "damage", {_level})
     
+    spawn zombie at {_loc}
+    set {_e} to last spawned entity
+    set tool of {_e} to air
+    
     set {_chest} to leather chestplate
     dye {_chest} (135, 188, 121)
     set chestplate of {_e} to {_chest}
@@ -112,9 +116,6 @@ function spawnGoblin4(loc: location, roomId: number, floorId: number) :: entity:
     set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjZiYWQ5ODhjZjNlN2E0MGVhYzlmYTE2OTgyODM5OTRkMTM1OTJlMzRhZjg0NTJiOTZkMTgyNjU4Y2Y0YmY2MCJ9fX0="
     set helmet of {_e} to {_head}
     
-    spawn zombie at {_loc}
-    set {_e} to last spawned entity
-    set tool of {_e} to air
     set scale attribute of {_e} to 1.2
     applyMobStats({_e}, "&cGoblin King", {_category}, {_health}, {_speed}, {_damage}, {_roomId}, {_floorId}, {_level})
     return {_e}
