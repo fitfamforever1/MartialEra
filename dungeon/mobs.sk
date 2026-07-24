@@ -38,6 +38,14 @@ function spawn(loc: location, mob: text, roomId: number, floorId: number):
         spawnUndead3({_loc}, {_roomId}, {_floorId})
     else if {_mob} is "undead4":
         spawnUndead4({_loc}, {_roomId}, {_floorId})
+    else if {_mob} is "goblin1":
+        spawnGoblin1({_loc}, {_roomId}, {_floorId})
+    else if {_mob} is "goblin2":
+        spawnGoblin2({_loc}, {_roomId}, {_floorId})
+    else if {_mob} is "goblin3":
+        spawnGoblin3({_loc}, {_roomId}, {_floorId})
+    else if {_mob} is "goblin4":
+        spawnGoblin4({_loc}, {_roomId}, {_floorId})
 
 function applyMobStats(e: entity, mobName: text, category: text, health: number, speed: number, damage: number, roomId: number, floorId: number, level: number):
     set custom name of {_e} to "%{_mobName}% &8[&a%{_level}%&8]"
