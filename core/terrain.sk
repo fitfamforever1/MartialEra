@@ -1,29 +1,4 @@
-##########################################################################
-# CAVEGEN — big-room Hypixel-style cave chunk generator + /cavegen
-#
-# REQUIRES:
-#   - Skript
-#   - SkBee            (chunk generator / world creator)  https://github.com/ShaneBeee/SkBee
-#   - SkNoise 1.0+      (simplex noise "generator" objects) https://github.com/ReportCardsMC/SKNoise
-#
-# WHAT THIS DOES:
-#   1. Registers a custom chunk generator ("cavegen") that fills a modest
-#      vertical band with a mix of stone/andesite/cobblestone (no ores),
-#      then uses 2D simplex noise to decide, per x/z column, whether that
-#      whole column is a big open cavern (air, full height) or a solid
-#      stone pillar/wall. This gives large walkable rooms instead of thin
-#      worm-like tunnels.
-#   2. Bedrock sits just below the floor, and a solid cap sits just above
-#      the ceiling, so the cave always feels enclosed even in open rooms.
-#   3. Creates/loads a dedicated world ("cavegen_world") using that generator.
-#   4. Adds a /cavegen command that re-carves just the single chunk the
-#      player is standing in, using the same noise algorithm.
-#
-# TUNING (search for "TUNE" below):
-#   - {cavegen.freq}      -> lower = bigger, wider cave rooms. higher = smaller/mazier rooms
-#   - {cavegen.threshold}  -> higher = more open space (bigger caves). lower = more solid stone
-#   - {cavegen.floor} / {cavegen.ceiling} -> how tall the walkable cave band is
-##########################################################################
+
 
 on script load:
     # ---- tunables -------------------------------------------------------
