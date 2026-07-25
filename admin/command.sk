@@ -61,6 +61,8 @@ command /killall:
     permission: admin.kill
     trigger:
         loop all entities:
+            if loop-entity is player:
+                continue
             kill loop-entity
         
 command /gma:
