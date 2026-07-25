@@ -64,6 +64,8 @@ command /killall:
             if loop-entity is player:
                 continue
             kill loop-entity
+            add 1 to {_count}
+        send "&8[&4ꜱʏꜱᴛᴇᴍ&8] %{_count}% have been killed."
         
 command /gma:
     permission: admin.gamemode
