@@ -24,7 +24,7 @@ register chunk generator with id "main":
                 set chunkdata block at vector({_x}, {_y}, {_z}) to grass_block[]
                 set chunkdata block at vector({_x}, {_y} - 1, {_z}) to dirt[]
                 set chunkdata block at vector({_x}, {_y} - 2, {_z}) to dirt[]
-    population gen:
+    block pop:
         loop integers from 0 to 15:
             loop integers from 0 to 15:
                 set {_x} to (loop-number-1)
@@ -32,14 +32,7 @@ register chunk generator with id "main":
                 set {_y} to chunkdata highest block y at vector({_x}, 0, {_z})
                 set {_chance} to random integer between 1 and 100
                 if {_chance} <= 4:
-                    set chunkdata block at vector({_x}, {_y} + 1, {_z}) to oak_log[]
-                    set chunkdata block at vector({_x}, {_y} + 2, {_z}) to oak_log[]
-                    set chunkdata block at vector({_x}, {_y} + 3, {_z}) to oak_leaves[]
-                    set chunkdata block at vector({_x} + 1, {_y} + 3, {_z}) to oak_leaves[]
-                    set chunkdata block at vector({_x} - 1, {_y} + 3, {_z}) to oak_leaves[]
-                    set chunkdata block at vector({_x}, {_y} + 3, {_z} + 1) to oak_leaves[]
-                    set chunkdata block at vector({_x}, {_y} + 3, {_z} - 1) to oak_leaves[]
-                    set chunkdata block at vector({_x}, {_y} + 4, {_z}) to oak_leaves[]
+                    populate tree at vector({_x}, {_y} + 1, {_z})
                 else if {_chance} <= 45:
                     set chunkdata block at vector({_x}, {_y} + 1, {_z}) to short_grass[]
                 else if {_chance} <= 60:
@@ -52,7 +45,7 @@ command /resetworld:
         if world "main" is loaded:
             loop all players in world "main":
                 teleport loop-player to spawn of world "world"
-            unload world "main" with saving false
+            unload "main" without saving
         wait 5 ticks
         set {_w} to world creator named "main"
         set chunk generator of {_w} to chunk generator with id "main"
