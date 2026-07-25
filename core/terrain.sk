@@ -1,5 +1,5 @@
 ##########################################################################
-# CAVEGEN — natural, undulating Hypixel-style cave chunk generator
+# CAVEGEN — one big, connected, natural cave chunk generator
 #
 # REQUIRES:
 #   - Skript
@@ -7,12 +7,16 @@
 #   - SkNoise 1.0+      (simplex noise "generator" objects) https://github.com/ReportCardsMC/SKNoise
 #
 # WHAT THIS DOES:
-#   1. Registers a custom chunk generator ("cavegen") built from THREE
-#      noise layers:
-#        - a floor-height map  -> the ground rolls up and down per column
+#   1. Registers a custom chunk generator ("cavegen") built from FOUR noise layers:
+#        - a "zone" mask     -> very low frequency, marks ONE broad region
+#                               where the cave is even allowed to exist.
+#                               Outside it, everything is solid rock, which
+#                               is what stops lots of small scattered caves
+#                               from popping up all over the world.
+#        - a floor-height map -> the ground rolls up and down per column
 #        - a ceiling-height map -> the rock overhead rolls up and down too
-#        - a 3D "carve" noise   -> hollows out natural, undulating rooms
-#          between the local floor and ceiling (no flat rectangular pillars)
+#        - a 3D "carve" noise  -> hollows out one big, open, connected cave
+#          system inside the zone (no flat rectangular pillars)
 #      All solid material is a random mix of stone/andesite/cobblestone
 #      (no ores). A minimum vertical gap is enforced so it's always tall
 #      enough to walk through, and bedrock is always buried well below the
@@ -21,8 +25,10 @@
 #      New chunks in that world generate using this cave layout automatically.
 #
 # TUNING (search for "TUNE" below):
-#   - {cavegen.freq}        -> interior cave noise "zoom". lower = bigger, smoother rooms
-#   - {cavegen.threshold}    -> higher = more open/bigger caves, lower = more solid rock
+#   - {cavegen.zoneFreq}     -> how large the single cave region is. LOWER = bigger single zone
+#   - {cavegen.zoneThreshold}-> how much of that low-freq noise counts as "cave zone"
+#   - {cavegen.freq}         -> interior cave noise "zoom" inside the zone. lower = bigger rooms
+#   - {cavegen.threshold}    -> higher = more open/bigger caves inside the zone
 #   - {cavegen.heightFreq}   -> how quickly floor/ceiling height rolls up and down
 #   - {cavegen.floorBase}/{cavegen.floorVariance} -> average floor height + how much it varies
 #   - {cavegen.ceilBase}/{cavegen.ceilVariance}   -> average ceiling height + how much it varies
@@ -31,15 +37,19 @@
 
 on script load:
     # ---- tunables -------------------------------------------------------
-    set {cavegen.freq} to 0.025               # TUNE: interior cave carve noise zoom
-    set {cavegen.threshold} to 0.42            # TUNE: higher = bigger/more open caves
-    set {cavegen.heightFreq} to 0.015          # TUNE: floor/ceiling roll speed (lower = smoother hills)
+    set {cavegen.zoneFreq} to 0.004            # TUNE: lower = one bigger single cave region
+    set {cavegen.zoneThreshold} to 0.55         # TUNE: higher = more of the world is inside the cave zone
 
-    set {cavegen.floorBase} to 55              # average floor height
-    set {cavegen.floorVariance} to 4           # +/- how much the floor rolls
-    set {cavegen.ceilBase} to 70               # average ceiling height
-    set {cavegen.ceilVariance} to 4            # +/- how much the ceiling rolls
-    set {cavegen.minGap} to 5                  # guaranteed minimum walkable height
+    set {cavegen.freq} to 0.016                # TUNE: interior cave carve noise zoom (lower = bigger rooms)
+    set {cavegen.threshold} to 0.52             # TUNE: higher = bigger/more open caves
+
+    set {cavegen.heightFreq} to 0.012           # TUNE: floor/ceiling roll speed (lower = smoother hills)
+
+    set {cavegen.floorBase} to 55               # average floor height
+    set {cavegen.floorVariance} to 5            # +/- how much the floor rolls
+    set {cavegen.ceilBase} to 74                # average ceiling height
+    set {cavegen.ceilVariance} to 6             # +/- how much the ceiling rolls
+    set {cavegen.minGap} to 6                   # guaranteed minimum walkable height
 
     set {cavegen.globalMin} to {cavegen.floorBase} - {cavegen.floorVariance} - 1
     set {cavegen.globalMax} to {cavegen.ceilBase} + {cavegen.ceilVariance} + 1
@@ -47,6 +57,9 @@ on script load:
     set {cavegen.world} to "cavegen_world"
 
     # ---- noise generators (shared by world-gen AND the /cavegen command) -
+    set {cavegen.zoneNoise} to new simplex generator with seed 555111
+    set frequency of {cavegen.zoneNoise} to {cavegen.zoneFreq}
+
     set {cavegen.noise} to new simplex generator with seed 918273645
     set frequency of {cavegen.noise} to {cavegen.freq}
 
@@ -70,6 +83,14 @@ on script load:
 # SHARED LOGIC
 ##########################################################################
 
+# Is this x/z inside the one broad region where the cave is allowed to exist?
+function cavegen_in_zone(x: number, z: number) :: boolean:
+    set {_raw} to value of {cavegen.zoneNoise} at {_x}, 0, {_z}
+    set {_v} to abs({_raw})
+    if {_v} < {cavegen.zoneThreshold}:
+        return true
+    return false
+
 # Local floor height at this x/z (rolls around {cavegen.floorBase})
 function cavegen_floor_y(x: number, z: number) :: number:
     set {_v} to value of {cavegen.floorNoise} at {_x}, 0, {_z}
@@ -84,8 +105,7 @@ function cavegen_ceiling_y(x: number, z: number, floory: number) :: number:
         set {_c} to {_floory} + {cavegen.minGap}
     return {_c}
 
-# Decides whether a given x/y/z voxel (strictly between local floor and
-# ceiling) is open air (a cave pocket) or solid
+# Interior carve noise (only meaningful when already inside the cave zone)
 function cavegen_is_air(x: number, y: number, z: number) :: boolean:
     set {_raw} to value of {cavegen.noise} at {_x}, {_y}, {_z}
     set {_v} to abs({_raw})
@@ -120,6 +140,7 @@ register chunk generator with id "cavegen":
 
                 set {_fy} to cavegen_floor_y({_wx}, {_wz})
                 set {_cy} to cavegen_ceiling_y({_wx}, {_wz}, {_fy})
+                set {_inZone} to cavegen_in_zone({_wx}, {_wz})
 
                 loop integers from {cavegen.globalMin} to {cavegen.globalMax}:
                     set {_y} to loop-number-3
@@ -128,19 +149,18 @@ register chunk generator with id "cavegen":
                         # always buried under solid ground - never exposed
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to bedrock
                     else if {_y} < {_fy}:
-                        # solid ground below the local floor
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
                     else if {_y} = {_fy}:
-                        # the walkable floor itself
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
                     else if {_y} > {_cy}:
-                        # solid rock above the local ceiling
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
                     else if {_y} = {_cy}:
-                        # the rock ceiling itself
+                        set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
+                    else if {_inZone} is false:
+                        # outside the single cave region - solid rock, no cave here
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
                     else:
-                        # interior: 3D noise carve -> natural, undulating cave rooms
+                        # interior of the cave zone: 3D noise carve -> one big, connected cave
                         if cavegen_is_air({_wx}, {_y}, {_wz}) is true:
                             set chunkdata block at vector({_lx}, {_y}, {_lz}) to air
                         else:
