@@ -7,12 +7,12 @@ command /spawn [<player>]:
                 stop
             teleport arg-1 to location(-141.5, 71, -932.5, world "world", 90, 0)
             send title "&a✔ &aTeleported &e%arg-1% &ato spawn!" to player for 0.6 seconds
-            play sound "entity.enderman.teleport" at arg-1 for arg-1
+            play sound "sound:sound.ui.error" at arg-1 for arg-1
             stop
 
         teleport player to location(-141.5, 71, -932.5, world "world", 90, 0)
         send title "&a✔ &aTeleported to spawn!" to player for 0.6 seconds
-        play sound "entity.enderman.teleport" at player for player
+        play sound "sound:sound.ui.error" at player for player
 
 on respawn:
     wait 20 tick
