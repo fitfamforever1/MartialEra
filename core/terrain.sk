@@ -51,14 +51,15 @@ on script load:
 
 # Decides whether a given world coordinate should be air (a cave pocket)
 function cavegen_is_air(x: number, y: number, z: number) :: boolean:
-    set {_v} to abs(value of {cavegen.noise} at {_x}, {_y}, {_z})
+    set {_raw} to value of {cavegen.noise} at {_x}, {_y}, {_z}
+    set {_v} to abs({_raw})
     if {_v} < {cavegen.threshold}:
         return true
     return false
 
 # Picks a random "no ores" stone-family block, varying a bit with depth
 # so deeper sections look slightly darker/rougher, hypixel-mine style.
-function cavegen_block(y: number) :: item
+function cavegen_block(y: number) :: item:
     set {_r} to random integer between 1 and 100
 
     if {_y} < -25:
@@ -164,6 +165,7 @@ command /cavegen:
                     set block at location({_wx}, loop-number-3, {_wz}, {_w}) to air
 
         send "&a[CaveGen] Done! This chunk has a fresh cave layout." to player
+        
         
 command /cavetp:
     permission: cavegen.use
