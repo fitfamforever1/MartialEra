@@ -65,6 +65,8 @@ command /killall:
                 continue
             kill loop-entity
             add 1 to {_count}
+        if {_count} is not set:
+            set {_count} to 0
         send "&8[&4ꜱʏꜱᴛᴇᴍ&8] &e%{_count}% &7entities have been killed."
         
 command /gma:
