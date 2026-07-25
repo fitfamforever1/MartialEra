@@ -7,16 +7,18 @@
 #   - SkNoise 1.0+      (simplex noise "generator" objects) https://github.com/ReportCardsMC/SKNoise
 #
 # WHAT THIS DOES:
-#   1. Registers a custom chunk generator ("cavegen") built from FOUR noise layers:
-#        - a "zone" mask     -> very low frequency, marks ONE broad region
-#                               where the cave is even allowed to exist.
-#                               Outside it, everything is solid rock, which
-#                               is what stops lots of small scattered caves
-#                               from popping up all over the world.
-#        - a floor-height map -> the ground rolls up and down per column
-#        - a ceiling-height map -> the rock overhead rolls up and down too
-#        - a 3D "carve" noise  -> hollows out one big, open, connected cave
-#          system inside the zone (no flat rectangular pillars)
+#   1. Registers a custom chunk generator ("cavegen") built from these
+#      noise layers:
+#        - a "zone" signal      -> very low frequency, defines the overall
+#                                  broad shape of ONE big connected cave.
+#        - a "detail" signal    -> higher frequency, varies with y too,
+#                                  and gets BLENDED with the zone signal
+#                                  (not used as a hard on/off gate). This
+#                                  blending is what keeps cave walls jagged
+#                                  and natural at every height instead of
+#                                  forming flat, boxy vertical walls/pillars.
+#        - a floor-height map    -> the ground rolls up and down per column
+#        - a ceiling-height map  -> the rock overhead rolls up and down too
 #      All solid material is a random mix of stone/andesite/cobblestone
 #      (no ores). A minimum vertical gap is enforced so it's always tall
 #      enough to walk through, and bedrock is always buried well below the
@@ -25,23 +27,24 @@
 #      New chunks in that world generate using this cave layout automatically.
 #
 # TUNING (search for "TUNE" below):
-#   - {cavegen.zoneFreq}     -> how large the single cave region is. LOWER = bigger single zone
-#   - {cavegen.zoneThreshold}-> how much of that low-freq noise counts as "cave zone"
-#   - {cavegen.freq}         -> interior cave noise "zoom" inside the zone. lower = bigger rooms
-#   - {cavegen.threshold}    -> higher = more open/bigger caves inside the zone
-#   - {cavegen.heightFreq}   -> how quickly floor/ceiling height rolls up and down
+#   - {cavegen.zoneFreq}                    -> lower = one bigger overall cave region
+#   - {cavegen.zoneWeight}/{cavegen.interiorWeight} -> broad shape vs. local jaggedness (should sum to ~1)
+#   - {cavegen.freq}                        -> detail noise "zoom". lower = smoother/bigger rooms
+#   - {cavegen.threshold}                   -> higher = more open/bigger caves
+#   - {cavegen.heightFreq}                  -> how quickly floor/ceiling height rolls up and down
 #   - {cavegen.floorBase}/{cavegen.floorVariance} -> average floor height + how much it varies
 #   - {cavegen.ceilBase}/{cavegen.ceilVariance}   -> average ceiling height + how much it varies
-#   - {cavegen.minGap}       -> minimum walkable vertical clearance, guaranteed
+#   - {cavegen.minGap}                      -> minimum walkable vertical clearance, guaranteed
 ##########################################################################
 
 on script load:
     # ---- tunables -------------------------------------------------------
     set {cavegen.zoneFreq} to 0.004            # TUNE: lower = one bigger single cave region
-    set {cavegen.zoneThreshold} to 0.55         # TUNE: higher = more of the world is inside the cave zone
+    set {cavegen.zoneWeight} to 0.6             # TUNE: how much the broad zone shape dominates the blend
+    set {cavegen.interiorWeight} to 0.4         # TUNE: how much local roughness/detail perturbs the walls
 
     set {cavegen.freq} to 0.016                # TUNE: interior cave carve noise zoom (lower = bigger rooms)
-    set {cavegen.threshold} to 0.52             # TUNE: higher = bigger/more open caves
+    set {cavegen.threshold} to 0.42             # TUNE: higher = bigger/more open caves
 
     set {cavegen.heightFreq} to 0.012           # TUNE: floor/ceiling roll speed (lower = smoother hills)
 
@@ -83,14 +86,6 @@ on script load:
 # SHARED LOGIC
 ##########################################################################
 
-# Is this x/z inside the one broad region where the cave is allowed to exist?
-function cavegen_in_zone(x: number, z: number) :: boolean:
-    set {_raw} to value of {cavegen.zoneNoise} at {_x}, 0, {_z}
-    set {_v} to abs({_raw})
-    if {_v} < {cavegen.zoneThreshold}:
-        return true
-    return false
-
 # Local floor height at this x/z (rolls around {cavegen.floorBase})
 function cavegen_floor_y(x: number, z: number) :: number:
     set {_v} to value of {cavegen.floorNoise} at {_x}, 0, {_z}
@@ -105,10 +100,17 @@ function cavegen_ceiling_y(x: number, z: number, floory: number) :: number:
         set {_c} to {_floory} + {cavegen.minGap}
     return {_c}
 
-# Interior carve noise (only meaningful when already inside the cave zone)
+# Blends the broad zone shape (2D, doesn't vary with y) with the interior
+# carve noise (3D, DOES vary with y). Blending them - instead of using the
+# zone as a hard on/off gate - is what stops the cave boundary from being a
+# flat, boxy vertical wall: the y-varying interior term roughs up the edge
+# at every height, giving jagged, natural rock walls (Dwarven Mines style)
+# while the low-frequency zone term still keeps it one single big region.
 function cavegen_is_air(x: number, y: number, z: number) :: boolean:
-    set {_raw} to value of {cavegen.noise} at {_x}, {_y}, {_z}
-    set {_v} to abs({_raw})
+    set {_zoneVal} to value of {cavegen.zoneNoise} at {_x}, 0, {_z}
+    set {_interiorVal} to value of {cavegen.noise} at {_x}, {_y}, {_z}
+    set {_combined} to ({_zoneVal} * {cavegen.zoneWeight}) + ({_interiorVal} * {cavegen.interiorWeight})
+    set {_v} to abs({_combined})
     if {_v} < {cavegen.threshold}:
         return true
     return false
@@ -140,7 +142,6 @@ register chunk generator with id "cavegen":
 
                 set {_fy} to cavegen_floor_y({_wx}, {_wz})
                 set {_cy} to cavegen_ceiling_y({_wx}, {_wz}, {_fy})
-                set {_inZone} to cavegen_in_zone({_wx}, {_wz})
 
                 loop integers from {cavegen.globalMin} to {cavegen.globalMax}:
                     set {_y} to loop-number-3
@@ -156,11 +157,8 @@ register chunk generator with id "cavegen":
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
                     else if {_y} = {_cy}:
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
-                    else if {_inZone} is false:
-                        # outside the single cave region - solid rock, no cave here
-                        set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
                     else:
-                        # interior of the cave zone: 3D noise carve -> one big, connected cave
+                        # interior: blended zone+detail noise -> one big cave with jagged, natural walls
                         if cavegen_is_air({_wx}, {_y}, {_wz}) is true:
                             set chunkdata block at vector({_lx}, {_y}, {_lz}) to air
                         else:
