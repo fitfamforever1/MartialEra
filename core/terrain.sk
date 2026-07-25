@@ -49,7 +49,7 @@ on script load:
 
 # Decides whether a given x/z should be a cave pocket (air)
 function cavegen_is_air(x: number, z: number) :: boolean:
-    set {_raw} to value of {cavegen.noise} at {_x}, {_z}
+    set {_raw} to value of {cavegen.noise} at {_x}, 0, {_z}
     set {_v} to abs({_raw})
     if {_v} < {cavegen.threshold}:
         return true
