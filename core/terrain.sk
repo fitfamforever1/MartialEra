@@ -1,3 +1,7 @@
+on script load:
+    set {terrain.noise} to new simplex generator with seed 918273645
+    set frequency of {terrain.noise} to 0.02
+
 on load:
     if world "main" is not loaded:
         set {_w} to world creator named "main"
@@ -12,8 +16,8 @@ register chunk generator with id "main":
                 set {_z} to (loop-number-2)
                 set {_wx} to {_x} + (chunkdata chunk x * 16)
                 set {_wz} to {_z} + (chunkdata chunk z * 16)
-                set {_noise} to simplex noise at {_wx}, {_wz}
-                set {_n} to round(40 + ({_noise} * 6))
+                set {_v} to value of {terrain.noise} at {_wx}, 0, {_wz}
+                set {_n} to round(40 + ({_v} * 6))
                 set chunkdata blocks within vector({_x}, 0, {_z}) and vector({_x}, {_n}, {_z}) to stone[]
     surface gen:
         loop integers from 0 to 15:
