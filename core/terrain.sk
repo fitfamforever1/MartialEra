@@ -1,34 +1,32 @@
 ##########################################################################
-# CAVEGEN — Hypixel-style cave chunk generator + /cavegen regen command
+# CAVEGEN — single-layer Hypixel-style cave chunk generator + /cavegen
 #
 # REQUIRES:
 #   - Skript
 #   - SkBee            (chunk generator / world creator)  https://github.com/ShaneBeee/SkBee
-#   - SkNoise 1.0+      (3D simplex noise, "generator" objects)  https://github.com/ReportCardsMC/SKNoise
+#   - SkNoise 1.0+      (simplex noise "generator" objects) https://github.com/ReportCardsMC/SKNoise
 #
 # WHAT THIS DOES:
-#   1. Registers a custom chunk generator ("cavegen") that fills every new
-#      chunk with a solid mass of stone-family blocks (no ores at all) and
-#      then carves winding tunnels out of it using 3D simplex noise —
-#      similar in feel to Hypixel SkyBlock's Deep Caverns / Mines.
+#   1. Registers a custom chunk generator ("cavegen") that lays down ONE
+#      single walkable layer of mixed stone/andesite/cobblestone (no ores)
+#      and carves big open cave pockets into it using 2D simplex noise.
+#      A bedrock layer sits directly underneath so falling through a cave
+#      hole doesn't drop you into the void.
 #   2. Creates/loads a dedicated world ("cavegen_world") using that generator.
-#   3. Adds a /cavegen command that re-carves (regenerates) just the single
-#      chunk the player is currently standing in, using the exact same
-#      noise algorithm as the generator — so repeated use gives you a
-#      fresh cave layout on demand without regenerating the whole world.
+#   3. Adds a /cavegen command that re-carves just the single chunk the
+#      player is standing in, using the same noise algorithm.
 #
 # TUNING (search for "TUNE" below):
-#   - {cavegen.freq}      -> lower = bigger, wider caverns. higher = tighter, mazier tunnels
-#   - {cavegen.threshold}  -> lower = smaller caves. higher = bigger, more open caves
-#   - {cavegen.floor}/{cavegen.ceiling} -> vertical size of the cave layer
+#   - {cavegen.freq}      -> lower = bigger, wider cave blobs. higher = smaller/mazier caves
+#   - {cavegen.threshold}  -> higher = bigger, more open caves. lower = smaller caves
+#   - {cavegen.layer_y}    -> the single y-level the whole layer sits on
 ##########################################################################
 
 on script load:
     # ---- tunables -------------------------------------------------------
-    set {cavegen.freq} to 0.045          # TUNE: noise "zoom" - controls tunnel scale
-    set {cavegen.threshold} to 0.16       # TUNE: noise band that becomes air (cave size)
-    set {cavegen.floor} to -64            # lowest generated y level (bedrock layer)
-    set {cavegen.ceiling} to 40           # highest generated y level (stone cap)
+    set {cavegen.freq} to 0.02            # TUNE: lower = bigger caves
+    set {cavegen.threshold} to 0.35        # TUNE: higher = bigger caves
+    set {cavegen.layer_y} to 64            # the single generated layer
     set {cavegen.world} to "cavegen_world"
 
     # ---- noise generator (shared by world-gen AND the /cavegen command) -
@@ -49,37 +47,21 @@ on script load:
 # SHARED LOGIC
 ##########################################################################
 
-# Decides whether a given world coordinate should be air (a cave pocket)
-function cavegen_is_air(x: number, y: number, z: number) :: boolean:
-    set {_raw} to value of {cavegen.noise} at {_x}, {_y}, {_z}
+# Decides whether a given x/z should be a cave pocket (air)
+function cavegen_is_air(x: number, z: number) :: boolean:
+    set {_raw} to value of {cavegen.noise} at {_x}, {_z}
     set {_v} to abs({_raw})
     if {_v} < {cavegen.threshold}:
         return true
     return false
 
-# Picks a random "no ores" stone-family block, varying a bit with depth
-# so deeper sections look slightly darker/rougher, hypixel-mine style.
-function cavegen_block(y: number) :: blockdata:
+# Picks a random "no ores" mix for the walkable layer
+function cavegen_block() :: blockdata:
     set {_r} to random integer between 1 and 100
-
-    if {_y} < -25:
-        # deep section - deepslate family
-        if {_r} <= 55:
-            return deepslate[]
-        else if {_r} <= 75:
-            return cobbled deepslate[]
-        else if {_r} <= 90:
-            return polished deepslate[]
-        else:
-            return infested deepslate[]
-
-    # upper section - regular stone family
-    if {_r} <= 50:
+    if {_r} <= 40:
         return stone[]
     else if {_r} <= 70:
         return andesite[]
-    else if {_r} <= 85:
-        return diorite[]
     else:
         return cobblestone[]
 
@@ -92,26 +74,19 @@ register chunk generator with id "cavegen":
     noise gen:
         loop integers from 0 to 15:                       # local x  -> loop-number-1
             loop integers from 0 to 15:                   # local z  -> loop-number-2
-                loop integers from {cavegen.floor} to {cavegen.ceiling}:  # y -> loop-number-3
-                    set {_lx} to loop-number-1
-                    set {_lz} to loop-number-2
-                    set {_y} to loop-number-3
-
-                    set {_wx} to {_lx} + (chunkdata chunk x * 16)
-                    set {_wz} to {_lz} + (chunkdata chunk z * 16)
-
-                    if cavegen_is_air({_wx}, {_y}, {_wz}) is true:
-                        set chunkdata block at vector({_lx}, {_y}, {_lz}) to air
-                    else:
-                        set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block({_y})
-
-        # floor + roof so players can't fall/see out of the cave layer
-        loop integers from 0 to 15:
-            loop integers from 0 to 15:
                 set {_lx} to loop-number-1
                 set {_lz} to loop-number-2
-                set chunkdata block at vector({_lx}, {cavegen.floor}, {_lz}) to bedrock
-                set chunkdata block at vector({_lx}, {cavegen.ceiling}, {_lz}) to stone
+
+                set {_wx} to {_lx} + (chunkdata chunk x * 16)
+                set {_wz} to {_lz} + (chunkdata chunk z * 16)
+
+                # safety floor under the walkable layer
+                set chunkdata block at vector({_lx}, {cavegen.layer_y} - 1, {_lz}) to bedrock
+
+                if cavegen_is_air({_wx}, {_wz}) is true:
+                    set chunkdata block at vector({_lx}, {cavegen.layer_y}, {_lz}) to air
+                else:
+                    set chunkdata block at vector({_lx}, {cavegen.layer_y}, {_lz}) to cavegen_block()
 
     biome gen:
         # Closest vanilla biome to a hypixel-style mine/cavern
@@ -127,7 +102,7 @@ command /cavegen:
     trigger:
         if player is not in world {cavegen.world}:
             send "&cYou need to be in the cave world to use this. Teleporting you there now..." to player
-            teleport player to location(x-coord of player, 100, z-coord of player, world {cavegen.world})
+            teleport player to location(x-coord of player, {cavegen.layer_y} + 1, z-coord of player, world {cavegen.world})
             wait 1 second
 
         send "&7[CaveGen] Regenerating this chunk, hold on..." to player
@@ -146,31 +121,41 @@ command /cavegen:
                 set {_wx} to {_baseX} + {_lx}
                 set {_wz} to {_baseZ} + {_lz}
 
-                loop integers from {cavegen.floor} to {cavegen.ceiling}:
-                    set {_y} to loop-number-3
-                    set {_loc} to location({_wx}, {_y}, {_wz}, {_w})
+                set block at location({_wx}, {cavegen.layer_y} - 1, {_wz}, {_w}) to bedrock
 
-                    if cavegen_is_air({_wx}, {_y}, {_wz}) is true:
-                        set block at {_loc} to air
-                    else:
-                        set block at {_loc} to cavegen_block({_y})
+                if cavegen_is_air({_wx}, {_wz}) is true:
+                    set block at location({_wx}, {cavegen.layer_y}, {_wz}, {_w}) to air
+                else:
+                    set block at location({_wx}, {cavegen.layer_y}, {_wz}, {_w}) to cavegen_block()
 
-                # reset floor/roof
-                set block at location({_wx}, {cavegen.floor}, {_wz}, {_w}) to bedrock
-                set block at location({_wx}, {cavegen.ceiling}, {_wz}, {_w}) to stone
-
-                # wipe out anything a player built above the cave layer
-                # (keeps repeated /cavegen uses feeling like a true "regen")
-                loop integers from ({cavegen.ceiling} + 1) to 120:
+                # wipe out anything a player built above the layer
+                loop integers from ({cavegen.layer_y} + 1) to 120:
                     set block at location({_wx}, loop-number-3, {_wz}, {_w}) to air
 
         send "&a[CaveGen] Done! This chunk has a fresh cave layout." to player
         
-command /cavetp:
-    permission: cavegen.use
+command /caveworldregen:
+    permission: cavegen.admin
     permission message: &cYou don't have permission to use this command.
     trigger:
         set {_w} to world {cavegen.world}
-        set {_y} to {cavegen.ceiling} + 1
-        teleport player to location(x-coord of player, {_y}, z-coord of player, {_w})
-        send "&a[CaveGen] Teleported to the cave world." to player
+
+        # move everyone out first - unload fails if players are still inside
+        loop all players in {_w}:
+            teleport loop-player to spawn of world "world"
+            send "&c[CaveGen] The cave world is being regenerated..." to loop-player
+
+        send "&7[CaveGen] Unloading and deleting %{cavegen.world}%..." to player
+        unload world {_w}
+        wait 1 second
+        delete world file for {cavegen.world}
+        wait 1 second
+
+        set {_new} to a world creator named {cavegen.world}
+        set environment option of {_new} to normal
+        set world type option of {_new} to normal
+        set should generate structures option of {_new} to false
+        set chunk generator of {_new} to chunk generator with id "cavegen"
+        load world from creator {_new}
+
+        send "&a[CaveGen] %{cavegen.world}% has been fully regenerated." to player
