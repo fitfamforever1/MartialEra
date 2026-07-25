@@ -1,4 +1,29 @@
-
+##########################################################################
+# CAVEGEN — big-room Hypixel-style cave chunk generator + /cavegen
+#
+# REQUIRES:
+#   - Skript
+#   - SkBee            (chunk generator / world creator)  https://github.com/ShaneBeee/SkBee
+#   - SkNoise 1.0+      (simplex noise "generator" objects) https://github.com/ReportCardsMC/SKNoise
+#
+# WHAT THIS DOES:
+#   1. Registers a custom chunk generator ("cavegen") that fills a modest
+#      vertical band with a mix of stone/andesite/cobblestone (no ores),
+#      then uses 2D simplex noise to decide, per x/z column, whether that
+#      whole column is a big open cavern (air, full height) or a solid
+#      stone pillar/wall. This gives large walkable rooms instead of thin
+#      worm-like tunnels.
+#   2. Bedrock sits just below the floor, and a solid cap sits just above
+#      the ceiling, so the cave always feels enclosed even in open rooms.
+#   3. Creates/loads a dedicated world ("cavegen_world") using that generator.
+#   4. Adds a /cavegen command that re-carves just the single chunk the
+#      player is standing in, using the same noise algorithm.
+#
+# TUNING (search for "TUNE" below):
+#   - {cavegen.freq}      -> lower = bigger, wider cave rooms. higher = smaller/mazier rooms
+#   - {cavegen.threshold}  -> higher = more open space (bigger caves). lower = more solid stone
+#   - {cavegen.floor} / {cavegen.ceiling} -> how tall the walkable cave band is
+##########################################################################
 
 on script load:
     # ---- tunables -------------------------------------------------------
@@ -59,13 +84,19 @@ register chunk generator with id "cavegen":
                 set {_wx} to {_lx} + (chunkdata chunk x * 16)
                 set {_wz} to {_lz} + (chunkdata chunk z * 16)
 
-                # bedrock floor + solid cap so it always feels enclosed
+                # bedrock safety layer under the floor (never exposed - floor row is always solid)
                 set chunkdata block at vector({_lx}, {cavegen.floor} - 1, {_lz}) to bedrock
-                set chunkdata block at vector({_lx}, {cavegen.ceiling} + 1, {_lz}) to cavegen_block()
 
                 set {_open} to cavegen_is_air({_wx}, {_wz})
 
-                loop integers from {cavegen.floor} to {cavegen.ceiling}:
+                # floor row is ALWAYS solid so you always have ground to stand on
+                set chunkdata block at vector({_lx}, {cavegen.floor}, {_lz}) to cavegen_block()
+
+                # ceiling row is ALWAYS solid so open rooms still have rock overhead
+                set chunkdata block at vector({_lx}, {cavegen.ceiling}, {_lz}) to cavegen_block()
+
+                # everything between floor and ceiling is either hollowed (cave room) or solid stone
+                loop integers from ({cavegen.floor} + 1) to ({cavegen.ceiling} - 1):
                     set {_y} to loop-number-3
                     if {_open} is true:
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to air
@@ -106,11 +137,17 @@ command /cavegen:
                 set {_wz} to {_baseZ} + {_lz}
 
                 set block at location({_wx}, {cavegen.floor} - 1, {_wz}, {_w}) to bedrock
-                set block at location({_wx}, {cavegen.ceiling} + 1, {_wz}, {_w}) to cavegen_block()
 
                 set {_open} to cavegen_is_air({_wx}, {_wz})
 
-                loop integers from {cavegen.floor} to {cavegen.ceiling}:
+                # floor row is ALWAYS solid
+                set block at location({_wx}, {cavegen.floor}, {_wz}, {_w}) to cavegen_block()
+
+                # ceiling row is ALWAYS solid
+                set block at location({_wx}, {cavegen.ceiling}, {_wz}, {_w}) to cavegen_block()
+
+                # hollow out (or fill) everything strictly between floor and ceiling
+                loop integers from ({cavegen.floor} + 1) to ({cavegen.ceiling} - 1):
                     set {_y} to loop-number-3
                     set {_loc} to location({_wx}, {_y}, {_wz}, {_w})
                     if {_open} is true:
@@ -119,7 +156,7 @@ command /cavegen:
                         set block at {_loc} to cavegen_block()
 
                 # wipe out anything a player built above the cave band
-                loop integers from ({cavegen.ceiling} + 2) to 120:
+                loop integers from ({cavegen.ceiling} + 1) to 120:
                     set block at location({_wx}, loop-number-3, {_wz}, {_w}) to air
 
         send "&a[CaveGen] Done! This chunk has a fresh cave layout." to player
