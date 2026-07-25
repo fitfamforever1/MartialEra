@@ -5,12 +5,12 @@ command /spawn [<player>]:
             if player does not have permission "admin.spawn":
                 send "&c✖ &7| &c&cYou do not have permission to teleport others!" to player
                 stop
-            teleport arg-1 to location(-141.5, 71, -932.5, world "world", 0, 0)
+            teleport arg-1 to location(-141.5, 71, -932.5, world "world", 90, 0)
             send title "&a✔ &aTeleported &e%arg-1% &ato spawn!" to player for 0.6 seconds
             play sound "entity.enderman.teleport" at arg-1 for arg-1
             stop
 
-        teleport player to location(-141.5, 71, -932.5, world "world", 0, 0)
+        teleport player to location(-141.5, 71, -932.5, world "world", 90, 0)
         send title "&a✔ &aTeleported to spawn!" to player for 0.6 seconds
         play sound "entity.enderman.teleport" at player for player
 
@@ -18,10 +18,10 @@ on respawn:
     wait 20 tick
     if player's bed location is set:
         stop
-    teleport player to location(-141.5, 71, -932.5, world "world", 0, 0)
+    teleport player to location(-141.5, 71, -932.5, world "world", 90, 0)
     send title "&a✔ &aTeleported to spawn" with subtitle "&adue to having no respawn point!" to player for 0.6 seconds
 
 on first join:
     wait 1 tick
-    teleport player to location(-141.5, 71, -932.5, world "world", 0, 0)
+    teleport player to location(-141.5, 71, -932.5, world "world", 90, 0)
     send title "&a✔ &aWelcome to the server!" to player for 0.6 seconds
