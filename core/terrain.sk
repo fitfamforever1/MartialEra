@@ -159,3 +159,12 @@ command /caveworldregen:
         load world from creator {_new}
 
         send "&a[CaveGen] %{cavegen.world}% has been fully regenerated." to player
+        
+command /cavetp:
+    permission: cavegen.use
+    permission message: &cYou don't have permission to use this command.
+    trigger:
+        set {_w} to world {cavegen.world}
+        set {_y} to {cavegen.ceiling} + 1
+        teleport player to location(x-coord of player, {_y}, z-coord of player, {_w})
+        send "&a[CaveGen] Teleported to the cave world." to player
