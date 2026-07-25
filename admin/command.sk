@@ -46,19 +46,19 @@ command /gmc:
     permission: admin.gamemode
     trigger:
         set player's gamemode to creative
-        send "&8[&4ꜱʏꜱᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴡɪᴛᴄʜᴇᴅ ᴛᴏ ᴄʀᴇᴀᴛɪᴠᴇ ᴍᴏᴅᴇ."
+        send "&8[&4ꜱʏꜱᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴡɪᴛᴄʜᴇᴅ ᴛᴏ &eᴄʀᴇᴀᴛɪᴠᴇ &7ᴍᴏᴅᴇ."
         
 command /gmsp:
     permission: admin.gamemode
     trigger:
         set player's gamemode to spectator
-        send "&8[&4ꜱʏꜱᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴡɪᴛᴄʜᴇᴅ ᴛᴏ ꜱᴘᴇᴄᴛᴀᴛᴏʀ ᴍᴏᴅᴇ."
+        send "&8[&4ꜱʏꜱᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴡɪᴛᴄʜᴇᴅ ᴛᴏ &eꜱᴘᴇᴄᴛᴀᴛᴏʀ &7ᴍᴏᴅᴇ."
         
 command /gms:
     permission: admin.gamemode
     trigger:
         set player's gamemode to survival
-        send "&8[&4ꜱʏꜱᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴡɪᴛᴄʜᴇᴅ ᴛᴏ ꜱᴜʀᴠɪᴠᴀʟ ᴍᴏᴅᴇ."
+        send "&8[&4ꜱʏꜱᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴡɪᴛᴄʜᴇᴅ ᴛᴏ &eꜱᴜʀᴠɪᴠᴀʟ&7 ᴍᴏᴅᴇ."
         
 command /killall:
     permission: admin.kill
