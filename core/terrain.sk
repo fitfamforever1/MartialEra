@@ -59,29 +59,29 @@ function cavegen_is_air(x: number, y: number, z: number) :: boolean:
 
 # Picks a random "no ores" stone-family block, varying a bit with depth
 # so deeper sections look slightly darker/rougher, hypixel-mine style.
-function cavegen_block(y: number) :: item:
+function cavegen_block(y: number) :: blockdata:
     set {_r} to random integer between 1 and 100
 
     if {_y} < -25:
         # deep section - deepslate family
         if {_r} <= 55:
-            return deepslate
+            return deepslate[]
         else if {_r} <= 75:
-            return cobbled deepslate
+            return cobbled deepslate[]
         else if {_r} <= 90:
-            return polished deepslate
+            return polished deepslate[]
         else:
-            return infested deepslate
+            return infested deepslate[]
 
     # upper section - regular stone family
     if {_r} <= 50:
-        return stone
+        return stone[]
     else if {_r} <= 70:
-        return andesite
+        return andesite[]
     else if {_r} <= 85:
-        return diorite
+        return diorite[]
     else:
-        return cobblestone
+        return cobblestone[]
 
 ##########################################################################
 # CHUNK GENERATOR REGISTRATION (used for brand-new chunks in the world)
@@ -165,7 +165,6 @@ command /cavegen:
                     set block at location({_wx}, loop-number-3, {_wz}, {_w}) to air
 
         send "&a[CaveGen] Done! This chunk has a fresh cave layout." to player
-        
         
 command /cavetp:
     permission: cavegen.use
