@@ -10,7 +10,10 @@ register chunk generator with id "main":
             loop integers from 0 to 15:
                 set {_x} to (loop-number-1)
                 set {_z} to (loop-number-2)
-                set {_n} to block noise at vector({_x} + (chunkdata chunk x * 16), 1, {_z} + (chunkdata chunk z * 16))
+                set {_wx} to {_x} + (chunkdata chunk x * 16)
+                set {_wz} to {_z} + (chunkdata chunk z * 16)
+                set {_noise} to simplex noise at {_wx}, {_wz} with octaves 3, frequency 0.02, and amplitude 6
+                set {_n} to round(40 + {_noise})
                 set chunkdata blocks within vector({_x}, 0, {_z}) and vector({_x}, {_n}, {_z}) to stone[]
     surface gen:
         loop integers from 0 to 15:
@@ -44,7 +47,7 @@ register chunk generator with id "main":
     biome gen:
         set chunkdata biome to plains
 
-command /worldreset:
+command /resetworld:
     trigger:
         if world "main" is loaded:
             loop all players in world "main":
