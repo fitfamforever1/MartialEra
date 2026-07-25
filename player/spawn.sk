@@ -10,7 +10,7 @@ command /spawn [<player>]:
             play sound "entity.enderman.teleport" at arg-1 for arg-1
             stop
 
-        teleport player to location(-140.5, 71, -931.5, world "world")
+        teleport player to location(-141.5, 71, -932.5, world "world")
         send title "&a✔ &aTeleported to spawn!" to player for 0.6 seconds
         play sound "entity.enderman.teleport" at player for player
 
