@@ -1,0 +1,258 @@
+import:
+    com.sk89q.worldedit.WorldEdit
+    com.sk89q.worldedit.bukkit.BukkitAdapter
+
+command /generatecustom <text>:
+    permission: op
+    trigger:
+        if arg 1 starts with "dwarvenmine":
+
+            set {_noBorder} to false
+            if arg 1 contains "--noborder":
+                set {_noBorder} to true
+
+            set {_playerWE} to BukkitAdapter.adapt(player)
+            set {_worldWE} to {_playerWE}.getWorld()
+            set {_session} to WorldEdit.getInstance().getSessionManager().get({_playerWE})
+
+            set {_selector} to {_session}.getRegionSelector({_worldWE})
+            if {_selector}.isDefined() is false:
+                send "&cPlease select a region first using //wand!" to player
+                stop
+
+            set {_region} to {_session}.getSelection({_worldWE})
+
+            if {_noBorder} is true:
+                send "&b&lDwarven Mines &8» &7Pass 1: Carving cavern (no walls)..." to player
+            else:
+                send "&b&lDwarven Mines &8» &7Pass 1: Carving cavern..." to player
+
+            set {_min} to {_region}.getMinimumPoint()
+            set {_max} to {_region}.getMaximumPoint()
+
+            set {_minX} to {_min}.getX()
+            set {_maxX} to {_max}.getX()
+            set {_minZ} to {_min}.getZ()
+            set {_maxZ} to {_max}.getZ()
+            set {_minY} to {_min}.getY()
+            set {_maxY} to {_max}.getY()
+
+            set {_totalHeight} to {_maxY} - {_minY}
+            if {_totalHeight} < 6:
+                set {_totalHeight} to 6
+
+            # floor and ceiling bands sit near the bottom/top of the selection,
+            # leaving a hollow cavern shaft in the middle
+            set {_floorBase} to round({_minY} + ({_totalHeight} * 0.14))
+            set {_ceilBase} to round({_maxY} - ({_totalHeight} * 0.14))
+            set {_wallWidth} to 8
+
+            loop integers between {_minX} and {_maxX}:
+                set {_x} to loop-value-1
+                loop integers between {_minZ} and {_maxZ}:
+                    set {_z} to loop-value-2
+
+                    set {_wave1} to sin({_x} * 1.5) * cos({_z} * 1.5)
+                    set {_wave2} to sin({_x} * 4) * sin({_z} * 4)
+                    set {_noise} to ({_wave1} + ({_wave2} * 0.4)) / 1.4
+
+                    set {_floorY} to round({_floorBase} + ({_noise} * ({_totalHeight} * 0.06)))
+                    set {_ceilY} to round({_ceilBase} - ({_noise} * ({_totalHeight} * 0.06)))
+
+                    set {_isWall} to false
+
+                    if {_noBorder} is false:
+                        set {_distX} to {_x} - {_minX}
+                        if ({_maxX} - {_x}) < {_distX}:
+                            set {_distX} to {_maxX} - {_x}
+                        set {_distZ} to {_z} - {_minZ}
+                        if ({_maxZ} - {_z}) < {_distZ}:
+                            set {_distZ} to {_maxZ} - {_z}
+                        set {_minDist} to {_distX}
+                        if {_distZ} < {_minDist}:
+                            set {_minDist} to {_distZ}
+                        if {_minDist} <= {_wallWidth}:
+                            set {_isWall} to true
+
+                    set {_wallList::%{_x}%_%{_z}%} to {_isWall}
+
+                    if {_isWall} is true:
+                        loop integers between {_minY} and {_maxY}:
+                            set {_y} to loop-value-3
+                            if {_y} is {_minY}:
+                                set block at location({_x}, {_y}, {_z}, world of player) to bedrock
+                            else:
+                                set {_wallRand} to random number between 0 and 1
+                                if {_wallRand} < 0.55:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to stone
+                                else if {_wallRand} < 0.72:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to andesite
+                                else if {_wallRand} < 0.85:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to diorite
+                                else if {_wallRand} < 0.93:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to cobblestone
+                                else if {_wallRand} < 0.98:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to mossy cobblestone
+                                else:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to cracked stone bricks
+
+                                if random number between 0 and 100 < 0.6:
+                                    set {_oreType} to random integer between 1 and 6
+                                    if {_oreType} is 1:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to coal ore
+                                    else if {_oreType} is 2:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to iron ore
+                                    else if {_oreType} is 3:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to redstone ore
+                                    else if {_oreType} is 4:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to lapis ore
+                                    else if {_oreType} is 5:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to gold ore
+                                    else:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to emerald ore
+                    else:
+                        set {_floorList::%{_x}%_%{_z}%} to {_floorY}
+                        set {_ceilList::%{_x}%_%{_z}%} to {_ceilY}
+
+                        loop integers between {_minY} and {_floorY}:
+                            set {_y} to loop-value-3
+                            if {_y} is {_minY}:
+                                set block at location({_x}, {_y}, {_z}, world of player) to bedrock
+                            else if {_y} is {_floorY}:
+                                set {_topRand} to random number between 0 and 1
+                                if {_topRand} < 0.55:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to stone
+                                else if {_topRand} < 0.75:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to andesite
+                                else if {_topRand} < 0.9:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to gravel
+                                else:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to coarse dirt
+                            else:
+                                set {_deepRand} to random number between 0 and 1
+                                if {_deepRand} < 0.7:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to stone
+                                else if {_deepRand} < 0.85:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to andesite
+                                else:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to diorite
+
+                                if random number between 0 and 100 < 0.8:
+                                    set {_oreType} to random integer between 1 and 7
+                                    if {_oreType} is 1:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to coal ore
+                                    else if {_oreType} is 2:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to iron ore
+                                    else if {_oreType} is 3:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to redstone ore
+                                    else if {_oreType} is 4:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to lapis ore
+                                    else if {_oreType} is 5:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to gold ore
+                                    else if {_oreType} is 6:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to emerald ore
+                                    else:
+                                        set block at location({_x}, {_y}, {_z}, world of player) to diamond ore
+
+                        loop integers between {_floorY} + 1 and {_ceilY} - 1:
+                            set block at location({_x}, loop-value-3, {_z}, world of player) to air
+
+                        loop integers between {_ceilY} and {_maxY}:
+                            set {_y} to loop-value-3
+                            set {_ceilRand} to random number between 0 and 1
+                            if {_ceilRand} < 0.65:
+                                set block at location({_x}, {_y}, {_z}, world of player) to stone
+                            else if {_ceilRand} < 0.82:
+                                set block at location({_x}, {_y}, {_z}, world of player) to andesite
+                            else if {_ceilRand} < 0.94:
+                                set block at location({_x}, {_y}, {_z}, world of player) to diorite
+                            else:
+                                set block at location({_x}, {_y}, {_z}, world of player) to cobblestone
+
+                            if random number between 0 and 100 < 0.5:
+                                set {_oreType} to random integer between 1 and 5
+                                if {_oreType} is 1:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to coal ore
+                                else if {_oreType} is 2:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to iron ore
+                                else if {_oreType} is 3:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to redstone ore
+                                else if {_oreType} is 4:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to gold ore
+                                else:
+                                    set block at location({_x}, {_y}, {_z}, world of player) to lapis ore
+
+            send "&b&lDwarven Mines &8» &7Pass 2: Placing dripstone, lava & lanterns..." to player
+
+            loop integers between {_minX} and {_maxX}:
+                set {_x} to loop-value-1
+                loop integers between {_minZ} and {_maxZ}:
+                    set {_z} to loop-value-2
+
+                    if {_wallList::%{_x}%_%{_z}%} is true:
+                        continue
+                    if {_x} - {_minX} <= 1:
+                        continue
+                    if {_maxX} - {_x} <= 1:
+                        continue
+                    if {_z} - {_minZ} <= 1:
+                        continue
+                    if {_maxZ} - {_z} <= 1:
+                        continue
+
+                    set {_floorY} to {_floorList::%{_x}%_%{_z}%}
+                    set {_ceilY} to {_ceilList::%{_x}%_%{_z}%}
+                    set {_gap} to {_ceilY} - {_floorY}
+
+                    if {_gap} < 4:
+                        continue
+
+                    set {_randDeco} to random number between 0 and 100
+
+                    if {_randDeco} < 4:
+                        # stalagmite growing up from the floor
+                        set {_spikeHeight} to random integer between 1 and 3
+                        if {_spikeHeight} > ({_gap} - 2):
+                            set {_spikeHeight} to {_gap} - 2
+                        if {_spikeHeight} >= 1:
+                            loop integers between 1 and {_spikeHeight}:
+                                set block at location({_x}, {_floorY} + loop-value-3, {_z}, world of player) to pointed dripstone
+
+                    else if {_randDeco} < 8:
+                        # stalactite hanging from the ceiling
+                        set {_spikeHeight} to random integer between 1 and 3
+                        if {_spikeHeight} > ({_gap} - 2):
+                            set {_spikeHeight} to {_gap} - 2
+                        if {_spikeHeight} >= 1:
+                            loop integers between 1 and {_spikeHeight}:
+                                set block at location({_x}, {_ceilY} - loop-value-3, {_z}, world of player) to pointed dripstone
+
+                    else if {_randDeco} < 8.6:
+                        # rare full support pillar linking floor to ceiling
+                        loop integers between {_floorY} + 1 and {_ceilY} - 1:
+                            set {_pillarRand} to random number between 0 and 1
+                            if {_pillarRand} < 0.7:
+                                set block at location({_x}, loop-value-3, {_z}, world of player) to polished andesite
+                            else:
+                                set block at location({_x}, loop-value-3, {_z}, world of player) to stone bricks
+
+                    else if {_randDeco} < 11:
+                        # lava pool sunk into the cavern floor
+                        set block at location({_x}, {_floorY}, {_z}, world of player) to lava
+
+                    else if {_randDeco} < 12.5:
+                        # miner's lantern for light
+                        set block at location({_x}, {_floorY} + 1, {_z}, world of player) to lantern
+
+                    else if {_randDeco} < 15:
+                        # loose rubble on the cavern floor
+                        set {_rubbleRand} to random number between 0 and 1
+                        if {_rubbleRand} < 0.5:
+                            set block at location({_x}, {_floorY} + 1, {_z}, world of player) to gravel
+                        else:
+                            set block at location({_x}, {_floorY} + 1, {_z}, world of player) to cobblestone
+
+            if {_noBorder} is true:
+                send "&b&lDwarven Mines &8» &aCavern generated! (No Walls)" to player
+            else:
+                send "&b&lDwarven Mines &8» &aCavern generated!" to player
