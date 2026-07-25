@@ -57,6 +57,12 @@ command /gms:
     trigger:
         set player's gamemode to survival
         
+command /killall:
+    permission: admin.kill
+    trigger:
+        loop all entities:
+            kill loop-entity
+        
 command /gma:
     permission: admin.gamemode
     trigger:
