@@ -27,8 +27,8 @@
 
 on script load:
     # ---- tunables -------------------------------------------------------
-    set {cavegen.freq} to 0.02             # TUNE: lower = bigger cave rooms
-    set {cavegen.threshold} to 0.35         # TUNE: higher = bigger/more open caves
+    set {cavegen.freq} to 0.025             # TUNE: lower = bigger, smoother cave rooms
+    set {cavegen.threshold} to 0.42          # TUNE: higher = more open/bigger caves
     set {cavegen.floor} to 55               # bottom of the walkable cave band
     set {cavegen.ceiling} to 70             # top of the walkable cave band (~15 blocks tall)
     set {cavegen.world} to "cavegen_world"
@@ -51,9 +51,9 @@ on script load:
 # SHARED LOGIC
 ##########################################################################
 
-# Decides whether a given x/z column is a big open cavern (true) or solid stone (false)
-function cavegen_is_air(x: number, z: number) :: boolean:
-    set {_raw} to value of {cavegen.noise} at {_x}, 0, {_z}
+# Decides whether a given x/y/z voxel is open air (a cave pocket) or solid
+function cavegen_is_air(x: number, y: number, z: number) :: boolean:
+    set {_raw} to value of {cavegen.noise} at {_x}, {_y}, {_z}
     set {_v} to abs({_raw})
     if {_v} < {cavegen.threshold}:
         return true
@@ -87,18 +87,16 @@ register chunk generator with id "cavegen":
                 # bedrock safety layer under the floor (never exposed - floor row is always solid)
                 set chunkdata block at vector({_lx}, {cavegen.floor} - 1, {_lz}) to bedrock
 
-                set {_open} to cavegen_is_air({_wx}, {_wz})
-
                 # floor row is ALWAYS solid so you always have ground to stand on
                 set chunkdata block at vector({_lx}, {cavegen.floor}, {_lz}) to cavegen_block()
 
-                # ceiling row is ALWAYS solid so open rooms still have rock overhead
+                # ceiling row is ALWAYS solid so rooms still have rock overhead
                 set chunkdata block at vector({_lx}, {cavegen.ceiling}, {_lz}) to cavegen_block()
 
-                # everything between floor and ceiling is either hollowed (cave room) or solid stone
+                # interior: true 3D noise per voxel -> natural, undulating cave walls
                 loop integers from ({cavegen.floor} + 1) to ({cavegen.ceiling} - 1):
                     set {_y} to loop-number-3
-                    if {_open} is true:
+                    if cavegen_is_air({_wx}, {_y}, {_wz}) is true:
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to air
                     else:
                         set chunkdata block at vector({_lx}, {_y}, {_lz}) to cavegen_block()
@@ -138,19 +136,17 @@ command /cavegen:
 
                 set block at location({_wx}, {cavegen.floor} - 1, {_wz}, {_w}) to bedrock
 
-                set {_open} to cavegen_is_air({_wx}, {_wz})
-
                 # floor row is ALWAYS solid
                 set block at location({_wx}, {cavegen.floor}, {_wz}, {_w}) to cavegen_block()
 
                 # ceiling row is ALWAYS solid
                 set block at location({_wx}, {cavegen.ceiling}, {_wz}, {_w}) to cavegen_block()
 
-                # hollow out (or fill) everything strictly between floor and ceiling
+                # interior: true 3D noise per voxel -> natural, undulating cave walls
                 loop integers from ({cavegen.floor} + 1) to ({cavegen.ceiling} - 1):
                     set {_y} to loop-number-3
                     set {_loc} to location({_wx}, {_y}, {_wz}, {_w})
-                    if {_open} is true:
+                    if cavegen_is_air({_wx}, {_y}, {_wz}) is true:
                         set block at {_loc} to air
                     else:
                         set block at {_loc} to cavegen_block()
