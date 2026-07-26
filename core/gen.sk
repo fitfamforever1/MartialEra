@@ -2,13 +2,16 @@ on place of lime concrete:
     cancel event
     if block below event-block is gray stained glass:
         if size of {gen1::%player%::*} >= 20:
-            send "&cYou can only have 20 gen1erators active at once!" to player
+            send "&cYou can only have &e20 generators active&7 at once!" to player
             stop
         remove 1 lime concrete from player
         set {_loc} to location of block below event-block
         set block at {_loc} to lime concrete
         add {_loc} to {gen1::%player%::*}
-
+    else:
+        send "&cYou can only place generators on &egray stained glass&7!" to player
+        stop
+    
 on right click on lime concrete:
     cancel event
     set event-block to gray stained glass
