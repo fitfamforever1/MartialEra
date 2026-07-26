@@ -1,14 +1,14 @@
-on right click:
-    event-block is gray stained glass
-    player's tool is lime concrete
+on place of lime concrete:
     cancel event
-    remove 1 lime concrete from player's tool
-    set event-block to lime concrete
-    play sound "block.stone.place" at event-block with volume 1 and pitch 1
+    remove 1 lime concrete from player
+    set {_loc} to location of event-block
+    set block at {_loc} to lime concrete
+    set {gen:1:%player%} to {_loc}
 
 on right click:
     event-block is lime concrete
+    location of event-block is {gen:1:%player%}
     cancel event
     set event-block to gray stained glass
     give player 1 lime concrete
-    play sound "block.stone.break" at event-block with volume 1 and pitch 1
+    delete {gen:1:%player%}
