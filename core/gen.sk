@@ -31,14 +31,48 @@ function clearPlacements(p: player):
         delete {gen1-owner::%{_loc}%}
     delete {gen1::%{_p}%::*}
 
+on place of red concrete:
+    cancel event
+    if block below event-block is gray stained glass:
+        if size of {gen2::%player%::*} >= 10:
+            send "&cYou can only have &e10 tier 2 generators active&7 at once!" to player
+            stop
+        remove 1 red concrete from player
+        set {_loc} to location of block below event-block
+        set block at {_loc} to red concrete
+        add {_loc} to {gen2::%player%::*}
+        set {gen2-owner::%{_loc}%} to player
+    else:
+        send "&cYou can only place generators on &egray stained glass&7!" to player
+        stop
+
+on right click on red concrete:
+    set {_loc} to location of event-block
+    if {gen2-owner::%{_loc}%} is player:
+        cancel event
+        set event-block to gray stained glass
+        give player 1 red concrete
+        loop {gen2::%player%::*}:
+            if loop-value is {_loc}:
+                delete {gen2::%player%::%loop-index%}
+        delete {gen2-owner::%{_loc}%}
+
+function clearPlacements2(p: player):
+    loop {gen2::%{_p}%::*}:
+        set {_loc} to loop-value
+        set block at {_loc} to gray stained glass
+        delete {gen2-owner::%{_loc}%}
+    delete {gen2::%{_p}%::*}
+
 command /cleargen:
     trigger:
         clearPlacements(player)
+        clearPlacements2(player)
         send "&aAll your hidden generators have been reverted." to player
 
 
 function makeMoney(money: number) :: item:
-    set {_item} to paper named "&6$1"
+    set {_item} to paper named "&6$%{_money}%"
     set number data tag "money:value" of {_item} to {_money}
     return {_item}
 
@@ -46,14 +80,24 @@ every 1 second in "world":
     loop all players:
         if size of {gen1::%loop-player%::*} > 0:
             loop {gen1::%loop-player%::*}:
-                set {_spawnLoc} to location 1 above loop-value-2
+                set {_spawnLoc} to location 1 above loop-value
                 drop makeMoney(1) at {_spawnLoc} without velocity
+        if size of {gen2::%loop-player%::*} > 0:
+            loop {gen2::%loop-player%::*}:
+                set {_spawnLoc} to location 1 above loop-value
+                drop makeMoney(10) at {_spawnLoc} without velocity
 
+function GainMoney(p: player, give: number):
+    set {_money} to number data tag "player:money" of {_p}
+    if {_money} is not set:
+        set {_money} to 0
+    set {_temp} to {_money} + {_give}
+    set number data tag "player:money" of {_p} to {_temp}
 
 on pickup:
     if event-item is paper:
         set {_value} to number data tag "money:value" of event-item
         if {_value} is set:
             GainMoney(player, {_value})
-            delete event-dropped item
+            delete event-item
             cancel event
