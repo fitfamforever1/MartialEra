@@ -34,3 +34,6 @@ function GainMoney(p: player, give: number):
 command /givemoney <number>:
     trigger:
         GainMoney(player, arg-1)
+        
+on food level change:
+    cancel event
