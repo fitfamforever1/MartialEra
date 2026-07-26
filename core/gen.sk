@@ -57,7 +57,18 @@ on right click on red concrete:
                 delete {gen2::%player%::%loop-index%}
         delete {gen2-owner::%{_loc}%}
 
-function clearPlacements2(p: player):
+command /cleargen:
+    trigger:
+        clearPlacements(player)
+        clearPlacements2(player)
+        send "&aAll your hidden generators have been reverted." to player
+
+function clearPlacements(p: player):
+    loop {gen1::%{_p}%::*}:
+        set {_loc} to loop-value
+        set block at {_loc} to gray stained glass
+        delete {gen1-owner::%{_loc}%}
+    delete {gen1::%{_p}%::*}
     loop {gen2::%{_p}%::*}:
         set {_loc} to loop-value
         set block at {_loc} to gray stained glass
@@ -67,9 +78,9 @@ function clearPlacements2(p: player):
 command /cleargen:
     trigger:
         clearPlacements(player)
-        clearPlacements2(player)
+        set {gen1-items::%player%} to 0
+        set {gen2-items::%player%} to 0
         send "&aAll your hidden generators have been reverted." to player
-
 
 function makeMoney(money: number) :: item:
     set {_item} to paper named "&6$%{_money}%"
@@ -78,14 +89,24 @@ function makeMoney(money: number) :: item:
 
 every 1 second in "world":
     loop all players:
+        if {gen1-items::%loop-player%} is not set:
+            set {gen1-items::%loop-player%} to 0
+        if {gen2-items::%loop-player%} is not set:
+            set {gen2-items::%loop-player%} to 0
+
         if size of {gen1::%loop-player%::*} > 0:
-            loop {gen1::%loop-player%::*}:
-                set {_spawnLoc} to location 1 above loop-value-2
-                drop makeMoney(1) at {_spawnLoc} without velocity
+            if {gen1-items::%loop-player%} < 64:
+                loop {gen1::%loop-player%::*}:
+                    set {_spawnLoc} to location 1 above loop-value
+                    drop makeMoney(1) at {_spawnLoc} without velocity
+                    add 1 to {gen1-items::%loop-player%}
+
         if size of {gen2::%loop-player%::*} > 0:
-            loop {gen2::%loop-player%::*}:
-                set {_spawnLoc} to location 1 above loop-value-2
-                drop makeMoney(10) at {_spawnLoc} without velocity
+            if {gen2-items::%loop-player%} < 128:
+                loop {gen2::%loop-player%::*}:
+                    set {_spawnLoc} to location 1 above loop-value
+                    drop makeMoney(10) at {_spawnLoc} without velocity
+                    add 1 to {gen2-items::%loop-player%}
 
 on pickup:
     if event-item is paper:
