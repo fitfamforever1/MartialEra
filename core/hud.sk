@@ -208,7 +208,7 @@ on join:
             hide loop-value-2 from player
 
 on join:
-    addHud(player, "xp_hud", vector(20, 20, 1), vector(1, 1, 1), "Level: %player's level% | XP: %player's level progress * 100%%%")
+    addHud(player, "xp_hud", vector(1, 1, 1), vector(1, 1, 1), "Level: %player's level% | XP: %player's level progress * 100%%%")
     
 every 1 second:
     loop all players:
