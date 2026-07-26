@@ -23,6 +23,7 @@ on right click on lime concrete:
             if loop-value is {_loc}:
                 delete {gen1::%player%::%loop-index%}
         delete {gen1-owner::%{_loc}%}
+        delete {gen1-paper::%{_loc}%}
 
 on place of red concrete:
     cancel event
@@ -49,21 +50,18 @@ on right click on red concrete:
             if loop-value is {_loc}:
                 delete {gen2::%player%::%loop-index%}
         delete {gen2-owner::%{_loc}%}
+        delete {gen2-paper::%{_loc}%}
 
 command /cleargenall:
     trigger:
         send "&aYou have created all generators." to player
         loop all players:
             clearPlacements(loop-player)
-            set {gen1-items::%player%} to 0
-            set {gen2-items::%player%} to 0
             send "&aAll your &egenerators &7have been reverted by Admin." to loop-player
 
 command /cleargen <player>:
     trigger:
         clearPlacements(arg-1)
-        set {gen1-items::%arg-1%} to 0
-        set {gen2-items::%arg-1%} to 0
         send "&aAll your hidden generators have been reverted." to arg-1
 
 function clearPlacements(p: player):
@@ -71,11 +69,13 @@ function clearPlacements(p: player):
         set {_loc} to loop-value
         set block at {_loc} to gray stained glass
         delete {gen1-owner::%{_loc}%}
+        delete {gen1-paper::%{_loc}%}
     delete {gen1::%{_p}%::*}
     loop {gen2::%{_p}%::*}:
         set {_loc} to loop-value
         set block at {_loc} to gray stained glass
         delete {gen2-owner::%{_loc}%}
+        delete {gen2-paper::%{_loc}%}
     delete {gen2::%{_p}%::*}
 
 
@@ -86,35 +86,40 @@ function makeMoney(money: number) :: item:
 
 every 1 second in "world":
     loop all players:
-        if {gen1-items::%loop-player%} is not set:
-            set {gen1-items::%loop-player%} to 0
-        if {gen2-items::%loop-player%} is not set:
-            set {gen2-items::%loop-player%} to 0
+        loop {gen1::%loop-player%::*}:
+            set {_loc} to loop-value-2
+            set {_spawnLoc} to location 1 above {_loc}
+            if {gen1-paper::%{_loc}%} is set:
+                if {gen1-paper::%{_loc}%} is alive:
+                    set {_val} to number data tag "money:value" of item of {gen1-paper::%{_loc}%}
+                    add 1 to {_val}
+                    set item of {gen1-paper::%{_loc}%} to makeMoney({_val})
+                else:
+                    delete {gen1-paper::%{_loc}%}
+            else:
+                drop makeMoney(1) at {_spawnLoc} without velocity
+                set {gen1-paper::%{_loc}%} to last dropped item
+                set gravity of {gen1-paper::%{_loc}%} to false
 
-        if size of {gen1::%loop-player%::*} > 0:
-            if {gen1-items::%loop-player%} < 64:
-                loop {gen1::%loop-player%::*}:
-                    set {_spawnLoc} to location 1 above loop-value-2
-                    drop makeMoney(1) at {_spawnLoc} without velocity
-                    add 1 to {gen1-items::%loop-player%}
-
-        if size of {gen2::%loop-player%::*} > 0:
-            if {gen2-items::%loop-player%} < 64:
-                loop {gen2::%loop-player%::*}:
-                    set {_spawnLoc} to location 1 above loop-value-2
-                    drop makeMoney(10) at {_spawnLoc} without velocity
-                    add 1 to {gen2-items::%loop-player%}
+        loop {gen2::%loop-player%::*}:
+            set {_loc} to loop-value-2
+            set {_spawnLoc} to location 1 above {_loc}
+            if {gen2-paper::%{_loc}%} is set:
+                if {gen2-paper::%{_loc}%} is alive:
+                    set {_val} to number data tag "money:value" of item of {gen2-paper::%{_loc}%}
+                    add 10 to {_val}
+                    set item of {gen2-paper::%{_loc}%} to makeMoney({_val})
+                else:
+                    delete {gen2-paper::%{_loc}%}
+            else:
+                drop makeMoney(10) at {_spawnLoc} without velocity
+                set {gen2-paper::%{_loc}%} to last dropped item
+                set gravity of {gen2-paper::%{_loc}%} to false
 
 on pickup:
     if event-item is paper:
         set {_value} to number data tag "money:value" of event-item
-        set {_amount} to amount of event-item
         if {_value} is set:
-            set {_total} to {_value} * {_amount}
-            GainMoney(player, {_total})
-            if {_value} is 1:
-                remove {_amount} from {gen1-items::%player%}
-            else if {_value} is 10:
-                remove {_amount} from {gen2-items::%player%}
+            GainMoney(player, {_value})
             cancel event
             delete event-dropped item
