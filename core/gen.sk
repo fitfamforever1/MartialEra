@@ -24,13 +24,6 @@ on right click on lime concrete:
                 delete {gen1::%player%::%loop-index%}
         delete {gen1-owner::%{_loc}%}
 
-function clearPlacements(p: player):
-    loop {gen1::%{_p}%::*}:
-        set {_loc} to loop-value
-        set block at {_loc} to gray stained glass
-        delete {gen1-owner::%{_loc}%}
-    delete {gen1::%{_p}%::*}
-
 on place of red concrete:
     cancel event
     if block below event-block is gray stained glass:
@@ -75,12 +68,6 @@ function clearPlacements(p: player):
         delete {gen2-owner::%{_loc}%}
     delete {gen2::%{_p}%::*}
 
-command /cleargen:
-    trigger:
-        clearPlacements(player)
-        set {gen1-items::%player%} to 0
-        set {gen2-items::%player%} to 0
-        send "&aAll your hidden generators have been reverted." to player
 
 function makeMoney(money: number) :: item:
     set {_item} to paper named "&6$%{_money}%"
