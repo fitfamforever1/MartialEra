@@ -50,11 +50,21 @@ on right click on red concrete:
                 delete {gen2::%player%::%loop-index%}
         delete {gen2-owner::%{_loc}%}
 
-command /cleargen:
+command /cleargenall:
     trigger:
-        clearPlacements(player)
-        clearPlacements2(player)
-        send "&aAll your hidden generators have been reverted." to player
+        send "&aYou have created all generators." to player
+        loop all players:
+            clearPlacements(loop-player)
+            set {gen1-items::%player%} to 0
+            set {gen2-items::%player%} to 0
+            send "&aAll your &egenerators &7have been reverted by Admin." to loop-player
+
+command /cleargen <player>:
+    trigger:
+        clearPlacements(arg-1)
+        set {gen1-items::%arg-1%} to 0
+        set {gen2-items::%arg-1%} to 0
+        send "&aAll your hidden generators have been reverted." to arg-1
 
 function clearPlacements(p: player):
     loop {gen1::%{_p}%::*}:
