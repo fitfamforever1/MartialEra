@@ -108,7 +108,13 @@ every 1 second in "world":
 on pickup:
     if event-item is paper:
         set {_value} to number data tag "money:value" of event-item
+        set {_amount} to amount of event-item
         if {_value} is set:
-            GainMoney(player, {_value})
-            delete event-dropped item
+            set {_total} to {_value} * {_amount}
+            GainMoney(player, {_total})
+            if {_value} is 1:
+                remove {_amount} from {gen1-items::%player%}
+            else if {_value} is 10:
+                remove {_amount} from {gen2-items::%player%}
             cancel event
+            delete event-entity
