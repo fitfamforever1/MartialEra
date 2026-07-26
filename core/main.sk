@@ -33,14 +33,8 @@ function GainMoney(p: player, give: number):
         set {_money} to 0
     set {_temp} to {_money} + {_give}
     set number data tag "player:money" of {_p} to {_temp}
+    send action bar "<##00AA00>$%{_money}% | +%{_temp}%" to {_p}
 
-on pickup:
-    if event-item is paper:
-        set {_value} to number data tag "money:value" of event-item
-        if {_value} is set:
-            GainMoney(player, {_value})
-            delete event-item
-            send "&a+$%{_value}%" to player
     
 command /givemoney <number>:
     trigger:

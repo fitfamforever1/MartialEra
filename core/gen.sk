@@ -43,4 +43,3 @@ on pickup:
         if {_value} is set:
             GainMoney(player, {_value})
             remove event-item from player
-            send "&a+$%{_value}%" to player     
