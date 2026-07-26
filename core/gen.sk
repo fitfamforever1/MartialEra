@@ -1,14 +1,15 @@
 on place of lime concrete:
+    block below event-block is gray stained glass
     cancel event
     remove 1 lime concrete from player
-    set {_loc} to location of event-block
+    set {_loc} to location of block below event-block
     set block at {_loc} to lime concrete
-    set {gen:1:%player%} to {_loc}
+    set {gen::1::%player%} to {_loc}
 
 on right click:
     event-block is lime concrete
-    location of event-block is {gen:1:%player%}
+    location of event-block is {gen::1::%player%}
     cancel event
     set event-block to gray stained glass
     give player 1 lime concrete
-    delete {gen:1:%player%}
+    delete {gen::1::%player%}
