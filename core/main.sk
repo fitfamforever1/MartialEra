@@ -17,7 +17,7 @@ command /wipe <player>:
        
 function Actionbar(p: player):
     set {_money} to number data tag "player:money" of {_p}
-    send action bar "<##00E300>$%{_money}%" to {_p}
+    send action bar "<##008E00>$%{_money}%" to {_p}
        
 every 2 tick in "world":
     loop all players:
