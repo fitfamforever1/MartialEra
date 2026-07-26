@@ -56,3 +56,4 @@ on pickup:
         if {_value} is set:
             GainMoney(player, {_value})
             delete event-dropped item
+            cancel event
