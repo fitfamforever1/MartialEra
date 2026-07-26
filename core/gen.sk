@@ -80,24 +80,17 @@ every 1 second in "world":
     loop all players:
         if size of {gen1::%loop-player%::*} > 0:
             loop {gen1::%loop-player%::*}:
-                set {_spawnLoc} to location 1 above loop-value
+                set {_spawnLoc} to location 1 above loop-value-2
                 drop makeMoney(1) at {_spawnLoc} without velocity
         if size of {gen2::%loop-player%::*} > 0:
             loop {gen2::%loop-player%::*}:
-                set {_spawnLoc} to location 1 above loop-value
+                set {_spawnLoc} to location 1 above loop-value-2
                 drop makeMoney(10) at {_spawnLoc} without velocity
-
-function GainMoney(p: player, give: number):
-    set {_money} to number data tag "player:money" of {_p}
-    if {_money} is not set:
-        set {_money} to 0
-    set {_temp} to {_money} + {_give}
-    set number data tag "player:money" of {_p} to {_temp}
 
 on pickup:
     if event-item is paper:
         set {_value} to number data tag "money:value" of event-item
         if {_value} is set:
             GainMoney(player, {_value})
-            delete event-item
+            delete event-dropped item
             cancel event
