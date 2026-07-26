@@ -24,3 +24,23 @@ function clearPlacements(p: player):
     loop {gen1::%{_p}%::*}:
         set block at loop-value to gray stained glass
     delete {gen1::%{_p}%::*}
+    
+function makeMoney(money: number) :: item:
+    set {_item} to paper named "&6$1"
+    set number data tag "money:value" of {_item} to {_money}
+    return {_item}
+
+every 1 second in "world":
+    loop all players:
+        if size of {gen::%loop-player%::*} > 0:
+            loop {gen::%loop-player%::*}:
+                set {_spawnLoc} to location 1 above loop-value
+                drop makeMoneyPaper(1) at {_spawnLoc}
+                
+on pickup:
+    if event-item is paper:
+        set {_value} to number data tag "money:value" of event-item
+        if {_value} is set:
+            GainMoney(player, {_value})
+            delete event-item
+            send "&a+$%{_value}%" to player     
