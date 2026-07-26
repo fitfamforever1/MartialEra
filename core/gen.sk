@@ -107,12 +107,12 @@ every 1 second in "world":
             if {gen2-paper::%{_loc}%} is set:
                 if {gen2-paper::%{_loc}%} is alive:
                     set {_val} to number data tag "money:value" of item of {gen2-paper::%{_loc}%}
-                    add 10 to {_val}
+                    add 5 to {_val}
                     set item of {gen2-paper::%{_loc}%} to makeMoney({_val})
                 else:
                     delete {gen2-paper::%{_loc}%}
             else:
-                drop makeMoney(10) at {_spawnLoc} without velocity
+                drop makeMoney(5) at {_spawnLoc} without velocity
                 set {gen2-paper::%{_loc}%} to last dropped item
                 set gravity of {gen2-paper::%{_loc}%} to false
 
