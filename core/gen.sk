@@ -1,23 +1,23 @@
 on place of lime concrete:
-    block below event-block is gray stained glass
     cancel event
-    if size of {gen::%player%::*} >= 20:
-        send "&cYou can only have 20 generators active at once!" to player
-        stop
-    remove 1 lime concrete from player
-    set {_loc} to location of block below event-block
-    set block at {_loc} to lime concrete
-    add {_loc} to {gen::1::%player%::*}
+    if block below event-block is gray stained glass:
+        if size of {gen1::%player%::*} >= 20:
+            send "&cYou can only have 20 gen1erators active at once!" to player
+            stop
+        remove 1 lime concrete from player
+        set {_loc} to location of block below event-block
+        set block at {_loc} to lime concrete
+        add {_loc} to {gen1::%player%::*}
 
-on right click:
-    event-block is lime concrete
-    location of event-block is in {gen::1::%player%::*}
+on right click on lime concrete:
     cancel event
     set event-block to gray stained glass
     give player 1 lime concrete
-    remove location of event-block from {gen::1::%player%::*}
-    
+    loop {gen1::%player%::*}:
+        if loop-value is location of event-block:
+            delete {gen1::%player%::%loop-index%}
+
 function clearPlacements(p: player):
-    loop {gen::1::%{_p}%::*}:
+    loop {gen1::%{_p}%::*}:
         set block at loop-value to gray stained glass
-    delete {gen::1::%{_p}%::*}
+    delete {gen1::%{_p}%::*}
