@@ -221,5 +221,7 @@ command /testhud:
     trigger:
         message "running testhud"
         addHud(player, "test", vector(100, 100, 1), vector(1, 1, 1), "Hello")
+        wait 1 tick
+        message "hud entity: %getHud(player, "test")%"
 
 
