@@ -1,0 +1,33 @@
+on join:
+    set number data tag "player:money" of player to 0
+    if number data tag "player:prestige" of player is not set:
+        set number data tag "player:pristige" of player to 0
+        
+on death:
+    set number data tag "player:money" of player to 0
+    
+command /wipe <player>:
+    permission: admin.stat
+    trigger:
+        set number data tag "player:money" of arg-1 to 0
+        set number data tag "player:prestige" of arg-1 to 0
+       
+function Actionbar(p: player):
+    set {_money} to number data tag "player:money" of {_p}
+    send action bar "<##00E300>%{_money}%" to {_p}
+       
+every 2 tick in "world":
+    loop all players:
+        if loop-player is alive:
+            Actionbar(loop-player)
+            
+            
+function GainMoney(p: player, give: number):
+    set {_money} to number data tag "player:money" of {_p}
+    set {_temp} to {_money} + {_give}
+    
+    set number data tag "player:money" of {_p} to {_temp}
+    
+command /givemoney <money>:
+    trigger:
+        GainMoney(player, arg-1)
