@@ -4,7 +4,7 @@ on join:
         set number data tag "player:pristige" of player to 0
         
 on death:
-    set number data tag "player:money" of player to 0
+    set number data tag "player:money" of victim to 0
     
 command /wipe <player>:
     permission: admin.stat
@@ -28,6 +28,6 @@ function GainMoney(p: player, give: number):
     
     set number data tag "player:money" of {_p} to {_temp}
     
-command /givemoney <money>:
+command /givemoney <number>:
     trigger:
         GainMoney(player, arg-1)
