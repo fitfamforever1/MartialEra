@@ -99,7 +99,7 @@ every 1 second in "world":
                     add 1 to {gen1-items::%loop-player%}
 
         if size of {gen2::%loop-player%::*} > 0:
-            if {gen2-items::%loop-player%} < 128:
+            if {gen2-items::%loop-player%} < 64:
                 loop {gen2::%loop-player%::*}:
                     set {_spawnLoc} to location 1 above loop-value-2
                     drop makeMoney(10) at {_spawnLoc} without velocity
