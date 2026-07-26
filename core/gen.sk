@@ -34,8 +34,8 @@ every 1 second in "world":
     loop all players:
         if size of {gen::%loop-player%::*} > 0:
             loop {gen::%loop-player%::*}:
-                set {_spawnLoc} to location 1 above loop-value
-                drop makeMoneyPaper(1) at {_spawnLoc}
+                set {_spawnLoc} to location 1 above loop-value-2
+                drop makeMoney(1) at {_spawnLoc}
                 
 on pickup:
     if event-item is paper:
