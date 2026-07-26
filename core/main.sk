@@ -1,10 +1,12 @@
 on join:
+    clearPlacements(player)
     teleport player to location(0.5, -59, 0.5, "world")
     set number data tag "player:money" of player to 0
     if number data tag "player:prestige" of player is not set:
         set number data tag "player:pristige" of player to 0
         
 on death:
+    clearPlacements(victim)
     wait 1 tick
     teleport victim to location(0, -59, 0, "world")
     set number data tag "player:money" of victim to 0
