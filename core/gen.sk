@@ -32,8 +32,8 @@ function makeMoney(money: number) :: item:
 
 every 1 second in "world":
     loop all players:
-        if size of {gen::%loop-player%::*} > 0:
-            loop {gen::%loop-player%::*}:
+        if size of {gen1::%loop-player%::*} > 0:
+            loop {gen1::%loop-player%::*}:
                 set {_spawnLoc} to location 1 above loop-value-2
                 drop makeMoney(1) at {_spawnLoc}
                 
