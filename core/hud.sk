@@ -216,6 +216,9 @@ every 1 second:
         
 on quit:
     removeHud(player, "xp_hud")
-
+    
+command /testhud:
+    trigger:
+        addHud(player, "test", vector(100, 100, 1), vector(1, 1, 1), "Hello")
 
 
