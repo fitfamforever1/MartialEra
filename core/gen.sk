@@ -50,13 +50,6 @@ every 1 second in "world":
                 drop makeMoney(1) at {_spawnLoc} without velocity
 
 
-function GainMoney(p: player, give: number):
-    set {_money} to number data tag "player:money" of {_p}
-    if {_money} is not set:
-        set {_money} to 0
-    set {_temp} to {_money} + {_give}
-    set number data tag "player:money" of {_p} to {_temp}
-
 on pickup:
     if event-item is paper:
         set {_value} to number data tag "money:value" of event-item
