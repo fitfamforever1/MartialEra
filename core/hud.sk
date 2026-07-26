@@ -202,10 +202,20 @@ on dismount:
     metadata tag "hud" of event-entity is true
     removeHud(event-entity)
 on join:
+    
     loop all players where [input is not player]:
         loop getAllHuds(loop-value):
             hide loop-value-2 from player
 
+on join:
+    addHud(player, "xp_hud", vector(20, 20, 1), vector(1, 1, 1), "Level: %player's level% | XP: %player's level progress * 100%%%")
+    
+every 1 second:
+    loop all players:
+        setHudText(loop-player, "xp_hud", "Level: %loop-player's level% | XP: %loop-player's level progress * 100%%%")
+        
+on quit:
+    removeHud(player, "xp_hud")
 
 
 
