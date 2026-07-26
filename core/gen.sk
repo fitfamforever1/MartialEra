@@ -117,4 +117,4 @@ on pickup:
             else if {_value} is 10:
                 remove {_amount} from {gen2-items::%player%}
             cancel event
-            delete event-entity
+            delete event-dropped item
