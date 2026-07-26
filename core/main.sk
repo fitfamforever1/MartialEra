@@ -33,7 +33,6 @@ function GainMoney(p: player, give: number):
         set {_money} to 0
     set {_temp} to {_money} + {_give}
     set number data tag "player:money" of {_p} to {_temp}
-    send action bar "<##00AA00>$%{_money}% | +%{_temp}%" to {_p}
 
     
 command /givemoney <number>:
