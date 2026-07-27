@@ -1,21 +1,8 @@
-# -----------------------------------------------------------------
-# regen.sk
-# Bulk-spawns nodes at random locations inside a 162-block world
-# border centered on (0, 0). Relies on the canPasteNode / PasteNode
-# functions and node registry defined in nodes.sk (must be loaded
-# in the same server / same scripts folder).
-# -----------------------------------------------------------------
-
-# Keep 4 blocks of clearance so a node's structure (which extends
-# a few blocks in +x/+z from its anchor) never pokes past the border.
 options:
-    borderRadius: 162
+    borderRadius: 80
     borderClearance: 4
     maxAttemptsPerNode: 40
 
-# Attempts to place {_amount} nodes of type {_id} at random spots
-# inside the border, retrying on collisions until either the amount
-# is reached or the attempt cap is hit (to avoid an infinite loop).
 function spawnNodesOfType(id: number, amount: number, world: world):
     set {_placed} to 0
     set {_maxAttempts} to {_amount} * {@maxAttemptsPerNode}
@@ -38,7 +25,6 @@ function spawnNodesOfType(id: number, amount: number, world: world):
 command /regennodes:
     permission: admin.node
     trigger:
-        send "&eRegenerating nodes within %{@borderRadius}%-block border of (0, 0)..." to player
         send "&eRegenerating nodes..." to console
 
         spawnNodesOfType(1, 30, world of player)
