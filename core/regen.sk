@@ -5,20 +5,25 @@
 # functions and node registry defined in nodes.sk (must be loaded
 # in the same server / same scripts folder).
 # -----------------------------------------------------------------
+
+# Keep 4 blocks of clearance so a node's structure (which extends
+# a few blocks in +x/+z from its anchor) never pokes past the border.
 options:
     borderRadius: 162
     borderClearance: 4
-
     maxAttemptsPerNode: 40
-    
+
+# Attempts to place {_amount} nodes of type {_id} at random spots
+# inside the border, retrying on collisions until either the amount
+# is reached or the attempt cap is hit (to avoid an infinite loop).
 function spawnNodesOfType(id: number, amount: number, world: world):
     set {_placed} to 0
-    set {_attempts} to 0
     set {_maxAttempts} to {_amount} * {@maxAttemptsPerNode}
     set {_edge} to {@borderRadius} - {@borderClearance}
 
-    while ({_placed} < {_amount}) and ({_attempts} < {_maxAttempts}):
-        add 1 to {_attempts}
+    loop {_maxAttempts} times:
+        if {_placed} >= {_amount}:
+            stop loop
 
         set {_x} to random integer between (0 - {_edge}) and {_edge}
         set {_z} to random integer between (0 - {_edge}) and {_edge}
@@ -28,12 +33,13 @@ function spawnNodesOfType(id: number, amount: number, world: world):
             PasteNode({_loc}, {_id})
             add 1 to {_placed}
 
-    send "&7- node type %{_id}%: placed &a%{_placed}%&7/&e%{_amount}% &7(%{_attempts}% attempts)" to console
+    send "&7- node type %{_id}%: placed &a%{_placed}%&7/&e%{_amount}%" to console
 
 command /regennodes:
     permission: admin.node
     trigger:
-        send "&eRegenerating nodes..." to player
+        send "&eRegenerating nodes within %{@borderRadius}%-block border of (0, 0)..." to player
+        send "&eRegenerating nodes..." to console
 
         spawnNodesOfType(1, 30, world of player)
         spawnNodesOfType(2, 25, world of player)
