@@ -58,16 +58,8 @@ function registerNodeBlock(nid: text, l: location):
     set {node-lookup::%(locKey({_l}))%} to {_nid}
 
 function getNodeDrop(id: number) :: item:
-    if {_id} = 1:
-        return oak log
-    else if {_id} = 2:
-        return stone
-    else if {_id} = 3:
-        return iron ore
-    else if {_id} = 4:
-        return gold ore
-    else:
-        return air
+    set {_item} to material({_id})
+    {_item}
 
 function destroyNode(nid: text):
     if {nodes::%{_nid}%::blocks::*} is set:
