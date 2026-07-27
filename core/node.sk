@@ -6,12 +6,19 @@ function pasteNode1(loc: location):
 function pasteNode2(loc: location):
     set {_loc2} to {_loc}
     set {_loc3} to {_loc}
+    set {_loc4} to {_loc}
     set block at {_loc} to cobblestone
     add 1 to x-coordinate of {_loc}
     loop 2 times:
         set block at {_loc} to stone
         add 1 to x-coordinate of {_loc}
     set block data of block at {_loc} to stone_slab[type=bottom]
+    
+    add 1 to x-coordinate of {_loc2}
+    add -1 to z-coordinate of {_loc2}
+    set block at {_loc2} to stone
+    add 1 to x-coordinate of {_loc2}
+    set block data of block at {_loc} to cobblestone_slab[type=bottom]
         
 command /nodepaste <number>:
     permission: admin.node
