@@ -1,6 +1,4 @@
-# =========================================================================
-# 1. NODE DEFINITIONS & FOOTPRINTS
-# =========================================================================
+# ===================== NODE SHAPE =====================
 
 function nodeFootprint(anchor: location, type: number) :: locations:
     set {_i} to 0
@@ -67,33 +65,7 @@ function placeAtFootprint(locs: locations, type: number):
         set block at {_locs::9} to stone_slab[type=bottom]
         set block at {_locs::10} to stone_slab[type=bottom]
 
-# =========================================================================
-# 2. DYNAMIC COLLISION & SURFACE CHECKER
-# =========================================================================
-
-function isSpaceClear(locs: locations) :: boolean:
-    loop {_locs::*}:
-        set {_block} to block at loop-value
-        if {_block} is not air:
-            if {_block} is not cave air:
-                return false
-    return true
-
-# Finds the surface height at an X/Z coordinate by scanning downwards
-function getSurfaceY(x: number, z: number, w: world) :: number:
-    set {_y} to 100
-    while {_y} > -60:
-        set {_loc} to location({_x}, {_y}, {_z}, {_w})
-        set {_b} to block at {_loc}
-        if {_b} is not air:
-            if {_b} is not cave air:
-                return {_y} + 1
-        remove 1 from {_y}
-    return -59
-
-# =========================================================================
-# 3. REGISTRATION & DATA TRACKING
-# =========================================================================
+# ===================== REGISTRATION =====================
 
 function spawnNode(anchor: location, type: number):
     set {_locs::*} to nodeFootprint({_anchor}, {_type})
@@ -120,10 +92,6 @@ function clearAllNodes():
         delete {node::%{_id}%::blocks::*}
     delete {nodes::*}
 
-# =========================================================================
-# 4. RANDOM REGENERATION LOOP WITH SURFACE DETECTION
-# =========================================================================
-
 function regenNodes():
     clearAllNodes()
     set {_world} to world("world")
@@ -133,53 +101,33 @@ function regenNodes():
     set {_counts::3} to 15
     set {_counts::4} to 15
 
-    delete {_used::*}
-
     loop {_counts::*}:
         set {_type} to loop-index parsed as number
         set {_target} to loop-value
         set {_placed} to 0
-        set {_safety_fuse} to 0
 
         while {_placed} < {_target}:
-            add 1 to {_safety_fuse}
-            if {_safety_fuse} > 3000:
-                broadcast "&e[Node Engine] Safe lookup limit reached for type %{_type}%. Placed %{_placed}%/%{_target}%."
-                exit loop
-
-            set {_x} to random integer between -80 and 80
-            set {_z} to random integer between -80 and 80
-            
-            # Dynamic Surface Detection: finds ground instead of blindly forcing Y -59
-            set {_surface_y} to getSurfaceY({_x}, {_z}, {_world})
-            set {_anchor} to location({_x}, {_surface_y}, {_z}, {_world})
-            
+            set {_x} to random integer between -128 and 127
+            set {_z} to random integer between -128 and 127
+            set {_anchor} to location({_x}, -59, {_z}, {_world})
             set {_locs::*} to nodeFootprint({_anchor}, {_type})
-            set {_canPlace} to true
-            
-            # Check 1: Real-world structural block blockades
-            if isSpaceClear({_locs::*}) is false:
-                set {_canPlace} to false
-            
-            # Check 2: Database coordinate overlap check
-            if {_canPlace} is true:
-                loop {_locs::*}:
-                    set {_key} to "%round(x-coordinate of loop-value-1)%_%round(y-coordinate of loop-value-1)%_%round(z-coordinate of loop-value-1)%"
-                    if {_used::%{_key}%} is set:
-                        set {_canPlace} to false
 
-            # Deploy safely if both tests passed
-            if {_canPlace} is true:
+            set {_overlap} to false
+            
+            wait 10 ticks
+            loop {_locs::*}:
+                set {_key} to "%round(x-coordinate of loop-value-1)%_%round(y-coordinate of loop-value-1)%_%round(z-coordinate of loop-value-1)%"
+                if {_used::%{_key}%} is set:
+                    set {_overlap} to true
+
+            if {_overlap} is false:
                 loop {_locs::*}:
                     set {_key} to "%round(x-coordinate of loop-value-1)%_%round(y-coordinate of loop-value-1)%_%round(z-coordinate of loop-value-1)%"
                     set {_used::%{_key}%} to true
-                
                 spawnNode({_anchor}, {_type})
                 add 1 to {_placed}
 
-# =========================================================================
-# 5. BREAK BEHAVIOUR
-# =========================================================================
+# ===================== BREAK BEHAVIOUR =====================
 
 on break:
     set {_bloc} to location of event-block
@@ -205,23 +153,14 @@ on break:
         else if {_type} = 4:
             give player 3 gold ingot
 
-# =========================================================================
-# 6. COMMAND HANDLERS
-# =========================================================================
+# ===================== COMMANDS =====================
 
 command /nodepaste <number>:
     permission: admin.node
     trigger:
         set {_loc} to player's location
         add 1 to x-coordinate of {_loc}
-        
-        set {_footprint::*} to nodeFootprint({_loc}, arg-1)
-        
-        if isSpaceClear({_footprint::*}) is true:
-            spawnNode({_loc}, arg-1)
-            send "&aNode pasted successfully." to player
-        else:
-            send "&cCannot paste node: Obstruction detected at target space!" to player
+        spawnNode({_loc}, arg-1)
 
 command /nodeclear:
     permission: admin.node
@@ -233,4 +172,4 @@ command /noderegen:
     permission: admin.node
     trigger:
         regenNodes()
-        send "&aSafe node layout calculated and generated." to player
+        send "&aRegenerated nodes: 30 wood / 25 stone / 15 iron / 15 gold." to player
