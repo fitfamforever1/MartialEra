@@ -77,6 +77,12 @@ function clearPlacements(p: player):
         delete {gen2-owner::%{_loc}%}
         delete {gen2-paper::%{_loc}%}
     delete {gen2::%{_p}%::*}
+    loop {gen3::%{_p}%::*}:
+        set {_loc} to loop-value
+        set block at {_loc} to air
+        delete {gen3-owner::%{_loc}%}
+    delete {gen3::%{_p}%::*}
+  
 
 
 function makeMoney(money: number) :: item:
