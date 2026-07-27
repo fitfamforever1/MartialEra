@@ -46,7 +46,7 @@ function canPasteNode(loc: location, id: number) :: boolean:
             return false
 
         # also refuse to paste on top of / inside an existing node
-        if {node-lookup::%loop-value%} is set:
+        if {node-lookup::%(locKey(loop-value))%} is set:
             return false
 
     return true
@@ -55,17 +55,36 @@ function canPasteNode(loc: location, id: number) :: boolean:
 # Node registry helpers
 # -----------------------------------------------------------------
 
+# Builds a stable, block-aligned index key for a location so lookups
+# don't depend on Skript's default (decimal-sensitive) location-to-text
+# formatting. Always look up / store with THIS key, never the raw location.
+function locKey(l: location) :: text:
+    return "%world of {_l}%_%floor(x-coordinate of {_l})%_%floor(y-coordinate of {_l})%_%floor(z-coordinate of {_l})%"
+
 # Records a single placed block as belonging to node {_nid}
 function registerNodeBlock(nid: text, l: location):
     add {_l} to {nodes::%{_nid}%::blocks::*}
-    set {node-lookup::%{_l}%} to {_nid}
+    set {node-lookup::%(locKey({_l}))%} to {_nid}
+
+# Returns the item a node of the given type drops when destroyed
+function getNodeDrop(id: number) :: item:
+    if {_id} = 1:
+        return oak log
+    else if {_id} = 2:
+        return stone
+    else if {_id} = 3:
+        return iron ore
+    else if {_id} = 4:
+        return gold ore
+    else:
+        return air
 
 # Removes every block of node {_nid} and forgets about it entirely
 function destroyNode(nid: text):
     if {nodes::%{_nid}%::blocks::*} is set:
         loop {nodes::%{_nid}%::blocks::*}:
             set block at loop-value to air
-            delete {node-lookup::%loop-value%}
+            delete {node-lookup::%(locKey(loop-value))%}
 
     delete {nodes::%{_nid}%::blocks::*}
     delete {nodes::%{_nid}%::type}
@@ -236,10 +255,13 @@ function PasteNode(loc: location, id: number):
 
 on break:
     set {_l} to location of event-block
-    if {node-lookup::%{_l}%} is set:
-        set {_nid} to {node-lookup::%{_l}%}
-        send "%{_nid}%" to player
+    set {_key} to locKey({_l})
+    if {node-lookup::%{_key}%} is set:
+        set {_nid} to {node-lookup::%{_key}%}
+        set {_type} to {nodes::%{_nid}%::type}
+
         cancel event
+        give getNodeDrop({_type}) to player
         destroyNode({_nid})
 
 # -----------------------------------------------------------------
