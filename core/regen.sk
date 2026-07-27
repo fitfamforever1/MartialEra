@@ -1,23 +1,28 @@
+# -----------------------------------------------------------------
+# regen.sk
+# Bulk-spawns nodes at random locations inside a 162-block world
+# border centered on (0, 0). Relies on the canPasteNode / PasteNode
+# functions and node registry defined in nodes.sk (must be loaded
+# in the same server / same scripts folder).
+# -----------------------------------------------------------------
 options:
     borderRadius: 162
     borderClearance: 4
-    minY: 5
-    maxY: 60
-    maxAttemptsPerNode: 40
 
+    maxAttemptsPerNode: 40
+    
 function spawnNodesOfType(id: number, amount: number, world: world):
     set {_placed} to 0
     set {_attempts} to 0
     set {_maxAttempts} to {_amount} * {@maxAttemptsPerNode}
     set {_edge} to {@borderRadius} - {@borderClearance}
 
-    while {_placed} < {_amount} and {_attempts} < {_maxAttempts}:
+    while ({_placed} < {_amount}) and ({_attempts} < {_maxAttempts}):
         add 1 to {_attempts}
 
         set {_x} to random integer between (0 - {_edge}) and {_edge}
         set {_z} to random integer between (0 - {_edge}) and {_edge}
-        set {_y} to random integer between {@minY} and {@maxY}
-        set {_loc} to location({_x}, {_y}, {_z}, {_world})
+        set {_loc} to location({_x}, -59, {_z}, {_world})
 
         if canPasteNode({_loc}, {_id}) is true:
             PasteNode({_loc}, {_id})
@@ -28,8 +33,7 @@ function spawnNodesOfType(id: number, amount: number, world: world):
 command /regennodes:
     permission: admin.node
     trigger:
-        send "&eRegenerating nodes within %@borderRadius%-block border of (0, 0)..." to player
-        send "&eRegenerating nodes..." to console
+        send "&eRegenerating nodes..." to player
 
         spawnNodesOfType(1, 30, world of player)
         spawnNodesOfType(2, 25, world of player)
