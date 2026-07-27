@@ -51,11 +51,6 @@ function registerNodeBlock(loc: location, nodeId: number, nodeType: number):
     set {node::id::%{_loc}%} to {_nodeId}
     set {node::type::%{_loc}%} to {_nodeType}
     add {_loc} to {node::blocks::%{_nodeId}%::*}
-
-function registerNodeBlock(loc: location, nodeId: number, nodeType: number):
-    set {node::id::%{_loc}%} to {_nodeId}
-    set {node::type::%{_loc}%} to {_nodeType}
-    add {_loc} to {node::blocks::%{_nodeId}%::*}
        
 function pasteNode1(loc: location):
     add 1 to {lastNodeId}
