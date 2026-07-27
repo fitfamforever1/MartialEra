@@ -238,6 +238,7 @@ on break:
     set {_l} to location of event-block
     if {node-lookup::%{_l}%} is set:
         set {_nid} to {node-lookup::%{_l}%}
+        send "%{_nid}%"
         cancel event
         destroyNode({_nid})
 
