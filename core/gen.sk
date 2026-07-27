@@ -179,3 +179,23 @@ on right click on blast furnace:
                 set number data tag "gen3:money" of event-block to 0
         else:
             send "&cThis generator hasn't produced any money yet!" to player
+            
+on load:
+    loop {gen1::*}:
+        set block at loop-value to gray stained glass
+    delete {gen1::*}
+    delete {gen1-owner::*}
+    delete {gen1-paper::*}
+
+    loop {gen2::*}:
+        set block at loop-value to gray stained glass
+    delete {gen2::*}
+    delete {gen2-owner::*}
+    delete {gen2-paper::*}
+
+    loop {gen3::*}:
+        set block at loop-value to air
+    delete {gen3::*}
+    delete {gen3-owner::*}
+
+    send "&aAll generators have been cleared on server load." to console
