@@ -27,7 +27,7 @@ function material(type: number):: item:
     if {_type} is 2:
         set name of {_item} to "&fStone"
         set {_rarity} to "common"
-        set the skull texture of {_item} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGE5Y2E3MWYwMzFmYzk1YmRmNGE1ZGU1M2RjNDNhNjAzYmU1YjcxZDM2OTJmZDU3M2JmODQxZTA4ZTcyNTAxYyJ9fX0=="
+        set the skull texture of {_item} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGE5Y2E3MWYwMzFmYzk1YmRmNGE1ZGU1M2RjNDNhNjAzYmU1YjcxZDM2OTJmZDU3M2JmODQxZTA4ZTcyNTAxYyJ9fX0="
     if {_type} is 3:
         set name of {_item} to "&fRaw Iron"
         set {_rarity} to "uncommon"
