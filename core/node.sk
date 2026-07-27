@@ -253,14 +253,14 @@ command /clearnode:
     permission: admin.node
     trigger:
         if {nodes::*} is not set:
-            send "&cThere are no active nodes to clear." to player
+            send "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &cᴛʜᴇʀᴇ ᴀʀᴇ ɴᴏ ɴᴏᴅᴇꜱ ᴛᴏ ᴄʟᴇᴀʀ." to player
             stop
 
         set {_ids::*} to {nodes::*}
         loop {_ids::*}:
             destroyNode(loop-value)
 
-        send "&aAll active nodes have been cleared." to player
+        broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴄʟᴇᴀʀᴇᴅ ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ."
         
 on load:
     set {_ids::*} to {nodes::*}

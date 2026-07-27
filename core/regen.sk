@@ -20,7 +20,7 @@ function spawnNodesOfType(id: number, amount: number, world: world):
             PasteNode({_loc}, {_id})
             add 1 to {_placed}
 
-    send "&7- node type %{_id}%: placed &a%{_placed}%&7/&e%{_amount}%" to console
+    send "&7- node %{_id}%: &a%{_placed}%&7/&e%{_amount}%" to console
 
 command /regennodes:
     permission: admin.node
@@ -32,4 +32,4 @@ command /regennodes:
         spawnNodesOfType(3, 15, world of player)
         spawnNodesOfType(4, 15, world of player)
 
-        send "&aNode regeneration complete." to player
+        broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴍᴀɴᴜᴀʟʟʏ ʀᴇɢᴇɴᴇʀᴀᴛᴇᴅ ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ."
