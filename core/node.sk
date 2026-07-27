@@ -59,7 +59,7 @@ function registerNodeBlock(nid: text, l: location):
 
 function getNodeDrop(id: number) :: item:
     set {_item} to material({_id})
-    {_item}
+    return {_item}
 
 function destroyNode(nid: text):
     if {nodes::%{_nid}%::blocks::*} is set:
