@@ -1,118 +1,171 @@
-function pasteNode1(loc: location):
-    loop 3 times:
-        set block data of block at {_loc} to oak_log[axis=x]
-        add 1 to x-coordinate of {_loc}
-        
-function pasteNode2(loc: location):
-    set {_l} to {_loc}
-    set block at {_l} to cobblestone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
+# ===================== NODE SHAPE =====================
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    remove 1 from z-coordinate of {_l}
-    set block at {_l} to stone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to cobblestone_slab[type=bottom]
+function nodeFootprint(anchor: location, type: number) :: locations:
+    if {_type} = 1:
+        loop 3 times:
+            set {_locs::%loop-index%} to location((x-coordinate of {_anchor}) + (loop-index - 1), y-coordinate of {_anchor}, z-coordinate of {_anchor}, world of {_anchor})
+        return {_locs::*}
+    else:
+        # relative offsets shared by node types 2/3/4
+        set {_dx::1} to 0
+        set {_dy::1} to 0
+        set {_dz::1} to 0
+        set {_dx::2} to 1
+        set {_dy::2} to 0
+        set {_dz::2} to 0
+        set {_dx::3} to 2
+        set {_dy::3} to 0
+        set {_dz::3} to 0
+        set {_dx::4} to 3
+        set {_dy::4} to 0
+        set {_dz::4} to 0
+        set {_dx::5} to 1
+        set {_dy::5} to 0
+        set {_dz::5} to -1
+        set {_dx::6} to 2
+        set {_dy::6} to 0
+        set {_dz::6} to -1
+        set {_dx::7} to 1
+        set {_dy::7} to 0
+        set {_dz::7} to 1
+        set {_dx::8} to 2
+        set {_dy::8} to 0
+        set {_dz::8} to 1
+        set {_dx::9} to 1
+        set {_dy::9} to 1
+        set {_dz::9} to 0
+        set {_dx::10} to 2
+        set {_dy::10} to 1
+        set {_dz::10} to 0
+        loop 10 times:
+            set {_locs::%loop-index%} to location((x-coordinate of {_anchor}) + {_dx::%loop-index%}, (y-coordinate of {_anchor}) + {_dy::%loop-index%}, (z-coordinate of {_anchor}) + {_dz::%loop-index%}, world of {_anchor})
+        return {_locs::*}
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    add 1 to z-coordinate of {_l}
-    set block at {_l} to stone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to cobblestone
+function placeAtFootprint(locs: locations, type: number):
+    if {_type} = 1:
+        loop {_locs::*}:
+            set block at loop-value to oak_log[axis=x]
+    else:
+        set {_ore} to stone
+        if {_type} = 3:
+            set {_ore} to iron ore
+        else if {_type} = 4:
+            set {_ore} to gold ore
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    add 1 to y-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
-    
-function pasteNode3(loc: location):
-    set {_l} to {_loc}
-    set block at {_l} to cobblestone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to iron ore
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
+        set block at {_locs::1} to cobblestone
+        set block at {_locs::2} to stone
+        set block at {_locs::3} to {_ore}
+        set block at {_locs::4} to stone_slab[type=bottom]
+        set block at {_locs::5} to {_ore}
+        set block at {_locs::6} to cobblestone_slab[type=bottom]
+        set block at {_locs::7} to {_ore}
+        set block at {_locs::8} to cobblestone
+        set block at {_locs::9} to stone_slab[type=bottom]
+        set block at {_locs::10} to stone_slab[type=bottom]
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    remove 1 from z-coordinate of {_l}
-    set block at {_l} to iron ore
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to cobblestone_slab[type=bottom]
+# ===================== REGISTRATION =====================
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    add 1 to z-coordinate of {_l}
-    set block at {_l} to iron ore
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to cobblestone
+function spawnNode(anchor: location, type: number):
+    set {_locs::*} to nodeFootprint({_anchor}, {_type})
+    placeAtFootprint({_locs::*}, {_type})
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    add 1 to y-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
-    
-function pasteNode4(loc: location):
-    set {_l} to {_loc}
-    set block at {_l} to cobblestone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to gold ore
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
+    add 1 to {node_counter}
+    set {_id} to {node_counter}
+    add {_id} to {nodes::*}
+    set {node::%{_id}%::type} to {_type}
+    set {node::%{_id}%::anchor} to {_anchor}
+    set {node::%{_id}%::blocks::*} to {_locs::*}
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    remove 1 from z-coordinate of {_l}
-    set block at {_l} to gold ore
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to cobblestone_slab[type=bottom]
+    loop {_locs::*}:
+        set {blockindex::%loop-value%} to {_id}
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    add 1 to z-coordinate of {_l}
-    set block at {_l} to gold ore
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to cobblestone
+function clearAllNodes():
+    loop {nodes::*}:
+        set {_id} to loop-value
+        loop {node::%{_id}%::blocks::*}:
+            set block at loop-value to air
+            delete {blockindex::%loop-value%}
+        delete {node::%{_id}%::type}
+        delete {node::%{_id}%::anchor}
+        delete {node::%{_id}%::blocks::*}
+    delete {nodes::*}
 
-    set {_l} to {_loc}
-    add 1 to x-coordinate of {_l}
-    add 1 to y-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
-    add 1 to x-coordinate of {_l}
-    set block at {_l} to stone_slab[type=bottom]
-        
-function PasteNode(loc: location, id: number):
-    switch {_id}:
-        case 1:
-            pasteNode1({_loc})
-        case 2:
-            pasteNode2({_loc})
-        case 3:
-            pasteNode3({_loc})
-        case 4:
-            pasteNode4({_loc})
-        
-        
+function regenNodes():
+    clearAllNodes()
+    set {_world} to world("world")
+
+    set {_counts::1} to 30
+    set {_counts::2} to 25
+    set {_counts::3} to 15
+    set {_counts::4} to 15
+
+    loop {_counts::*}:
+        set {_type} to loop-index parsed as number
+        set {_target} to loop-value
+        set {_placed} to 0
+
+        while {_placed} < {_target}:
+            set {_x} to random integer between -128 and 127
+            set {_z} to random integer between -128 and 127
+            set {_anchor} to location({_x}, -59, {_z}, {_world})
+            set {_locs::*} to nodeFootprint({_anchor}, {_type})
+
+            set {_overlap} to false
+            loop {_locs::*}:
+                set {_key} to "%x-coordinate of loop-value%,%y-coordinate of loop-value%,%z-coordinate of loop-value%"
+                if {_used::%{_key}%} is set:
+                    set {_overlap} to true
+
+            if {_overlap} is false:
+                loop {_locs::*}:
+                    set {_key} to "%x-coordinate of loop-value%,%y-coordinate of loop-value%,%z-coordinate of loop-value%"
+                    set {_used::%{_key}%} to true
+                spawnNode({_anchor}, {_type})
+                add 1 to {_placed}
+
+# ===================== BREAK BEHAVIOUR =====================
+
+on break:
+    set {_bloc} to location of event-block
+    if {blockindex::%{_bloc}%} is set:
+        set {_id} to {blockindex::%{_bloc}%}
+        set {_type} to {node::%{_id}%::type}
+        cancel event
+
+        loop {node::%{_id}%::blocks::*}:
+            set block at loop-value to air
+            delete {blockindex::%loop-value%}
+        delete {node::%{_id}%::type}
+        delete {node::%{_id}%::anchor}
+        delete {node::%{_id}%::blocks::*}
+        remove {_id} from {nodes::*}
+
+        if {_type} = 1:
+            give player 3 oak log
+        else if {_type} = 2:
+            give player 3 stone
+        else if {_type} = 3:
+            give player 3 iron ingot
+        else if {_type} = 4:
+            give player 3 gold ingot
+
+# ===================== COMMANDS =====================
+
 command /nodepaste <number>:
     permission: admin.node
     trigger:
         set {_loc} to player's location
-        add 1 to x-coord of {_loc}
-        PasteNode({_loc}, arg-1)
-        
-        
+        add 1 to x-coordinate of {_loc}
+        spawnNode({_loc}, arg-1)
+
+command /nodeclear:
+    permission: admin.node
+    trigger:
+        clearAllNodes()
+        send "&aAll nodes cleared." to player
+
+command /noderegen:
+    permission: admin.node
+    trigger:
+        regenNodes()
+        send "&aRegenerated nodes: 30 wood / 25 stone / 15 iron / 15 gold." to player
