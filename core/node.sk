@@ -1,7 +1,6 @@
 command /nodepaste <number>:
     permission: admin.node
     trigger:
-        set {_node} to "node%arg-1%"
-        paste schematic named "node1" at player's location
+        paste schematic named "node%arg-1%" at player's location while ignoring air
         
 #
