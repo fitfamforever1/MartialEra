@@ -1,5 +1,5 @@
 # =========================================================================
-# 1. NODE DEFINITIONS & FOOTPRINTS (OLD FILE STRUCTURING)
+# 1. NODE DEFINITIONS & FOOTPRINTS
 # =========================================================================
 
 function nodeFootprint(anchor: location, type: number) :: locations:
@@ -68,17 +68,28 @@ function placeAtFootprint(locs: locations, type: number):
         set block at {_locs::10} to stone_slab[type=bottom]
 
 # =========================================================================
-# 2. COLLISION CHECKER (THE NEW FIX)
+# 2. DYNAMIC COLLISION & SURFACE CHECKER
 # =========================================================================
 
 function isSpaceClear(locs: locations) :: boolean:
     loop {_locs::*}:
         set {_block} to block at loop-value
-        # Block must be completely empty space to allow generation
         if {_block} is not air:
             if {_block} is not cave air:
                 return false
     return true
+
+# Finds the surface height at an X/Z coordinate by scanning downwards
+function getSurfaceY(x: number, z: number, w: world) :: number:
+    set {_y} to 100
+    while {_y} > -60:
+        set {_loc} to location({_x}, {_y}, {_z}, {_w})
+        set {_b} to block at {_loc}
+        if {_b} is not air:
+            if {_b} is not cave air:
+                return {_y} + 1
+        remove 1 from {_y}
+    return -59
 
 # =========================================================================
 # 3. REGISTRATION & DATA TRACKING
@@ -110,7 +121,7 @@ function clearAllNodes():
     delete {nodes::*}
 
 # =========================================================================
-# 4. RANDOM REGENERATION LOOP WITH HARD CRASH SAFETY
+# 4. RANDOM REGENERATION LOOP WITH SURFACE DETECTION
 # =========================================================================
 
 function regenNodes():
@@ -122,7 +133,6 @@ function regenNodes():
     set {_counts::3} to 15
     set {_counts::4} to 15
 
-    # Track within current generation loop execution
     delete {_used::*}
 
     loop {_counts::*}:
@@ -131,18 +141,19 @@ function regenNodes():
         set {_placed} to 0
         set {_safety_fuse} to 0
 
-        # Safety fuse stops the while loop from locking up thread if space runs out
         while {_placed} < {_target}:
             add 1 to {_safety_fuse}
-            if {_safety_fuse} > 2000:
-                broadcast "&e[Node Engine] Max lookup limits hit for type %{_type}%. Skipping remaining..."
+            if {_safety_fuse} > 3000:
+                broadcast "&e[Node Engine] Safe lookup limit reached for type %{_type}%. Placed %{_placed}%/%{_target}%."
                 exit loop
 
             set {_x} to random integer between -128 and 127
             set {_z} to random integer between -128 and 127
-            set {_anchor} to location({_x}, -59, {_z}, {_world})
             
-            # Map structural targets
+            # Dynamic Surface Detection: finds ground instead of blindly forcing Y -59
+            set {_surface_y} to getSurfaceY({_x}, {_z}, {_world})
+            set {_anchor} to location({_x}, {_surface_y}, {_z}, {_world})
+            
             set {_locs::*} to nodeFootprint({_anchor}, {_type})
             set {_canPlace} to true
             
@@ -150,7 +161,7 @@ function regenNodes():
             if isSpaceClear({_locs::*}) is false:
                 set {_canPlace} to false
             
-            # Check 2: RAM/Database structural mapping matrix overlap
+            # Check 2: Database coordinate overlap check
             if {_canPlace} is true:
                 loop {_locs::*}:
                     set {_key} to "%round(x-coordinate of loop-value-1)%_%round(y-coordinate of loop-value-1)%_%round(z-coordinate of loop-value-1)%"
