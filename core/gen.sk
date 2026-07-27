@@ -131,10 +131,10 @@ on pickup:
             delete event-dropped item
             
 on place of blast furnace:
-    cancel event
     if block below event-block is gray stained glass:
-        if size of {gen3::%player%::*} >= 10:
-            send "&cYou can only have &e10 blast furnace generators active&7 at once!" to player
+        if size of {gen3::%player%::*} >= 1:
+            send "&cYou can only have &e1 blast furnace generators active&7 at once!" to player
+            cancel event
             stop
         remove 1 blast furnace from player
         set {_loc} to location of event-block
@@ -143,6 +143,7 @@ on place of blast furnace:
         set {gen3-owner::%{_loc}%} to player
         set number data tag "gen3:money" of block at {_loc} to 0
     else:
+        cancel event
         send "&cYou can only place generators on &egray stained glass&7!" to player
         stop
 
