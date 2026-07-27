@@ -23,7 +23,7 @@ function getPhaseDelay(type: integer) :: timespan:
         return 1 second       # 10s total
     else if {_type} = 2:
         return 1.5 seconds    # 15s total
-    else if {_type} = 3 or {_type} = 4:
+    else if {_type} = 3 or 4:
         return 2 seconds      # 20s total
     return 1 second
 
@@ -91,7 +91,7 @@ on packet event play_client_block_dig:
         sendBlockDamage({_player}, {_loc}, getBlockStage({_loc}))
         set {mining::phase::%{_player}'s uuid%} to now + {mining::delay::%{_player}'s uuid%}
 
-    else if "%{_status}%" is "ABORT_DESTROYING_BLOCK" or "%{_status}%" is "STOP_DESTROYING_BLOCK":
+    else if "%{_status}%" is "ABORT_DESTROYING_BLOCK" or "STOP_DESTROYING_BLOCK":
         delete {mining::active::%{_player}'s uuid%}
         delete {mining::phase::%{_player}'s uuid%}
         # block stage is left in place on purpose, so mining resumes where it left off
