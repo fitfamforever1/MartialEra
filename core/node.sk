@@ -45,28 +45,18 @@ function canPasteNode(loc: location, id: number) :: boolean:
         if block at loop-value is not air:
             return false
 
-        # also refuse to paste on top of / inside an existing node
         if {node-lookup::%(locKey(loop-value))%} is set:
             return false
 
     return true
 
-# -----------------------------------------------------------------
-# Node registry helpers
-# -----------------------------------------------------------------
-
-# Builds a stable, block-aligned index key for a location so lookups
-# don't depend on Skript's default (decimal-sensitive) location-to-text
-# formatting. Always look up / store with THIS key, never the raw location.
 function locKey(l: location) :: text:
     return "%world of {_l}%_%floor(x-coordinate of {_l})%_%floor(y-coordinate of {_l})%_%floor(z-coordinate of {_l})%"
 
-# Records a single placed block as belonging to node {_nid}
 function registerNodeBlock(nid: text, l: location):
     add {_l} to {nodes::%{_nid}%::blocks::*}
     set {node-lookup::%(locKey({_l}))%} to {_nid}
 
-# Returns the item a node of the given type drops when destroyed
 function getNodeDrop(id: number) :: item:
     if {_id} = 1:
         return oak log
@@ -79,7 +69,6 @@ function getNodeDrop(id: number) :: item:
     else:
         return air
 
-# Removes every block of node {_nid} and forgets about it entirely
 function destroyNode(nid: text):
     if {nodes::%{_nid}%::blocks::*} is set:
         loop {nodes::%{_nid}%::blocks::*}:
@@ -90,10 +79,6 @@ function destroyNode(nid: text):
     delete {nodes::%{_nid}%::type}
     delete {nodes::%{_nid}%::anchor}
     remove {_nid} from {nodes::*}
-
-# -----------------------------------------------------------------
-# Node builders (each block placed is registered against nid)
-# -----------------------------------------------------------------
 
 function pasteNode1(loc: location, nid: text):
     set {_l} to {_loc}
@@ -225,10 +210,6 @@ function pasteNode4(loc: location, nid: text):
     set block at {_l} to stone_slab[type=bottom]
     registerNodeBlock({_nid}, {_l})
 
-# -----------------------------------------------------------------
-# Node paste entry point
-# -----------------------------------------------------------------
-
 function PasteNode(loc: location, id: number):
     if canPasteNode({_loc}, {_id}) is false:
         stop
@@ -249,10 +230,6 @@ function PasteNode(loc: location, id: number):
         case 4:
             pasteNode4({_loc}, {_nid})
 
-# -----------------------------------------------------------------
-# Breaking any single block of a node destroys the whole node
-# -----------------------------------------------------------------
-
 on break:
     set {_l} to location of event-block
     set {_key} to locKey({_l})
@@ -264,9 +241,6 @@ on break:
         give getNodeDrop({_type}) to player
         destroyNode({_nid})
 
-# -----------------------------------------------------------------
-# Commands
-# -----------------------------------------------------------------
 
 command /nodepaste <number>:
     permission: admin.node
@@ -287,3 +261,8 @@ command /clearnode:
             destroyNode(loop-value)
 
         send "&aAll active nodes have been cleared." to player
+        
+on load:
+    set {_ids::*} to {nodes::*}
+    loop {_ids::*}:
+        destroyNode(loop-value)
