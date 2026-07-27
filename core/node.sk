@@ -33,6 +33,80 @@ function pasteNode2(loc: location):
     set block at {_l} to stone_slab[type=bottom]
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
+    
+function pasteNode3(loc: location):
+    set {_l} to {_loc}
+    set block at {_l} to cobblestone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to iron ore
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    remove 1 from z-coordinate of {_l}
+    set block at {_l} to iron ore
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to cobblestone_slab[type=bottom]
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    add 1 to z-coordinate of {_l}
+    set block at {_l} to iron ore
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to cobblestone
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    add 1 to y-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+    
+function pasteNode4(loc: location):
+    set {_l} to {_loc}
+    set block at {_l} to cobblestone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to gold ore
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    remove 1 from z-coordinate of {_l}
+    set block at {_l} to gold ore
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to cobblestone_slab[type=bottom]
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    add 1 to z-coordinate of {_l}
+    set block at {_l} to gold ore
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to cobblestone
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    add 1 to y-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+        
+function Node(loc: location, id: number):
+    switch {_id}:
+        case 1:
+            pasteNode1({_loc})
+        case 2:
+            pasteNode2({_loc})
+        case 3:
+            pasteNode3({_loc})
+        case 4:
+            pasteNode4({_loc})
+        
         
 command /nodepaste <number>:
     permission: admin.node
