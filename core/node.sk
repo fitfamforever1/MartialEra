@@ -1,12 +1,13 @@
 # ===================== NODE SHAPE =====================
 
 function nodeFootprint(anchor: location, type: number) :: locations:
+    set {_i} to 0
     if {_type} = 1:
         loop 3 times:
-            set {_locs::%loop-index%} to location((x-coordinate of {_anchor}) + (loop-index - 1), y-coordinate of {_anchor}, z-coordinate of {_anchor}, world of {_anchor})
+            add 1 to {_i}
+            set {_locs::%{_i}%} to location((x-coordinate of {_anchor}) + {_i} - 1, y-coordinate of {_anchor}, z-coordinate of {_anchor}, world of {_anchor})
         return {_locs::*}
     else:
-        # relative offsets shared by node types 2/3/4
         set {_dx::1} to 0
         set {_dy::1} to 0
         set {_dz::1} to 0
@@ -38,7 +39,8 @@ function nodeFootprint(anchor: location, type: number) :: locations:
         set {_dy::10} to 1
         set {_dz::10} to 0
         loop 10 times:
-            set {_locs::%loop-index%} to location((x-coordinate of {_anchor}) + {_dx::%loop-index%}, (y-coordinate of {_anchor}) + {_dy::%loop-index%}, (z-coordinate of {_anchor}) + {_dz::%loop-index%}, world of {_anchor})
+            add 1 to {_i}
+            set {_locs::%{_i}%} to location((x-coordinate of {_anchor}) + {_dx::%{_i}%}, (y-coordinate of {_anchor}) + {_dy::%{_i}%}, (z-coordinate of {_anchor}) + {_dz::%{_i}%}, world of {_anchor})
         return {_locs::*}
 
 function placeAtFootprint(locs: locations, type: number):
@@ -83,8 +85,8 @@ function clearAllNodes():
     loop {nodes::*}:
         set {_id} to loop-value
         loop {node::%{_id}%::blocks::*}:
-            set block at loop-value to air
-            delete {blockindex::%loop-value%}
+            set block at loop-value-1 to air
+            delete {blockindex::%loop-value-1%}
         delete {node::%{_id}%::type}
         delete {node::%{_id}%::anchor}
         delete {node::%{_id}%::blocks::*}
@@ -112,13 +114,13 @@ function regenNodes():
 
             set {_overlap} to false
             loop {_locs::*}:
-                set {_key} to "%x-coordinate of loop-value%,%y-coordinate of loop-value%,%z-coordinate of loop-value%"
+                set {_key} to "%round(x-coordinate of loop-value-1)%_%round(y-coordinate of loop-value-1)%_%round(z-coordinate of loop-value-1)%"
                 if {_used::%{_key}%} is set:
                     set {_overlap} to true
 
             if {_overlap} is false:
                 loop {_locs::*}:
-                    set {_key} to "%x-coordinate of loop-value%,%y-coordinate of loop-value%,%z-coordinate of loop-value%"
+                    set {_key} to "%round(x-coordinate of loop-value-1)%_%round(y-coordinate of loop-value-1)%_%round(z-coordinate of loop-value-1)%"
                     set {_used::%{_key}%} to true
                 spawnNode({_anchor}, {_type})
                 add 1 to {_placed}
