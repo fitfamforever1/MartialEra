@@ -264,6 +264,4 @@ command /clearnode:
         broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴄʟᴇᴀʀᴇᴅ ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ."
         
 on load:
-    set {_ids::*} to {nodes::*}
-    loop {_ids::*}:
-        destroyNode(loop-value)
+    clearAllNodes()

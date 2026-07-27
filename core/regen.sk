@@ -2,6 +2,9 @@ options:
     borderRadius: 80
     borderClearance: 4
     maxAttemptsPerNode: 40
+    worldName: "world"
+    regenInterval: 15 minutes
+    regenWarning: 1 minute
 
 function spawnNodesOfType(id: number, amount: number, world: world):
     set {_placed} to 0
@@ -23,12 +26,35 @@ function spawnNodesOfType(id: number, amount: number, world: world):
 
     send "&8[<#00A36C>ɴᴏᴅᴇꜱ&8]&7 node %{_id}%: &a%{_placed}%&7/&e%{_amount}%" to console
 
+function clearAllNodes():
+    if {nodes::*} is set:
+        set {_ids::*} to {nodes::*}
+        loop {_ids::*}:
+            wait 1 tick
+            destroyNode(loop-value)
+
+
 command /regennodes:
     permission: admin.node
     trigger:
-        spawnNodesOfType(1, 30, world of player)
-        spawnNodesOfType(2, 25, world of player)
-        spawnNodesOfType(3, 15, world of player)
-        spawnNodesOfType(4, 15, world of player)
+        clearAllNodes()
+
+        spawnNodesOfType(1, 30, world {@worldName})
+        spawnNodesOfType(2, 25, world {@worldName})
+        spawnNodesOfType(3, 15, world {@worldName})
+        spawnNodesOfType(4, 15, world {@worldName})
 
         broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴍᴀɴᴜᴀʟʟʏ ʀᴇɢᴇɴᴇʀᴀᴛᴇᴅ ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ."
+
+
+every {@regenInterval}:
+    wait {@regenWarning}
+
+    clearAllNodes()
+
+    spawnNodesOfType(1, 30, world {@worldName})
+    spawnNodesOfType(2, 25, world {@worldName})
+    spawnNodesOfType(3, 15, world {@worldName})
+    spawnNodesOfType(4, 15, world {@worldName})
+
+    broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ʀᴇɢᴇɴᴇʀᴀᴛᴇᴅ."
