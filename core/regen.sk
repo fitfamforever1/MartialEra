@@ -28,7 +28,7 @@ function spawnNodesOfType(id: number, amount: number, world: world):
 command /regennodes:
     permission: admin.node
     trigger:
-        send "&eRegenerating nodes within %{@borderRadius}%-block border of (0, 0)..." to player
+        send "&eRegenerating nodes within %@borderRadius%-block border of (0, 0)..." to player
         send "&eRegenerating nodes..." to console
 
         spawnNodesOfType(1, 30, world of player)
