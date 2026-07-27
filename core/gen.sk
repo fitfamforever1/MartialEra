@@ -115,6 +115,12 @@ every 1 second in "world":
                 drop makeMoney(5) at {_spawnLoc} without velocity
                 set {gen2-paper::%{_loc}%} to last dropped item
                 set gravity of {gen2-paper::%{_loc}%} to false
+        loop {gen3::%loop-player%::*}:
+            set {_loc} to loop-value-2
+            set {_val} to number data tag "gen3:money" of block at {_loc}
+            if {_val} is set:
+                add 10 to {_val}
+                set number data tag "gen3:money" of block at {_loc} to {_val}       
 
 on pickup:
     if event-item is paper:
@@ -123,3 +129,43 @@ on pickup:
             GainMoney(player, {_value})
             cancel event
             delete event-dropped item
+            
+on place of blast furnace:
+    cancel event
+    if block below event-block is gray stained glass:
+        if size of {gen3::%player%::*} >= 10:
+            send "&cYou can only have &e10 blast furnace generators active&7 at once!" to player
+            stop
+        remove 1 blast furnace from player
+        set {_loc} to location of event-block
+        set block at {_loc} to blast furnace
+        add {_loc} to {gen3::%player%::*}
+        set {gen3-owner::%{_loc}%} to player
+        set number data tag "gen3:money" of block at {_loc} to 0
+    else:
+        send "&cYou can only place generators on &egray stained glass&7!" to player
+        stop
+
+on right click on blast furnace:
+    set {_loc} to location of event-block
+    if {gen3-owner::%{_loc}%} is set:
+        cancel event
+        set {_val} to number data tag "gen3:money" of event-block
+        if {_val} is set and {_val} > 0:
+            GainMoney(player, {_val})
+            send "&aYou claimed &e$%{_val}%&a from this generator!" to player
+            set number data tag "gen3:money" of event-block to 0
+        else:
+            send "&7This generator hasn't produced any money yet!" to player
+
+on break of blast furnace:
+    set {_loc} to location of event-block
+    if {gen3-owner::%{_loc}%} is set:
+        cancel event
+        set {_owner} to {gen3-owner::%{_loc}%}
+        set event-block to air
+        give player 1 blast furnace
+        loop {gen3::%{_owner}%::*}:
+            if loop-value is {_loc}:
+                delete {gen3::%{_owner}%::%loop-index%}
+        delete {gen3-owner::%{_loc}%}
