@@ -59,9 +59,3 @@ command /giveitem <text>:
             send "&aGave you item &e%arg-1%" to player
         else:
             send "&cNo item found with id &e%arg-1%" to player
-            
-            command /givemat <number>:
-    permission: admin.item
-    trigger:
-        set {_item} to material(arg-1)
-        give {_item} to player
