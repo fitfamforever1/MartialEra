@@ -236,9 +236,11 @@ on break:
     if {node-lookup::%{_key}%} is set:
         set {_nid} to {node-lookup::%{_key}%}
         set {_type} to {nodes::%{_nid}%::type}
-
+        
         cancel event
-        give getNodeDrop({_type}) to player
+        set {_temp} to random integer between 1 and 3
+        loop {_temp}:
+            give getNodeDrop({_type}) to player
         destroyNode({_nid})
 
 
