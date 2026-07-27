@@ -160,6 +160,16 @@ on place of blast furnace:
 
 on right click on blast furnace:
     set {_loc} to location of event-block
+    if player is sneaking:
+        if {gen3-owner::%{_loc}%} is set:
+            cancel event
+            set {_owner} to {gen3-owner::%{_loc}%}
+            set event-block to air
+            give player 1 blast furnace
+            loop {gen3::%{_owner}%::*}:
+                if loop-value is {_loc}:
+                    delete {gen3::%{_owner}%::%loop-index%}
+            delete {gen3-owner::%{_loc}%}
     if {gen3-owner::%{_loc}%} is set:
         cancel event
         set {_val} to number data tag "gen3:money" of event-block
@@ -170,15 +180,3 @@ on right click on blast furnace:
                 set number data tag "gen3:money" of event-block to 0
         else:
             send "&7This generator hasn't produced any money yet!" to player
-
-on break of blast furnace:
-    set {_loc} to location of event-block
-    if {gen3-owner::%{_loc}%} is set:
-        cancel event
-        set {_owner} to {gen3-owner::%{_loc}%}
-        set event-block to air
-        give player 1 blast furnace
-        loop {gen3::%{_owner}%::*}:
-            if loop-value is {_loc}:
-                delete {gen3::%{_owner}%::%loop-index%}
-        delete {gen3-owner::%{_loc}%}
