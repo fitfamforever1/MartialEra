@@ -20,13 +20,11 @@ function spawnNodesOfType(id: number, amount: number, world: world):
             PasteNode({_loc}, {_id})
             add 1 to {_placed}
 
-    send "&7- node %{_id}%: &a%{_placed}%&7/&e%{_amount}%" to console
+    send "&8[<#00A36C>ɴᴏᴅᴇꜱ&8]&7 node %{_id}%: &a%{_placed}%&7/&e%{_amount}%" to console
 
 command /regennodes:
     permission: admin.node
     trigger:
-        send "&eRegenerating nodes..." to console
-
         spawnNodesOfType(1, 30, world of player)
         spawnNodesOfType(2, 25, world of player)
         spawnNodesOfType(3, 15, world of player)
