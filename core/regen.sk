@@ -1,5 +1,5 @@
 options:
-    borderRadius: 80
+    borderRadius: 100
     borderClearance: 4
     maxAttemptsPerNode: 40
     worldName: "world"
