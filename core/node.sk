@@ -212,7 +212,7 @@ function clearAllNodes():
         set {_id} to loop-index
 
         loop {node::blocks::%{_id}%::*}:
-            set block at loop-value to air
+            set block at loop-value-2 to air
 
         delete {node::blocks::%{_id}%::*}
 
