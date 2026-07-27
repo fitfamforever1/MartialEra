@@ -45,7 +45,7 @@ command /regennodes:
         broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴍᴀɴᴜᴀʟʟʏ ʀᴇɢᴇɴᴇʀᴀᴛᴇᴅ ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ."
 
 
-every 15 minutes:
+every 10 minutes:
     clearAllNodes()
 
     spawnNodesOfType(1, 30, world {@worldName})
