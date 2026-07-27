@@ -17,6 +17,7 @@ function spawnNodesOfType(id: number, amount: number, world: world):
         set {_loc} to location({_x}, -59, {_z}, {_world})
 
         if canPasteNode({_loc}, {_id}) is true:
+            wait 1 tick
             PasteNode({_loc}, {_id})
             add 1 to {_placed}
 
