@@ -208,10 +208,16 @@ function PasteNode(loc: location, id: number):
             pasteNode4({_loc})
        
 function clearAllNodes():
-    loop {node::blocks::*::*}:
-        set block at loop-value to air
+    loop {node::blocks::*}:
+        set {_id} to loop-index
 
-    delete {node::*}
+        loop {node::blocks::%{_id}%::*}:
+            set block at loop-value to air
+
+        delete {node::blocks::%{_id}%::*}
+
+    delete {node::id::*}
+    delete {node::type::*}
     delete {lastNodeId}
        
 command /nodepaste <number>:
