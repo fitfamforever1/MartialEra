@@ -109,7 +109,7 @@ function regenNodes():
         while {_placed} < {_target}:
             set {_x} to random integer between -128 and 127
             set {_z} to random integer between -128 and 127
-            set {_anchor} to location({_x}, -59, {_z}, {_world})
+            set {_anchor} to location({_x}, -58, {_z}, {_world})
             set {_locs::*} to nodeFootprint({_anchor}, {_type})
 
             set {_overlap} to false
