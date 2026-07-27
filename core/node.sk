@@ -1,4 +1,51 @@
-# Old Code
+function canPasteNode(loc: location, id: number) :: boolean:
+    set {_blocks::*} to {_loc}
+
+    if {_id} > 1:
+        set {_l} to {_loc}
+        add 1 to x-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        add 1 to x-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        add 1 to x-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        set {_l} to {_loc}
+        add 1 to x-coordinate of {_l}
+        remove 1 from z-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        add 1 to x-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        set {_l} to {_loc}
+        add 1 to x-coordinate of {_l}
+        add 1 to z-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        add 1 to x-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        set {_l} to {_loc}
+        add 1 to x-coordinate of {_l}
+        add 1 to y-coordinate of {_l}
+        add {_l} to {_blocks::*}
+
+        add 1 to x-coordinate of {_l}
+        add {_l} to {_blocks::*}
+    else:
+        set {_l} to {_loc}
+        loop 2 times:
+            add 1 to x-coordinate of {_l}
+            add {_l} to {_blocks::*}
+
+    loop {_blocks::*}:
+        if block at loop-value is not air:
+            return false
+
+    return true
 
 function pasteNode1(loc: location):
     loop 3 times:
@@ -99,6 +146,9 @@ function pasteNode4(loc: location):
     set block at {_l} to stone_slab[type=bottom]
         
 function PasteNode(loc: location, id: number):
+    if not canPasteNode({_loc}, {_id}):
+        stop
+
     switch {_id}:
         case 1:
             pasteNode1({_loc})
@@ -108,7 +158,6 @@ function PasteNode(loc: location, id: number):
             pasteNode3({_loc})
         case 4:
             pasteNode4({_loc})
-        
         
 command /nodepaste <number>:
     permission: admin.node
