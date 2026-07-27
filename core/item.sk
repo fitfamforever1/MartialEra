@@ -17,7 +17,7 @@ function getRarityLine(rarity: text) :: text:
         return "&fᴄᴏᴍᴍᴏɴ"
     return ""
 
-function material(type: text):: item:
+function material(type: number):: item:
     set {_item} to player head
     
     if {_type} is 1:
