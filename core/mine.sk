@@ -124,7 +124,7 @@ every 1 tick:
 
 ##### Fallback: catches any case the block still breaks the vanilla way #####
 
-on break:
+on mine:
     set {_l} to location of event-block
     set {_key} to locKey({_l})
     if {node-lookup::%{_key}%} is set:
