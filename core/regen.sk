@@ -3,8 +3,6 @@ options:
     borderClearance: 4
     maxAttemptsPerNode: 40
     worldName: "world"
-    regenInterval: 15 minutes
-    regenWarning: 1 minute
 
 function spawnNodesOfType(id: number, amount: number, world: world):
     set {_placed} to 0
@@ -47,9 +45,7 @@ command /regennodes:
         broadcast "&8[<#00A36C>ɴᴏᴅᴇꜱ&8] &7ᴀʟʟ ɴᴏᴅᴇꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴍᴀɴᴜᴀʟʟʏ ʀᴇɢᴇɴᴇʀᴀᴛᴇᴅ ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ."
 
 
-every {@regenInterval}:
-    wait {@regenWarning}
-
+every 15 minutes:
     clearAllNodes()
 
     spawnNodesOfType(1, 30, world {@worldName})
