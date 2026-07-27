@@ -4,34 +4,35 @@ function pasteNode1(loc: location):
         add 1 to x-coordinate of {_loc}
         
 function pasteNode2(loc: location):
-    set {_loc2} to {_loc}
-    set {_loc3} to {_loc}
-    set {_loc4} to {_loc}
-    set block at {_loc} to cobblestone
-    add 1 to x-coordinate of {_loc}
-    loop 2 times:
-        set block at {_loc} to stone
-        add 1 to x-coordinate of {_loc}
-    set block data of block at {_loc} to stone_slab[type=bottom]
-    
-    add 1 to x-coordinate of {_loc2}
-    add -1 to z-coordinate of {_loc2}
-    set block at {_loc2} to stone
-    add 1 to x-coordinate of {_loc2}
-    set block data of block at {_loc2} to cobblestone_slab[type=bottom]
-    
-    add 1 to z-coordinate of {_loc3}
-    set block data of block at {_loc} to stone_slab[type=bottom]
-    add 1 to x-coordinate of {_loc3}
-    set block at {_loc3} to stone
-    add 1 to x-coordinate of {_loc3}
-    set block at {_loc3} to cobblestone
-    
-    add 1 to x-coordinate of {_loc4}
-    add 1 to y-coordinate of {_loc4}
-    loop 2 times:
-        set block data of block at {_loc4} to stone_slab[type=bottom]
-        add 1 to x-coordinate of {_loc4}
+    set {_l} to {_loc}
+    set block at {_l} to cobblestone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    remove 1 from z-coordinate of {_l}
+    set block at {_l} to stone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to cobblestone_slab[type=bottom]
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    add 1 to z-coordinate of {_l}
+    set block at {_l} to stone
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to cobblestone
+
+    set {_l} to {_loc}
+    add 1 to x-coordinate of {_l}
+    add 1 to y-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
+    add 1 to x-coordinate of {_l}
+    set block at {_l} to stone_slab[type=bottom]
         
 command /nodepaste <number>:
     permission: admin.node
