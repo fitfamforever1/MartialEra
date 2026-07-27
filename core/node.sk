@@ -47,152 +47,104 @@ function canPasteNode(loc: location, id: number) :: boolean:
 
     return true
 
-function registerNodeBlock(loc: location, nodeId: number, nodeType: number):
-    set {node::id::%{_loc}%} to {_nodeId}
-    set {node::type::%{_loc}%} to {_nodeType}
-    add {_loc} to {node::blocks::%{_nodeId}%::*}
-       
 function pasteNode1(loc: location):
-    add 1 to {lastNodeId}
-    set {_nodeId} to {lastNodeId}
-
     loop 3 times:
         set block data of block at {_loc} to oak_log[axis=x]
-        registerNodeBlock({_loc}, {_nodeId}, 1)
         add 1 to x-coordinate of {_loc}
         
 function pasteNode2(loc: location):
-    add 1 to {lastNodeId}
-    set {_nodeId} to {lastNodeId}
-
     set {_l} to {_loc}
     set block at {_l} to cobblestone
-    registerNodeBlock({_l}, {_nodeId}, 2)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone
-    registerNodeBlock({_l}, {_nodeId}, 2)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone
-    registerNodeBlock({_l}, {_nodeId}, 2)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 2)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     remove 1 from z-coordinate of {_l}
     set block at {_l} to stone
-    registerNodeBlock({_l}, {_nodeId}, 2)
     add 1 to x-coordinate of {_l}
     set block at {_l} to cobblestone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 2)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     add 1 to z-coordinate of {_l}
     set block at {_l} to stone
-    registerNodeBlock({_l}, {_nodeId}, 2)
     add 1 to x-coordinate of {_l}
     set block at {_l} to cobblestone
-    registerNodeBlock({_l}, {_nodeId}, 2)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     add 1 to y-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 2)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 2)
     
 function pasteNode3(loc: location):
-    add 1 to {lastNodeId}
-    set {_nodeId} to {lastNodeId}
-
     set {_l} to {_loc}
     set block at {_l} to cobblestone
-    registerNodeBlock({_l}, {_nodeId}, 3)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone
-    registerNodeBlock({_l}, {_nodeId}, 3)
     add 1 to x-coordinate of {_l}
     set block at {_l} to iron ore
-    registerNodeBlock({_l}, {_nodeId}, 3)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 3)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     remove 1 from z-coordinate of {_l}
     set block at {_l} to iron ore
-    registerNodeBlock({_l}, {_nodeId}, 3)
     add 1 to x-coordinate of {_l}
     set block at {_l} to cobblestone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 3)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     add 1 to z-coordinate of {_l}
     set block at {_l} to iron ore
-    registerNodeBlock({_l}, {_nodeId}, 3)
     add 1 to x-coordinate of {_l}
     set block at {_l} to cobblestone
-    registerNodeBlock({_l}, {_nodeId}, 3)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     add 1 to y-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 3)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 3)
     
 function pasteNode4(loc: location):
-    add 1 to {lastNodeId}
-    set {_nodeId} to {lastNodeId}
-
     set {_l} to {_loc}
     set block at {_l} to cobblestone
-    registerNodeBlock({_l}, {_nodeId}, 4)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone
-    registerNodeBlock({_l}, {_nodeId}, 4)
     add 1 to x-coordinate of {_l}
     set block at {_l} to gold ore
-    registerNodeBlock({_l}, {_nodeId}, 4)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 4)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     remove 1 from z-coordinate of {_l}
     set block at {_l} to gold ore
-    registerNodeBlock({_l}, {_nodeId}, 4)
     add 1 to x-coordinate of {_l}
     set block at {_l} to cobblestone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 4)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     add 1 to z-coordinate of {_l}
     set block at {_l} to gold ore
-    registerNodeBlock({_l}, {_nodeId}, 4)
     add 1 to x-coordinate of {_l}
     set block at {_l} to cobblestone
-    registerNodeBlock({_l}, {_nodeId}, 4)
 
     set {_l} to {_loc}
     add 1 to x-coordinate of {_l}
     add 1 to y-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 4)
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
-    registerNodeBlock({_l}, {_nodeId}, 4)
-       
+        
 function PasteNode(loc: location, id: number):
     if canPasteNode({_loc}, {_id}) is false:
         stop
@@ -206,54 +158,10 @@ function PasteNode(loc: location, id: number):
             pasteNode3({_loc})
         case 4:
             pasteNode4({_loc})
-       
-function clearAllNodes():
-    loop {node::blocks::*}:
-        set {_id} to loop-index
-
-        loop {node::blocks::%{_id}%::*}:
-            set block at loop-value-2 to air
-
-        delete {node::blocks::%{_id}%::*}
-
-    delete {node::id::*}
-    delete {node::type::*}
-    delete {lastNodeId}
-       
+        
 command /nodepaste <number>:
     permission: admin.node
     trigger:
         set {_loc} to player's location
         add 1 to x-coord of {_loc}
         PasteNode({_loc}, arg-1)
-        
-command /clearnodes:
-    permission: admin.node
-    trigger:
-        clearAllNodes()
-        send "&aAll nodes have been cleared."
-        
-on break:
-    set {_id} to {node::id::%location of event-block%}
-    if {_id} is not set:
-        stop
-
-    cancel event
-
-    set {_type} to {node::type::%location of event-block%}
-
-    loop {node::blocks::%{_id}%::*}:
-        set block at loop-value to air
-        delete {node::id::%loop-value%}
-        delete {node::type::%loop-value%}
-
-    delete {node::blocks::%{_id}%::*}
-
-    if {_type} = 1:
-        drop oak log at location of event-block
-    else if {_type} = 2:
-        drop cobblestone at location of event-block
-    else if {_type} = 3:
-        drop raw iron at location of event-block
-    else if {_type} = 4:
-        drop raw gold at location of event-block
