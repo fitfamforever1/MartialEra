@@ -239,7 +239,7 @@ on break:
         
         cancel event
         set {_temp} to random integer between 1 and 3
-        loop {_temp}:
+        loop {_temp} times:
             give getNodeDrop({_type}) to player
         destroyNode({_nid})
 
