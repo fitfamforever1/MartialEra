@@ -176,7 +176,6 @@ on right click on blast furnace:
         if {_val} is set:
             if {_val} > 0:
                 GainMoney(player, {_val})
-                send "&aYou claimed &e$%{_val}%&a from this generator!" to player
                 set number data tag "gen3:money" of event-block to 0
         else:
-            send "&7This generator hasn't produced any money yet!" to player
+            send "&cThis generator hasn't produced any money yet!" to player
