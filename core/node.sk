@@ -147,8 +147,8 @@ function regenNodes():
                 broadcast "&e[Node Engine] Safe lookup limit reached for type %{_type}%. Placed %{_placed}%/%{_target}%."
                 exit loop
 
-            set {_x} to random integer between -128 and 127
-            set {_z} to random integer between -128 and 127
+            set {_x} to random integer between -80 and 80
+            set {_z} to random integer between -80 and 80
             
             # Dynamic Surface Detection: finds ground instead of blindly forcing Y -59
             set {_surface_y} to getSurfaceY({_x}, {_z}, {_world})
