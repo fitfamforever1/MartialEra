@@ -189,20 +189,28 @@ on break of blast furnace:
         delete {gen3-owner::%{_loc}%}
             
 on load:
+    wait 3 seconds
+
     loop {gen1::*}:
-        set block at loop-value to gray stained glass
+        set {_loc} to loop-value
+        load chunk at {_loc}
+        set block at {_loc} to gray stained glass
     delete {gen1::*}
     delete {gen1-owner::*}
     delete {gen1-paper::*}
 
     loop {gen2::*}:
-        set block at loop-value to gray stained glass
+        set {_loc} to loop-value
+        load chunk at {_loc}
+        set block at {_loc} to gray stained glass
     delete {gen2::*}
     delete {gen2-owner::*}
     delete {gen2-paper::*}
 
     loop {gen3::*}:
-        set block at loop-value to air
+        set {_loc} to loop-value
+        load chunk at {_loc}
+        set block at {_loc} to air
     delete {gen3::*}
     delete {gen3-owner::*}
 
