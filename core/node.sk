@@ -5,6 +5,7 @@ command /nodepaste <number>:
     permission: admin.node
     trigger:
         set {_loc} to player's location
+        add 1 to x-coord of {_loc}
         pasteNode({_loc})
         
         
