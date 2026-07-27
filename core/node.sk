@@ -1,13 +1,23 @@
-function pasteNode(loc: location):
+function pasteNode1(loc: location):
     loop 3 times:
         set block data of block at {_loc} to oak_log[axis=x]
         add 1 to x-coordinate of {_loc}
+        
+function pasteNode2(loc: location):
+    set {_loc2} to {_loc}
+    set {_loc3} to {_loc}
+    set block at {_loc} to cobblestone
+    add 1 to x-coordinate of {_loc}
+    loop 2 times:
+        set block at {_loc} to stone
+        add 1 to x-coordinate of {_loc}
+    set block data of block at {_loc} to stone_slab[type=bottom]
         
 command /nodepaste <number>:
     permission: admin.node
     trigger:
         set {_loc} to player's location
         add 1 to x-coord of {_loc}
-        pasteNode({_loc})
+        pasteNode2({_loc})
         
         
