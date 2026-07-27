@@ -146,7 +146,7 @@ function pasteNode4(loc: location):
     set block at {_l} to stone_slab[type=bottom]
         
 function PasteNode(loc: location, id: number):
-    if not canPasteNode({_loc}, {_id}):
+    if canPasteNode({_loc}, {_id}) is false:
         stop
 
     switch {_id}:
