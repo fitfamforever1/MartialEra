@@ -20,7 +20,7 @@ function getRarityLine(rarity: text) :: text:
 function material(type: number):: item:
     set {_item} to player head
     
-    set max stack size component of player's tool to 16
+    set max stack size component of {_item} to 16
     
     if {_type} is 1:
         set name of {_item} to "&fWood"
