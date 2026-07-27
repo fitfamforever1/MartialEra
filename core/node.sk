@@ -266,3 +266,5 @@ on load:
     set {_ids::*} to {nodes::*}
     loop {_ids::*}:
         destroyNode(loop-value)
+        
+        #
