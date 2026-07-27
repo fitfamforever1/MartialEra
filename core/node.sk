@@ -1,7 +1,7 @@
 function pasteNode(loc: location):
     loop 3 times:
         set block data of block at {_loc} to oak_log[axis=x]
-        add 1 to y-coordinate of {_loc}
+        add 1 to x-coordinate of {_loc}
         
 command /nodepaste <number>:
     permission: admin.node
