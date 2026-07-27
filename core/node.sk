@@ -1,6 +1,10 @@
+function pasteNode(loc: location):
+    set block at {_loc} to oak log
+
 command /nodepaste <number>:
     permission: admin.node
     trigger:
-        paste schematic named "node%arg-1%" at player's location while ignoring air
+        set {_loc} to player's location
+        pasteNode({_loc})
         
-#
+        
