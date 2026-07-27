@@ -96,7 +96,7 @@ function pasteNode4(loc: location):
     add 1 to x-coordinate of {_l}
     set block at {_l} to stone_slab[type=bottom]
         
-function Node(loc: location, id: number):
+function PasteNode(loc: location, id: number):
     switch {_id}:
         case 1:
             pasteNode1({_loc})
@@ -113,6 +113,6 @@ command /nodepaste <number>:
     trigger:
         set {_loc} to player's location
         add 1 to x-coord of {_loc}
-        pasteNode2({_loc})
+        PasteNode({_loc}, arg-1)
         
         
