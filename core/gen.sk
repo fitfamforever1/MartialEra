@@ -189,16 +189,19 @@ on break of blast furnace:
         delete {gen3-owner::%{_loc}%}
             
 on load:
-    wait 3 seconds
 
+    send "&e[DEBUG] gen1 entries: %size of {gen1::*}%" to console
     loop {gen1::*}:
         set {_loc} to loop-value
+        send "&e[DEBUG] gen1 loc: %{_loc}% | current block: %block at {_loc}%" to console
         load chunk at {_loc}
         set block at {_loc} to gray stained glass
+        send "&e[DEBUG] gen1 loc after set: %block at {_loc}%" to console
     delete {gen1::*}
     delete {gen1-owner::*}
     delete {gen1-paper::*}
 
+    send "&e[DEBUG] gen2 entries: %size of {gen2::*}%" to console
     loop {gen2::*}:
         set {_loc} to loop-value
         load chunk at {_loc}
@@ -207,6 +210,7 @@ on load:
     delete {gen2-owner::*}
     delete {gen2-paper::*}
 
+    send "&e[DEBUG] gen3 entries: %size of {gen3::*}%" to console
     loop {gen3::*}:
         set {_loc} to loop-value
         load chunk at {_loc}
