@@ -104,6 +104,8 @@ command /statreset <player>:
         
         set number data tag "playerstat:crit_chance" of arg-1 to 30
         set number data tag "playerstat:crit_damage" of arg-1 to 50
+        levelUp(arg-1)
+        stat(arg-1)
             
 command /stat <player>:
     permission: admin.stat
