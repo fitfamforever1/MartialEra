@@ -108,7 +108,8 @@ command /statreset <player>:
 command /stat <player>:
     permission: admin.stat
     trigger:
-        levelUp(player)
+        levelUp(arg-1)
+        stat(arg-1)
         send message "&a&lSTATS SET" to arg-1
         send message "&7Damage: &f%data tag "stat:damage" of arg-1%" to arg-1
         send message "&7Defense: &f%data tag "stat:defense" of arg-1%" to arg-1
@@ -125,7 +126,8 @@ command /setlevel <number>:
     trigger:
         set number data tag "playerstat:lvl" of player to arg-1
         levelUp(player)
-
+        stat(player)
+        
 command /statadd <text> <number>:
     permission: admin.stat
     trigger:
