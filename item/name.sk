@@ -250,7 +250,7 @@ function suffix2() :: text:
 function generateitem() :: text:
     set {_roll} to random integer between 1 and 2
     if {_roll} = 1:
-        return "%suffix1()%"
+        return %suffix1()%
     else:
         return "%suffix1()% %suffix2()%"
 
