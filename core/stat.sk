@@ -123,8 +123,8 @@ command /stat <player>:
         
 command /setlevel <number>:
     trigger:
-        levelUp(player)
         set number data tag "playerstat:lvl" of player to arg-1
+        levelUp(player)
 
 command /statadd <text> <number>:
     permission: admin.stat
