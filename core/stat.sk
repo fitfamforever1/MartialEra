@@ -1,5 +1,5 @@
 function prefix() :: text:
-    return "&8[<##57DE3F>ꜱᴛᴀᴛ&8]&r "
+    return "&8[<##57DE3F>ꜱᴛᴀᴛ&8]&7 "
 
 #  REALM / STAGE / LEVEL SYSTEM
 
