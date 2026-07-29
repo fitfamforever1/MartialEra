@@ -1,4 +1,4 @@
-function stage(p: player):
+function stage(p: player) :: text:
     set {_level} to number data tag "playerstat:lvl" of {_p}
     set {_stage} to mod({_level} - 1, 5) + 1
     if {_stage} is 1:
@@ -12,7 +12,7 @@ function stage(p: player):
     if {_stage} is 5:
         return "Transformation"
 
-function realm(p: player):
+function realm(p: player) :: text:
     set {_level} to number data tag "playerstat:lvl" of {_p}
     set {_realm} to floor(({_level} - 1) / 5)
     set {_realm} to mod({_realm}, 9) + 1
