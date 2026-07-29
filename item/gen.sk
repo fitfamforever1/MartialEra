@@ -71,7 +71,7 @@ function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_damage} to getQualityStat({_damage}, {_quality})
-    set {_critchance} to getQualityStat({_critchance}, {_quality}))
+    set {_critchance} to getQualityStat({_critchance}, {_quality})
     set {_critdamage} to getQualityStat({_critdamage}, {_quality})
     
     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
@@ -172,23 +172,6 @@ function dagger(baseitem: item, name: text, level: number):: item:
     
     return {_item}
     
-command /modifyweapon <text> <number> <text> <item type>:
-    permission: admin.item
-    trigger:
-        set {_baseitem} to arg-4
-
-        if arg-1 is "sword":
-            set {_item} to sword({_baseitem}, arg-3, arg-2)
-        else if arg-1 is "axe":
-            set {_item} to axe({_baseitem}, arg-3, arg-2)
-        else if arg-1 is "dagger":
-            set {_item} to dagger({_baseitem}, arg-3, arg-2)
-        else:
-            send "&cTypes: sword, axe, dagger"
-            stop
-        
-        give {_item} to player
-        send "&aGave &eLvl %arg-2% %arg-1% (%arg-3%)&a."
         
 function helmet(name: text, level: number, base: text):: item:
     set {_item} to player head
