@@ -40,6 +40,19 @@ function realmstage(p: player) :: text:
     
     return "%{_realmtext}%, %{_stagetext}%"
         
+function levelUp(p: player):
+    set {_level} to number data tag "playerstat:lvl" of {_p}
+    set {_realm} to floor(({_level} - 1) / 5)
+
+    set number data tag "playerstat:damage" of {_p} to 5 + ({_level} * 3) + ({_realm} * 15)
+    set number data tag "playerstat:defense" of {_p} to ({_level} * 2) + ({_realm} * 10)
+    set number data tag "playerstat:speed" of {_p} to 10 + ({_level} * 1) + ({_realm} * 5)
+    set number data tag "playerstat:health" of {_p} to 50 + ({_level} * 20) + ({_realm} * 100)
+    set number data tag "playerstat:mana" of {_p} to 100 + ({_level} * 15) + ({_realm} * 75)
+
+    set number data tag "current:health" of {_p} to number data tag "playerstat:health" of {_p}
+    set number data tag "current:mana" of {_p} to number data tag "playerstat:mana" of {_p}
+        
 command /showcase:
     trigger:
         realmstage(player)
