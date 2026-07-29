@@ -113,7 +113,9 @@ function stat(p: player):
 function levelReq(p: player, item: item) :: boolean:
     set {_playerLevel} to number data tag "playerstat:lvl" of {_p}
     set {_itemLevel} to number data tag "itemstat:level" of {_item}
-    return {_playerLevel} >= {_itemLevel}
+    if {_playerLevel} >= {_itemLevel}:
+        return true
+    return false
 
 #  HEALTH / MANA / MOVEMENT
 
