@@ -71,9 +71,9 @@ function Actionbar(p: player):
 
 on join:
     if number data tag "playerstat:lvl" of player is not set:
-        set number data tag "playerstat:lvl" of arg-1 to 1
-        levelUp(arg-1)
-        stat(arg-1)
+        set number data tag "playerstat:lvl" of player to 1
+        levelUp(player)
+        stat(player)
         
 command /statreset <player>:
     permission: admin.stat
