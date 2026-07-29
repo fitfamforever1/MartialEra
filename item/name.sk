@@ -254,7 +254,7 @@ function generateitem(prefix: text) :: text:
     else:
         return "&f%suffix1()% %suffix2()% %{_prefix}%"
 
-command /getitem <arg-1>:
+command /getitem <text>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
