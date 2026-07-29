@@ -1,50 +1,50 @@
-function stage(p: player) :: text:
+function realmstage(p: player) :: text:
     set {_level} to number data tag "playerstat:lvl" of {_p}
-    set {_stage} to mod({_level} - 1, 5) + 1
-    if {_stage} is 1:
-        return "Early"
-    if {_stage} is 2:
-        return "Mid"
-    if {_stage} is 3:
-        return "Late"
-    if {_stage} is 4:
-        return "Peak"
-    if {_stage} is 5:
-        return "Transformation"
 
-function realm(p: player) :: text:
-    set {_level} to number data tag "playerstat:lvl" of {_p}
+    set {_stage} to mod({_level} - 1, 5) + 1
     set {_realm} to floor(({_level} - 1) / 5)
     set {_realm} to mod({_realm}, 9) + 1
+
     if {_realm} is 1:
-        return "One Star"
-    if {_realm} is 2:
-        return "Two Star"
-    if {_realm} is 3:
-        return "Three Star"
-    if {_realm} is 4:
-        return "Four Star"
-    if {_realm} is 5:
-        return "Five Star"
-    if {_realm} is 6:
-        return "Six Star"
-    if {_realm} is 7:
-        return "Seven Star"
-    if {_realm} is 8:
-        return "Eight Star"
-    if {_realm} is 9:
-        return "Nine Star"
+        set {_realmtext} to "ᴏɴᴇ sᴛᴀʀ"
+    else if {_realm} is 2:
+        set {_realmtext} to "ᴛᴡᴏ sᴛᴀʀ"
+    else if {_realm} is 3:
+        set {_realmtext} to "ᴛʜʀᴇᴇ sᴛᴀʀ"
+    else if {_realm} is 4:
+        set {_realmtext} to "ꜰᴏᴜʀ sᴛᴀʀ"
+    else if {_realm} is 5:
+        set {_realmtext} to "ꜰɪᴠᴇ sᴛᴀʀ"
+    else if {_realm} is 6:
+        set {_realmtext} to "sɪx sᴛᴀʀ"
+    else if {_realm} is 7:
+        set {_realmtext} to "sᴇᴠᴇɴ sᴛᴀʀ"
+    else if {_realm} is 8:
+        set {_realmtext} to "ᴇɪɢʜᴛ sᴛᴀʀ"
+    else if {_realm} is 9:
+        set {_realmtext} to "ɴɪɴᴇ sᴛᴀʀ"
+
+    if {_stage} is 1:
+        set {_stagetext} to "ᴇᴀʀʟʏ"
+    else if {_stage} is 2:
+        set {_stagetext} to "ᴍɪᴅ"
+    else if {_stage} is 3:
+        set {_stagetext} to "ʟᴀᴛᴇ"
+    else if {_stage} is 4:
+        set {_stagetext} to "ᴘᴇᴀᴋ"
+    else if {_stage} is 5:
+        set {_stagetext} to "ᴛʀᴀɴsꜰᴏʀᴍᴀᴛɪᴏɴ"
+
+    return "%{_realmtext}%, %{_stagetext}%"
         
-command /showcase:
+command /showcase [<player>]:
     trigger:
         set {_target} to player
 
-        set {_realm} to realm({_target})
-        set {_stage} to stage({_target})
+        set {_display} to realmstage({_target})
 
         send "&8&m----------------------&r" to player
-        send "&7Realm: &e%{_realm}%" to player
-        send "&7Stage: &e%{_stage}%" to player
+        send "&e%{_display}%" to player
 
 function statAdd(p: player, t: string, a: number):
     set {_current} to number data tag "playerstat:%{_t}%" of {_p}
