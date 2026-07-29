@@ -217,26 +217,26 @@ function calculateCrit(p: player) :: number:
     return {_base} + ({_base} * {_critDamage})
 
 
-function displayDamage(victim: entity, damage: number):
+function displayDamage(victim: entity, damage: number, isCrit: boolean):
     set {_theta} to random number between 0 and 360
     set {_phi} to random number between 0 and 180
     set {_offsetX} to sin({_phi}) * cos({_theta})
     set {_offsetY} to cos({_phi})
     set {_offsetZ} to sin({_phi}) * sin({_theta})
-
     set {_loc} to location of {_victim}
     add 1 to y-coordinate of {_loc}
     add {_offsetX} to x-coordinate of {_loc}
     add {_offsetY} to y-coordinate of {_loc}
     add {_offsetZ} to z-coordinate of {_loc}
-
     spawn text display at {_loc}
     set {_display} to last spawned text display
     set color of {_display} to rgb(0, 0, 0, 0)
     set billboard of {_display} to center
     set interpolation duration of {_display} to 2 ticks
-    set text of {_display} to "<##FF2400>%round({_damage})%"
-
+    if {_isCrit} is true:
+        set text of {_display} to "<##FFD700><bold>%round({_damage})%✦"
+    else:
+        set text of {_display} to "<##FF2400>%round({_damage})%"
     wait 1 second
     kill {_display}
 
@@ -250,35 +250,38 @@ function death(p: player):
 
 
 on damage:
-    if victim is a player:
-        if projectile is an arrow:
-            set {_dmg} to number data tag "mobstat:damage" of projectile
-            cancel event
-            delete projectile
-            damagePlayer(victim, {_dmg})
-        else:
-            set {_dmg} to number data tag "mobstat:damage" of attacker
-            if {_dmg} is not set:
-                set {_dmg} to 0
-            damagePlayer(victim, {_dmg})
-            set damage to 0
-            stop
-    else if attacker is a player:
+    if attacker is a player:
         set {_critChance} to number data tag "stat:crit_chance" of attacker
         set {_roll} to random number between 1 and 100
-
+        set {_isCrit} to false
         if {_roll} <= {_critChance}:
             set {_dmg} to calculateCrit(attacker)
+            set {_isCrit} to true
         else:
             set {_dmg} to calculateAttack(attacker)
 
-        displayDamage(victim, {_dmg})
-
-        if victim is armor stand:
+        if victim is a player:
+            cancel event
+            damagePlayer(victim, {_dmg})
+            displayDamage(victim, {_dmg}, {_isCrit})
+            stop
+        else if victim is armor stand:
             set damage to 0
             stop
         else:
             set damage to {_dmg}
+            displayDamage(victim, {_dmg}, {_isCrit})
+
+    else if victim is a player:
+        cancel event
+        if projectile is an arrow:
+            set {_dmg} to number data tag "mobstat:damage" of projectile
+            delete projectile
+        else:
+            set {_dmg} to number data tag "mobstat:damage" of attacker
+            if {_dmg} is not set:
+                set {_dmg} to 0
+        damagePlayer(victim, {_dmg})
 
 
 #  EVENT
