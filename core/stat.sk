@@ -46,7 +46,7 @@ function levelUp(p: player):
 
     set number data tag "playerstat:damage" of {_p} to 5 + ({_level} * 3) + ({_realm} * 15)
     set number data tag "playerstat:defense" of {_p} to ({_level} * 2) + ({_realm} * 10)
-    set number data tag "playerstat:speed" of {_p} to 10 + ({_level} * 1) + ({_realm} * 5)
+    set number data tag "playerstat:speed" of {_p} to 10 + ({_level} * 0.2) + ({_realm} * 1)
     set number data tag "playerstat:health" of {_p} to 50 + ({_level} * 20) + ({_realm} * 100)
     set number data tag "playerstat:mana" of {_p} to 100 + ({_level} * 15) + ({_realm} * 75)
 
@@ -108,6 +108,7 @@ command /statreset <player>:
 command /stat <player>:
     permission: admin.stat
     trigger:
+        levelUp(player)
         send message "&a&lSTATS SET" to arg-1
         send message "&7Damage: &f%data tag "stat:damage" of arg-1%" to arg-1
         send message "&7Defense: &f%data tag "stat:defense" of arg-1%" to arg-1
@@ -122,6 +123,7 @@ command /stat <player>:
         
 command /setlevel <number>:
     trigger:
+        levelUp(player)
         set number data tag "playerstat:lvl" of player to arg-1
 
 command /statadd <text> <number>:
