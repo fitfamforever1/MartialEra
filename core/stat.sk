@@ -1,5 +1,3 @@
-#  SHARED UTILITIES
-
 function prefix() :: text:
     return "&8[<##57DE3F>ꜱᴛᴀᴛ&8]&r "
 
@@ -143,6 +141,12 @@ function regenPlayer(p: player):
 
 function syncSpeed(p: player):
     set {_speed} to number data tag "stat:speed" of {_p}
+    set {_cap} to number data tag "playerstat:speedcap" of {_p}
+
+    if {_cap} is set:
+        if {_speed} > {_cap}:
+            set {_speed} to {_cap}
+
     set {_p}'s movement speed attribute to {_speed} / 100
 
 
@@ -469,3 +473,37 @@ command /damage <number> [<offlineplayer>]:
 
         damagePlayer({_target}, arg-1)
         send "%prefix()%&cᴅᴇᴀʟᴛ &f%arg-1%&c ᴅᴀᴍᴀɢᴇ ᴛᴏ &f%{_target}%&c." to player
+        
+command /speedcap [<text>]:
+    usage: %prefix()%&cᴜsᴀɢᴇ: /speedcap [amount|reset]
+    trigger:
+        if arg-1 is not set:
+            delete number data tag "playerstat:speedcap" of player
+            syncSpeed(player)
+            send "%prefix()%&aᴍᴏᴠᴇᴍᴇɴᴛ sᴘᴇᴇᴅ ᴄᴀᴘ ʀᴇᴍᴏᴠᴇᴅ." to player
+            stop
+
+        if arg-1 is "reset":
+            delete number data tag "playerstat:speedcap" of player
+            syncSpeed(player)
+            send "%prefix()%&aᴍᴏᴠᴇᴍᴇɴᴛ sᴘᴇᴇᴅ ᴄᴀᴘ ʀᴇᴍᴏᴠᴇᴅ." to player
+            stop
+
+        if arg-1 is not a number:
+            send "%prefix()%&cɪɴᴠᴀʟɪᴅ ᴠᴀʟᴜᴇ. ᴜsᴇ ᴀ ɴᴜᴍʙᴇʀ ᴏʀ 'ʀᴇsᴇᴛ'." to player
+            stop
+
+        set {_amount} to arg-1 parsed as number
+        set {_maxSpeed} to number data tag "stat:speed" of player
+
+        if {_amount} < 1:
+            send "%prefix()%&cᴄᴀᴘ ᴍᴜsᴛ ʙᴇ ᴀᴛ ʟᴇᴀsᴛ 1." to player
+            stop
+
+        if {_amount} > {_maxSpeed}:
+            send "%prefix()%&cᴄᴀᴘ ᴄᴀɴɴᴏᴛ ᴇxᴄᴇᴇᴅ ʏᴏᴜʀ ᴍᴀx sᴘᴇᴇᴅ ᴏꜰ &f%{_maxSpeed}%&c." to player
+            stop
+
+        set number data tag "playerstat:speedcap" of player to {_amount}
+        syncSpeed(player)
+        send "%prefix()%&aᴍᴏᴠᴇᴍᴇɴᴛ sᴘᴇᴇᴅ ᴄᴀᴘᴘᴇᴅ ᴀᴛ &f%{_amount}%&a." to player
