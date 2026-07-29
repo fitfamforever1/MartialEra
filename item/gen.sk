@@ -66,7 +66,7 @@ function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     set {_critchance} to round(5 + ({_level} * 0.3))
     set {_critdamage} to round(50 + ({_level} * 1.0))
     
-    set name of {_item} to generateitem()
+    set name of {_item} to generateitem("Sword")
     set item model of {_item} to "minecraft:sword/sword%{_modelId}%"
     
     set {_qualityLine} to getQualityLine({_quality})

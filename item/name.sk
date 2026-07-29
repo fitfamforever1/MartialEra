@@ -247,16 +247,16 @@ function suffix2() :: text:
         default -> "of Nothing"
         
             
-function generateitem() :: text:
+function generateitem(prefix: text) :: text:
     set {_roll} to random integer between 1 and 2
     if {_roll} = 1:
-        return suffix1()
+        return "&f%suffix1()% %{_prefix}%"
     else:
-        return "&f%suffix1()% %suffix2()%"
+        return "&f%suffix1()% %suffix2()% %{_prefix}%"
 
-command /getitem:
+command /getitem <arg-1>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_temp} to generateitem()
+        set {_temp} to generateitem({_prefix})
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ ᴛʜᴇ ɴᴀᴍᴇ: &e%{_temp}%" to player
