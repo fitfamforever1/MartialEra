@@ -39,7 +39,7 @@ function getQualityLine(quality: number) :: text:
         return "&eᴘᴇʀꜰᴇᴄᴛ"
     return ""
 
-function getQualityStat(stat: number, quality: number) :: text:
+function getQualityStat(stat: number, quality: number) :: number:
     if {_quality} is 1:
         return {_stat} / 0.5
     if {_quality} is 2:
