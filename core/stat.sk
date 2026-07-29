@@ -1,3 +1,51 @@
+function stage(p: player):
+    set {_level} to number data tag "playerstat:lvl" of {_p}
+    set {_stage} to mod({_level} - 1, 5) + 1
+    if {_stage} is 1:
+        return "Early"
+    if {_stage} is 2:
+        return "Mid"
+    if {_stage} is 3:
+        return "Late"
+    if {_stage} is 4:
+        return "Peak"
+    if {_stage} is 5:
+        return "Transformation"
+
+function realm(p: player):
+    set {_level} to number data tag "playerstat:lvl" of {_p}
+    set {_realm} to floor(({_level} - 1) / 5)
+    set {_realm} to mod({_realm}, 9) + 1
+    if {_realm} is 1:
+        return "One Star"
+    if {_realm} is 2:
+        return "Two Star"
+    if {_realm} is 3:
+        return "Three Star"
+    if {_realm} is 4:
+        return "Four Star"
+    if {_realm} is 5:
+        return "Five Star"
+    if {_realm} is 6:
+        return "Six Star"
+    if {_realm} is 7:
+        return "Seven Star"
+    if {_realm} is 8:
+        return "Eight Star"
+    if {_realm} is 9:
+        return "Nine Star"
+        
+command /showcase:
+    trigger:
+        set {_target} to player
+
+        set {_realm} to realm({_target})
+        set {_stage} to stage({_target})
+
+        send "&8&m----------------------&r" to player
+        send "&7Realm: &e%{_realm}%" to player
+        send "&7Stage: &e%{_stage}%" to player
+
 function statAdd(p: player, t: string, a: number):
     set {_current} to number data tag "playerstat:%{_t}%" of {_p}
     set number data tag "playerstat:%{_t}%" of {_p} to ({_current} + {_a})
@@ -152,7 +200,7 @@ command /removemana <player> <number>:
     permission: admin.stat
     trigger:
         if removeMana(arg-1, arg-2) is true:
-            send "&9Removed &f%arg-2%&9 qi from &f%arg-1%&9." to player
+            send "&9Removed &f%arg-2%&9 mana from &f%arg-1%&9." to player
 
 command /removehealth <player> <number>:
     permission: admin.stat
