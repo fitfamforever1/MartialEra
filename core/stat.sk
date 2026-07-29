@@ -45,7 +45,7 @@ command /showcase:
         realmstage(player)
         send "&8&m----------------------&r" to player
         send "&7Realm: &e%data tag "playerstat:realm" of player%" to player
-        send "&7Realm: &e%data tag "playerstat:stage" of player%" to player
+        send "&7Stage: &e%data tag "playerstat:stage" of player%" to player
 
 function statAdd(p: player, t: string, a: number):
     set {_current} to number data tag "playerstat:%{_t}%" of {_p}
