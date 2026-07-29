@@ -41,15 +41,15 @@ function getQualityLine(quality: number) :: text:
 
 function getQualityStat(stat: number, quality: number) :: number:
     if {_quality} is 1:
-        return {_stat} / 0.5
+        return {_stat} * 0.5
     if {_quality} is 2:
-        return {_stat} / 0.8
+        return {_stat} * 0.8
     if {_quality} is 3:
         return {_stat}
     if {_quality} is 4:
-        return {_stat} / 1.2
+        return {_stat} * 1.2
     if {_quality} is 5:
-        return {_stat} / 1.5
+        return {_stat} * 1.5
 
 function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
     set {_item} to iron sword
