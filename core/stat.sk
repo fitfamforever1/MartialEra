@@ -483,8 +483,13 @@ command /speedcap [<text>]:
             send "%prefix()%&aᴍᴏᴠᴇᴍᴇɴᴛ sᴘᴇᴇᴅ ᴄᴀᴘ ʀᴇᴍᴏᴠᴇᴅ." to player
             stop
 
-        if arg-1 is not a number:
-            send "%arg-1%"
+        if arg-1 is "reset":
+            delete number data tag "playerstat:speedcap" of player
+            syncSpeed(player)
+            send "%prefix()%&aᴍᴏᴠᴇᴍᴇɴᴛ sᴘᴇᴇᴅ ᴄᴀᴘ ʀᴇᴍᴏᴠᴇᴅ." to player
+            stop
+
+        if arg-1 does not match "^\d+(\.\d+)?$":
             send "%prefix()%&cɪɴᴠᴀʟɪᴅ ᴠᴀʟᴜᴇ. ᴜsᴇ ᴀ ɴᴜᴍʙᴇʀ ᴏʀ 'ʀᴇsᴇᴛ'." to player
             stop
 
