@@ -252,7 +252,7 @@ function generateitem() :: text:
     if {_roll} = 1:
         return suffix1()
     else:
-        return "%suffix1()% %suffix2()%"
+        return "&f%suffix1()% %suffix2()%"
 
 command /getitem:
     permission: admin.item
