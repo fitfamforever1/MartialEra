@@ -34,17 +34,18 @@ function realmstage(p: player) :: text:
         set {_stagetext} to "ᴘᴇᴀᴋ"
     else if {_stage} is 5:
         set {_stagetext} to "ᴛʀᴀɴsꜰᴏʀᴍᴀᴛɪᴏɴ"
-
+    
+    set text data tag "playerstat:realm" of {_p} to {_realmtext}
+    set text data tag "playerstat:stage" of {_p} to {_stagetext}
+    
     return "%{_realmtext}%, %{_stagetext}%"
         
-command /showcase [<player>]:
+command /showcase:
     trigger:
-        set {_target} to player
-
-        set {_display} to realmstage({_target})
-
+        realmstage(player)
         send "&8&m----------------------&r" to player
-        send "&e%{_display}%" to player
+        send "&7Realm: &e%data tag "playerstat:realm" of player%" to player
+        send "&7Realm: &e%data tag "playerstat:stage" of player%" to player
 
 function statAdd(p: player, t: string, a: number):
     set {_current} to number data tag "playerstat:%{_t}%" of {_p}
