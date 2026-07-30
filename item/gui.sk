@@ -1,7 +1,8 @@
 function craftgui(p: player):
     set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
-    
-    
+
+    set all slots of {_gui} to light gray stained glass pane named " "
+
     open {_gui} to {_p}
     
 command /test1:
