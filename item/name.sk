@@ -313,3 +313,10 @@ function applyHexColor(item: item, hex: text) :: item:
     send "&7[DEBUG] applyHexColor result rgb: &f%{_r}%, %{_g}%, %{_b}%" to console
     dye {_item} ({_r}, {_g}, {_b})
     return {_item}
+
+
+command /test:
+    trigger:
+        set {_item} to player's tool
+        set {_item} to applyHexColor({_item}, color(1))
+        set player's tool to {_item}
