@@ -288,17 +288,9 @@ function hexDigit(digit: text) :: number:
         default -> 0
 
 function applyHexColor(item: item, hex: text) :: item:
-    set {_hex} to lower case of {_hex}
     set {_r} to (hexDigit(substring of {_hex} from 1 to 1) * 16) + hexDigit(substring of {_hex} from 2 to 2)
     set {_g} to (hexDigit(substring of {_hex} from 3 to 3) * 16) + hexDigit(substring of {_hex} from 4 to 4)
     set {_b} to (hexDigit(substring of {_hex} from 5 to 5) * 16) + hexDigit(substring of {_hex} from 6 to 6)
     send "&7[DEBUG] applyHexColor %{_hex}% -> rgb: &f%{_r}%, %{_g}%, %{_b}%" to console
     dye {_item} ({_r}, {_g}, {_b})
     return {_item}
-
-
-command /test:
-    trigger:
-        set {_item} to player's tool
-        set {_item} to applyHexColor({_item}, color(1))
-        set player's tool to {_item}
