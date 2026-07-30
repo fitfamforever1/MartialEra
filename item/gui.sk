@@ -14,7 +14,7 @@ on inventory click:
     name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
     if event-slot is 10 or 12:
         set {_item} to event-item
-        set {_type} to data tag "itemstat:type" of {_item}
+        set {_itemType} to data tag "itemstat:type" of {_item}
         send "%{_type}%"
         if {_type} is not "ore":
             cancel event
