@@ -173,7 +173,7 @@ function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: numb
     set {_mana} to round(15 + ({_level} * 2))
     
     set name of {_item} to generateitem("Helmet")
-    set item model of {_item} to "minecraft:helmet/helmet%{_modelId}%"
+    set item model of {_item} to "minecraft:armor/helmet/%{_modelId}%"
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
@@ -227,7 +227,7 @@ function chestplate(mat1min: number, mat2min: number, mat1max: number, mat2max: 
     set {_defense} to round(12 + ({_level} * 1.8))
     
     set name of {_item} to generateitem("Chestplate")
-    set item model of {_item} to "minecraft:chestplate/chestplate%{_modelId}%"
+    set item model of {_item} to "minecraft:armor/chestplate/%{_modelId}%"
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
@@ -279,7 +279,7 @@ function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: nu
     set {_critdamage} to round(10 + ({_level} * 0.3))
     
     set name of {_item} to generateitem("Leggings")
-    set item model of {_item} to "minecraft:leggings/leggings%{_modelId}%"
+    set item model of {_item} to "minecraft:armor/leggings/%{_modelId}%"
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
@@ -334,7 +334,7 @@ function boots(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     set {_critchance} to round(1 + ({_level} * 0.06))
     
     set name of {_item} to generateitem("Boots")
-    set item model of {_item} to "minecraft:boots/boots%{_modelId}%"
+    set item model of {_item} to "minecraft:armor/boots/%{_modelId}%"
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
