@@ -260,3 +260,52 @@ command /getitem <text>:
     trigger:
         set {_temp} to generateitem(arg-1)
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ ᴛʜᴇ ɴᴀᴍᴇ: &e%{_temp}%" to player
+        
+function color(id: number) :: text:
+    return {_id}:
+        case 1 -> "9397b1"
+        case 2 -> "817d9a"
+        
+function hexDigit(digit: text) :: number:
+    return switch return lower case of {_digit}:
+        case "0" -> 0
+        case "1" -> 1
+        case "2" -> 2
+        case "3" -> 3
+        case "4" -> 4
+        case "5" -> 5
+        case "6" -> 6
+        case "7" -> 7
+        case "8" -> 8
+        case "9" -> 9
+        case "a" -> 10
+        case "b" -> 11
+        case "c" -> 12
+        case "d" -> 13
+        case "e" -> 14
+        case "f" -> 15
+        default -> 0
+
+function applyHexColor(item: item, hex: text) :: item:
+    set {_hex} to lower case of {_hex}
+    set {_r} to 0
+    set {_g} to 0
+    set {_b} to 0
+    set {_i} to 0
+    loop characters of {_hex}:
+        set {_i} to {_i} + 1
+        set {_digit} to hexDigit(loop-value)
+        if {_i} is 1:
+            set {_r} to {_digit} * 16
+        else if {_i} is 2:
+            set {_r} to {_r} + {_digit}
+        else if {_i} is 3:
+            set {_g} to {_digit} * 16
+        else if {_i} is 4:
+            set {_g} to {_g} + {_digit}
+        else if {_i} is 5:
+            set {_b} to {_digit} * 16
+        else if {_i} is 6:
+            set {_b} to {_b} + {_digit}
+    dye {_item} ({_r}, {_g}, {_b})
+    return {_item}

@@ -157,8 +157,20 @@ function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number)
     
     return {_item}
 
+
+# ==============================
+# COLOR — hex palette + hex-to-rgb dye application
+# ==============================
+
+function color(id: number) :: text:
+    return switch return {_id}:
+        case 1 -> "9397b1"
+        case 2 -> "817d9a"
+        default -> "9397b1"
+
+
 function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
-    set {_item} to iron helmet
+    set {_item} to leather helmet
     
     set {_quality} to random integer between 1 and 5
     
@@ -167,6 +179,7 @@ function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: numb
     set {_level} to random integer between {_temp1} and {_temp2}
     
     set {_modelId} to random integer between 1 and 51
+    set {_colorId} to random integer between 1 and 2
     
     set {_health} to round((30 + ({_level} * 3)) * 1.15)
     set {_defense} to round(8 + ({_level} * 1.2))
@@ -174,6 +187,7 @@ function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: numb
     
     set name of {_item} to generateitem("Helmet")
     set item model of {_item} to "minecraft:armor/helmet/%{_modelId}%"
+    set {_item} to applyHexColor({_item}, color({_colorId}))
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
@@ -213,7 +227,7 @@ command /givehelmet <number> <number> <number> <number>:
 
 
 function chestplate(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
-    set {_item} to iron chestplate
+    set {_item} to leather chestplate
     
     set {_quality} to random integer between 1 and 5
     
@@ -222,12 +236,14 @@ function chestplate(mat1min: number, mat2min: number, mat1max: number, mat2max: 
     set {_level} to random integer between {_temp1} and {_temp2}
     
     set {_modelId} to random integer between 1 and 51
+    set {_colorId} to random integer between 1 and 2
     
     set {_health} to round((40 + ({_level} * 3.5)) * 1.15)
     set {_defense} to round(12 + ({_level} * 1.8))
     
     set name of {_item} to generateitem("Chestplate")
     set item model of {_item} to "minecraft:armor/chestplate/%{_modelId}%"
+    set {_item} to applyHexColor({_item}, color({_colorId}))
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
@@ -264,7 +280,7 @@ command /givechestplate <number> <number> <number> <number>:
 
 
 function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
-    set {_item} to iron leggings
+    set {_item} to leather leggings
     
     set {_quality} to random integer between 1 and 5
     
@@ -273,6 +289,7 @@ function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: nu
     set {_level} to random integer between {_temp1} and {_temp2}
     
     set {_modelId} to random integer between 1 and 51
+    set {_colorId} to random integer between 1 and 2
     
     set {_health} to round((35 + ({_level} * 3)) * 1.15)
     set {_damage} to round(3 + ({_level} * 0.8))
@@ -280,6 +297,7 @@ function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: nu
     
     set name of {_item} to generateitem("Leggings")
     set item model of {_item} to "minecraft:armor/leggings/%{_modelId}%"
+    set {_item} to applyHexColor({_item}, color({_colorId}))
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
@@ -319,7 +337,7 @@ command /giveleggings <number> <number> <number> <number>:
 
 
 function boots(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
-    set {_item} to iron boots
+    set {_item} to leather boots
     
     set {_quality} to random integer between 1 and 5
     
@@ -328,6 +346,7 @@ function boots(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     set {_level} to random integer between {_temp1} and {_temp2}
     
     set {_modelId} to random integer between 1 and 51
+    set {_colorId} to random integer between 1 and 2
     
     set {_health} to round((25 + ({_level} * 2.5)) * 1.15)
     set {_speed} to round(2 + ({_level} * 0.15))
@@ -335,6 +354,7 @@ function boots(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     
     set name of {_item} to generateitem("Boots")
     set item model of {_item} to "minecraft:armor/boots/%{_modelId}%"
+    set {_item} to applyHexColor({_item}, color({_colorId}))
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
