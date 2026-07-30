@@ -376,6 +376,7 @@ function material(level: number):: item:
         set {_min} to 1
     
     set name of {_item} to matname({_level})
+    set item model of {_item} to "minecraft:mat/%{_level}%"
     
     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
     set line 2 of lore of {_item} to "&8┃ &7ᴛʏᴘᴇ &8» &eᴏʀᴇ"
