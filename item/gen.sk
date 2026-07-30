@@ -372,6 +372,9 @@ function material(level: number):: item:
     
     set {_min} to {_max} - 5
     
+    if {_min} is 0:
+        set {_min} to 1
+    
     set name of {_item} to matname({_level})
     
     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
