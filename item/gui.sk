@@ -12,7 +12,7 @@ function craftgui(p: player):
     
 on inventory click:
     name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
-    if event-slot is 10 or event-slot is 12:
+    if event-slot is 10 or 12:
         set {_type} to data tag "itemstat:type" of event-item
         if {_type} is not "ore":
             cancel event
