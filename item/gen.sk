@@ -158,16 +158,6 @@ function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number)
     return {_item}
 
 
-# ==============================
-# COLOR — hex palette + hex-to-rgb dye application
-# ==============================
-
-function color(id: number) :: text:
-    return switch return {_id}:
-        case 1 -> "9397b1"
-        case 2 -> "817d9a"
-        default -> "9397b1"
-
 
 function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
     set {_item} to leather helmet

@@ -262,9 +262,10 @@ command /getitem <text>:
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ ᴛʜᴇ ɴᴀᴍᴇ: &e%{_temp}%" to player
         
 function color(id: number) :: text:
-    return {_id}:
+    return switch return {_id}:
         case 1 -> "9397b1"
         case 2 -> "817d9a"
+        default -> "9397b1"
         
 function hexDigit(digit: text) :: number:
     return switch return lower case of {_digit}:
