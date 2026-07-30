@@ -129,8 +129,8 @@ function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number)
     set {_critchance} to round(2 + ({_level} * 0.08))
     set {_critdamage} to round(35 + ({_level} * 0.5))
     
-    set name of {_item} to generateitem("Sword")
-    set item model of {_item} to "minecraft:sword/axe%{_modelId}%"
+    set name of {_item} to generateitem("Axe")
+    set item model of {_item} to "minecraft:axe/axe%{_modelId}%"
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_damage} to round(getQualityStat({_damage}, {_quality}))
