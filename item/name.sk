@@ -289,28 +289,10 @@ function hexDigit(digit: text) :: number:
 
 function applyHexColor(item: item, hex: text) :: item:
     set {_hex} to lower case of {_hex}
-    set {_r} to 0
-    set {_g} to 0
-    set {_b} to 0
-    set {_i} to 0
-    send "&7[DEBUG] applyHexColor input hex: &f%{_hex}%" to console
-    loop split {_hex} at "(?!^)":
-        set {_i} to {_i} + 1
-        set {_digit} to hexDigit(loop-value)
-        send "&7[DEBUG] char #%{_i}% = &f%loop-value%&7 -> digit &f%{_digit}%" to console
-        if {_i} is 1:
-            set {_r} to {_digit} * 16
-        else if {_i} is 2:
-            set {_r} to {_r} + {_digit}
-        else if {_i} is 3:
-            set {_g} to {_digit} * 16
-        else if {_i} is 4:
-            set {_g} to {_g} + {_digit}
-        else if {_i} is 5:
-            set {_b} to {_digit} * 16
-        else if {_i} is 6:
-            set {_b} to {_b} + {_digit}
-    send "&7[DEBUG] applyHexColor result rgb: &f%{_r}%, %{_g}%, %{_b}%" to console
+    set {_r} to (hexDigit(substring of {_hex} from 1 to 1) * 16) + hexDigit(substring of {_hex} from 2 to 2)
+    set {_g} to (hexDigit(substring of {_hex} from 3 to 3) * 16) + hexDigit(substring of {_hex} from 4 to 4)
+    set {_b} to (hexDigit(substring of {_hex} from 5 to 5) * 16) + hexDigit(substring of {_hex} from 6 to 6)
+    send "&7[DEBUG] applyHexColor %{_hex}% -> rgb: &f%{_r}%, %{_g}%, %{_b}%" to console
     dye {_item} ({_r}, {_g}, {_b})
     return {_item}
 
