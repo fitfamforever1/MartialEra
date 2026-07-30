@@ -258,5 +258,5 @@ command /getitem <text>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_temp} to generateitem({_prefix})
+        set {_temp} to generateitem(arg-1)
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ ᴛʜᴇ ɴᴀᴍᴇ: &e%{_temp}%" to player
