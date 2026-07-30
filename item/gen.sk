@@ -87,6 +87,7 @@ function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     set {_item} to unbreakable {_item}
     set item flags of {_item} to all item flags
     
+    set data tag "itemstat:type" of {_item} to "sword"
     set number data tag "itemstat:level" of {_item} to {_level}
     set number data tag "itemstat:damage" of {_item} to {_damage}
     set number data tag "itemstat:crit_chance" of {_item} to {_critchance}
