@@ -1,7 +1,8 @@
 function craftgui(p: player):
     set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
 
-    set all slots of {_gui} to light gray stained glass pane named " "
+    loop 27 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
 
     open {_gui} to {_p}
     
