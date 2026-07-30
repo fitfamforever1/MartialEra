@@ -315,7 +315,6 @@ function color(id: number) :: text:
         case 50 -> "5d82b2"
         case 51 -> "ba7e5e"
         default -> "ffffff"
-
         
 function hexDigit(digit: text) :: number:
     return switch return {_digit}:
@@ -344,3 +343,25 @@ function applyHexColor(item: item, hex: text) :: item:
     send "&7[DEBUG] applyHexColor %{_hex}% -> rgb: &f%{_r}%, %{_g}%, %{_b}%" to console
     dye {_item} ({_r}, {_g}, {_b})
     return {_item}
+    
+    
+function matname(id: number) :: text:
+    return switch return {_id}:
+        case 1 -> "Copper"
+        case 2 -> "Tin"
+        case 3 -> "Bronze"
+        case 4 -> "Iron"
+        case 5 -> "Runesteel"
+        case 6 -> "Moonsilver"
+        case 7 -> "Sunsteel"
+        case 8 -> "Cobalt"
+        case 9 -> "Stormsteel"
+        case 10 -> "Mythril"
+        case 11 -> "Orichalcum"
+        case 12 -> "Adamantite"
+        case 13 -> "Dragonscale"
+        case 14 -> "Aetherium"
+        case 15 -> "Starforged"
+        case 16 -> "Netherite"
+        case 17 -> "Voidsteel"
+        case 18 -> "Eternium"
