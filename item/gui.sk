@@ -1,0 +1,9 @@
+function craftgui(p: player):
+    set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
+    
+    
+    open {_gui} to {_p}
+    
+command /test1:
+    trigger:
+        craftgui(player)
