@@ -268,7 +268,7 @@ function color(id: number) :: text:
         default -> "9397b1"
         
 function hexDigit(digit: text) :: number:
-    return switch return lower case of {_digit}:
+    return switch return {_digit}:
         case "0" -> 0
         case "1" -> 1
         case "2" -> 2
@@ -288,12 +288,11 @@ function hexDigit(digit: text) :: number:
         default -> 0
 
 function applyHexColor(item: item, hex: text) :: item:
-    set {_hex} to lower case of {_hex}
     set {_r} to 0
     set {_g} to 0
     set {_b} to 0
     set {_i} to 0
-    loop characters of {_hex}:
+    loop split {_hex} at "(?!^)":
         set {_i} to {_i} + 1
         set {_digit} to hexDigit(loop-value)
         if {_i} is 1:
