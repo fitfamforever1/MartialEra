@@ -71,7 +71,6 @@ function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_damage} to round(getQualityStat({_damage}, {_quality}))
-    set {_critchance} to round(getQualityStat({_critchance}, {_quality}))
     set {_critdamage} to round(getQualityStat({_critdamage}, {_quality}))
     
     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
