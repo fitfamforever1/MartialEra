@@ -125,7 +125,7 @@ function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number)
     
     set {_modelId} to random integer between 1 and 86
     
-    set {_damage} to round((5 + ({_level} * 1.8)) * 1.15)
+    set {_damage} to round((5 + ({_level} * 2.8)) * 1.15)
     set {_critchance} to round(2 + ({_level} * 0.08))
     set {_critdamage} to round(35 + ({_level} * 0.5))
     
