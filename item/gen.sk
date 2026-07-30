@@ -103,34 +103,54 @@ command /givesword <number> <number> <number> <number>:
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        
+command /giveaxe <number> <number> <number> <number>:
+    permission: admin.item
+    permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
+    trigger:
+        set {_item} to axe(arg-1, arg-2, arg-3, arg-4)
+        give {_item} to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+  
+function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+    set {_item} to iron axe
     
-function axe(baseitem: item, name: text, level: number):: item:
-    set {_item} to {_baseitem}
-    set {_type} to "axe"
-
+    set {_quality} to random integer between 1 and 5
+    
+    set {_temp1} to random integer between {_mat1min} and {_mat1max}
+    set {_temp2} to random integer between {_mat2min} and {_mat2max}
+    set {_level} to random integer between {_temp1} and {_temp2}
+    
+    set {_modelId} to random integer between 1 and 86
+    
     set {_damage} to round((5 + ({_level} * 1.8)) * 1.15)
     set {_critchance} to round(2 + ({_level} * 0.08))
     set {_critdamage} to round(35 + ({_level} * 0.5))
     
-    set {_typeline} to SmallCaps({_type})
-
-    set name of {_item} to "&f%{_name}%"
-
+    set name of {_item} to generateitem("Sword")
+    set item model of {_item} to "minecraft:sword/axe%{_modelId}%"
+    
+    set {_qualityLine} to getQualityLine({_quality})
+    set {_damage} to round(getQualityStat({_damage}, {_quality}))
+    set {_critdamage} to round(getQualityStat({_critdamage}, {_quality}))
+    
     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
-    set line 2 of lore of {_item} to "&8┃ &7ᴛʏᴘᴇ &8» &e%{_typeLine}%"
-    set line 3 of lore of {_item} to "&8┃ &7ʟᴇᴠᴇʟ &8» &c%{_level}%"
-    set line 4 of lore of {_item} to ""
-    set line 5 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ꜱᴛᴀᴛꜱ"
-    set line 6 of lore of {_item} to "&8┃ &7ᴅᴀᴍᴀɢᴇ &8» &c+%{_damage}%"
-    set line 7 of lore of {_item} to "&8┃ &7ᴄʀɪᴛ ᴄʜᴀɴᴄᴇ &8» &9+%{_critchance}%%%"
-    set line 8 of lore of {_item} to "&8┃ &7ᴄʀɪᴛ ᴅᴀᴍᴀɢᴇ &8» &9+%{_critdamage}%%%"
+    set line 2 of lore of {_item} to "&8┃ &7ᴛʏᴘᴇ &8» &eᴀxᴇ"
+    set line 3 of lore of {_item} to "&8┃ &7ǫᴜᴀʟɪᴛʏ &8» %{_qualityLine}%"
+    set line 4 of lore of {_item} to "&8┃ &7ʟᴇᴠᴇʟ &8» &c%{_level}%"
+    set line 5 of lore of {_item} to ""
+    set line 6 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ꜱᴛᴀᴛꜱ"
+    set line 7 of lore of {_item} to "&8┃ &7ᴅᴀᴍᴀɢᴇ &8» &c+%{_damage}%"
+    set line 8 of lore of {_item} to "&8┃ &7ᴄʀɪᴛ ᴄʜᴀɴᴄᴇ &8» &9+%{_critchance}%%%"
+    set line 9 of lore of {_item} to "&8┃ &7ᴄʀɪᴛ ᴅᴀᴍᴀɢᴇ &8» &9+%{_critdamage}%%%"
     
     set {_item} to unbreakable {_item}
     set item flags of {_item} to all item flags
-
-    set data tag "itemstat:name" of {_item} to {_name}
+    
+    set data tag "itemstat:type" of {_item} to "sword"
     set number data tag "itemstat:level" of {_item} to {_level}
-    set data tag "itemstat:type" of {_item} to {_type}
     set number data tag "itemstat:damage" of {_item} to {_damage}
     set number data tag "itemstat:crit_chance" of {_item} to {_critchance}
     set number data tag "itemstat:crit_damage" of {_item} to {_critdamage}
