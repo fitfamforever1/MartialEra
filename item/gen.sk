@@ -62,7 +62,7 @@ function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     
     set {_modelId} to random integer between 1 and 118
     
-    set {_damage} to round(5 + ({_level} * 1.8))
+    set {_damage} to round(5 + ({_level} * 2.8))
     set {_critchance} to round(5 + ({_level} * 0.3))
     set {_critdamage} to round(50 + ({_level} * 1.0))
     
