@@ -287,7 +287,8 @@ function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: nu
     
     set name of {_item} to generateitem("Leggings")
     set item model of {_item} to "minecraft:armor/leggings/%{_modelId}%"
-    set {_item} to applyHexColor({_item}, color({_colorId}))
+    set {_color} to color({_modelId})
+    set {_item} to applyHexColor({_item}, {_color})
     
     set {_qualityLine} to getQualityLine({_quality})
     set {_health} to round(getQualityStat({_health}, {_quality}))
