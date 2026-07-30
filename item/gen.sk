@@ -51,7 +51,7 @@ function getQualityStat(stat: number, quality: number) :: number:
     if {_quality} is 5:
         return {_stat} * 1.5
 
-function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+function sword(mat1min: number, mat2max: number):: item:
     set {_item} to iron sword
     
     set {_quality} to random integer between 1 and 5
@@ -94,27 +94,25 @@ function sword(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     
     return {_item}
     
-command /givesword <number> <number> <number> <number>:
+command /givesword <number> <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to sword(arg-1, arg-2, arg-3, arg-4)
+        set {_item} to sword(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-2%]" to player
         
-command /giveaxe <number> <number> <number> <number>:
+command /giveaxe <number> <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to axe(arg-1, arg-2, arg-3, arg-4)
+        set {_item} to axe(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-2%]" to player
   
-function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+function axe(mat1min: number, mat2max: number):: item:
     set {_item} to iron axe
     
     set {_quality} to random integer between 1 and 5
@@ -159,7 +157,7 @@ function axe(mat1min: number, mat2min: number, mat1max: number, mat2max: number)
 
 
 
-function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+function helmet(mat1min: number, mat2max: number):: item:
     set {_item} to leather helmet
     
     set {_quality} to random integer between 1 and 5
@@ -205,18 +203,17 @@ function helmet(mat1min: number, mat2min: number, mat1max: number, mat2max: numb
     
     return {_item}
 
-command /givehelmet <number> <number> <number> <number>:
+command /givehelmet <number> <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to helmet(arg-1, arg-2, arg-3, arg-4)
+        set {_item} to helmet(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
 
 
-function chestplate(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+function chestplate(mat1min: number, mat2max: number):: item:
     set {_item} to leather chestplate
     
     set {_quality} to random integer between 1 and 5
@@ -258,25 +255,22 @@ function chestplate(mat1min: number, mat2min: number, mat1max: number, mat2max: 
     
     return {_item}
 
-command /givechestplate <number> <number> <number> <number>:
+command /givechestplate <number> <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to chestplate(arg-1, arg-2, arg-3, arg-4)
+        set {_item} to chestplate(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-2%]" to player
 
 
-function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+function leggings(mat1min: number, mat2max: number):: item:
     set {_item} to leather leggings
     
     set {_quality} to random integer between 1 and 5
     
-    set {_temp1} to random integer between {_mat1min} and {_mat1max}
-    set {_temp2} to random integer between {_mat2min} and {_mat2max}
-    set {_level} to random integer between {_temp1} and {_temp2}
+    set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
     set {_colorId} to random integer between 1 and 2
@@ -316,18 +310,17 @@ function leggings(mat1min: number, mat2min: number, mat1max: number, mat2max: nu
     
     return {_item}
 
-command /giveleggings <number> <number> <number> <number>:
+command /giveleggings <number> <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to leggings(arg-1, arg-2, arg-3, arg-4)
+        set {_item} to leggings(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-2%]" to player
 
 
-function boots(mat1min: number, mat2min: number, mat1max: number, mat2max: number):: item:
+function boots(mat1min: number, mat2max: number):: item:
     set {_item} to leather boots
     
     set {_quality} to random integer between 1 and 5
@@ -373,12 +366,11 @@ function boots(mat1min: number, mat2min: number, mat1max: number, mat2max: numbe
     
     return {_item}
 
-command /giveboots <number> <number> <number> <number>:
+command /giveboots <number> <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to boots(arg-1, arg-2, arg-3, arg-4)
+        set {_item} to boots(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ᴏɴᴇ ᴛᴡᴏ: ᴍɪɴ [%arg-2%] ᴀɴᴅ ᴍᴀx [%arg-4%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-2%]" to player
