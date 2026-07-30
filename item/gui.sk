@@ -13,7 +13,7 @@ function craftgui(p: player):
 on inventory click:
     name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
     if event-slot is 10 or 12:
-        set {_type} to text data tag "itemstat:type" of event-item
+        set {_type} to data tag "itemstat:type" of event-item
         send "%{_type}%"
         if {_type} is not "ore":
             cancel event
@@ -26,3 +26,8 @@ on inventory click:
 command /test1:
     trigger:
         craftgui(player)
+        
+command /test2:
+    trigger:
+        set {_type} to data tag "itemstat:type" of player's tool
+        send "%{_type}%"
