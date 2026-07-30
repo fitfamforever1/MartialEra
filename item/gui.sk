@@ -30,6 +30,6 @@ command /test1:
 command /test2:
     trigger:
         set {_type} to data tag "itemstat:type" of player's tool
-        set {_type2} to data tag "itemstat:min" of player's tool
-        set {_type3} to data tag "itemstat:max" of player's tool
+        set {_type2} to number data tag "itemstat:min" of player's tool
+        set {_type3} to number data tag "itemstat:max" of player's tool
         send "%{_type}% | %{_min}%/%{_max}%"
