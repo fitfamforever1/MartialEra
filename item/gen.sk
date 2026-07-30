@@ -56,9 +56,7 @@ function sword(mat1min: number, mat2max: number):: item:
     
     set {_quality} to random integer between 1 and 5
     
-    set {_temp1} to random integer between {_mat1min} and {_mat1max}
-    set {_temp2} to random integer between {_mat2min} and {_mat2max}
-    set {_level} to random integer between {_temp1} and {_temp2}
+    set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 112
     
@@ -117,9 +115,7 @@ function axe(mat1min: number, mat2max: number):: item:
     
     set {_quality} to random integer between 1 and 5
     
-    set {_temp1} to random integer between {_mat1min} and {_mat1max}
-    set {_temp2} to random integer between {_mat2min} and {_mat2max}
-    set {_level} to random integer between {_temp1} and {_temp2}
+    set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 86
     
@@ -162,9 +158,7 @@ function helmet(mat1min: number, mat2max: number):: item:
     
     set {_quality} to random integer between 1 and 5
     
-    set {_temp1} to random integer between {_mat1min} and {_mat1max}
-    set {_temp2} to random integer between {_mat2min} and {_mat2max}
-    set {_level} to random integer between {_temp1} and {_temp2}
+    set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
     set {_colorId} to random integer between 1 and 2
@@ -210,7 +204,7 @@ command /givehelmet <number> <number>:
         set {_item} to helmet(arg-1, arg-2)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
-        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-3%]" to player
+        send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ: ᴍɪɴ [%arg-1%] ᴀɴᴅ ᴍᴀx [%arg-2%]" to player
 
 
 function chestplate(mat1min: number, mat2max: number):: item:
@@ -218,9 +212,7 @@ function chestplate(mat1min: number, mat2max: number):: item:
     
     set {_quality} to random integer between 1 and 5
     
-    set {_temp1} to random integer between {_mat1min} and {_mat1max}
-    set {_temp2} to random integer between {_mat2min} and {_mat2max}
-    set {_level} to random integer between {_temp1} and {_temp2}
+    set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
     set {_colorId} to random integer between 1 and 2
@@ -325,9 +317,7 @@ function boots(mat1min: number, mat2max: number):: item:
     
     set {_quality} to random integer between 1 and 5
     
-    set {_temp1} to random integer between {_mat1min} and {_mat1max}
-    set {_temp2} to random integer between {_mat2min} and {_mat2max}
-    set {_level} to random integer between {_temp1} and {_temp2}
+    set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
     set {_colorId} to random integer between 1 and 2
