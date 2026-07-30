@@ -391,7 +391,7 @@ command /givemat <number>:
     permission: admin.item
     permission message: &8[<##E9BF35>ɪᴛᴇᴍ&8] &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.
     trigger:
-        set {_item} to material(arg-1, arg-2)
+        set {_item} to material(arg-1)
         give {_item} to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴜꜱᴇᴅ ꜰᴏʟʟᴏᴡɪɴɢ ᴍᴀᴛᴇʀɪᴀʟ ᴄᴏɴꜰɪɢᴜʀᴀᴛɪᴏɴ:" to player
         send "&8[<##E9BF35>ɪᴛᴇᴍ&8]&7 ᴍᴀᴛᴇʀɪᴀʟ ɪᴅ: ᴍɪɴ [%arg-1%]" to player
