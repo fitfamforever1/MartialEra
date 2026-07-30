@@ -379,7 +379,7 @@ function material(level: number):: item:
     
     set line 1 of lore of {_item} to "&8┃ &7» ɪᴛᴇᴍ ɪɴғᴏ"
     set line 2 of lore of {_item} to "&8┃ &7ᴛʏᴘᴇ &8» &eᴏʀᴇ"
-    set line 4 of lore of {_item} to "&8┃ &7ʟᴇᴠᴇʟ &8» &c%{_max}%"
+    set line 3 of lore of {_item} to "&8┃ &7ʟᴇᴠᴇʟ &8» &c%{_max}%"
     
     set {_item} to unbreakable {_item}
     set item flags of {_item} to all item flags
