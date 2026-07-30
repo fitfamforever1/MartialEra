@@ -370,7 +370,7 @@ function material(level: number):: item:
     
     set {_max} to {_level} * 5
     
-    {_min} to {_max} - 5
+    set {_min} to {_max} - 5
     
     set name of {_item} to matname({_level})
     
