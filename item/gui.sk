@@ -3,6 +3,10 @@ function craftgui(p: player):
 
     loop 27 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
+        
+    set slot 10 of {_gui} to air
+    set slot 12 of {_gui} to air
+    set slot 16 of {_gui} to air
 
     open {_gui} to {_p}
     
