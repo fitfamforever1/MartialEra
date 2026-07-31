@@ -98,7 +98,7 @@ on inventory click:
         close player's inventory
         open craftgui(player)
     
-on right on anvil:
+on right click on anvil:
     cancel event
     craft2gui(player)
         
