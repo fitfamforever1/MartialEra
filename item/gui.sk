@@ -1,43 +1,37 @@
 function craftgui(p: player):
-    set {_gui} to chest inventory with 3 rows named "<#E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
-    loop 27 times:
-        set slot (loop-value - 1) of {_gui} to {item::space}
+    set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
 
+    loop 27 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
+        
     set slot 10 of {_gui} to air
     set slot 12 of {_gui} to air
     set slot 16 of {_gui} to air
+
     open {_gui} to {_p}
-
+    
 on inventory click:
-    if name of event-inventory is not "<#E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ":
-        stop
-
-    cancel event
-
+    name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
     if event-slot is 10 or 12:
-        set {_cursor} to cursor slot of player
-        set {_clicked} to event-item
+        set {_item} to cursor slot of player
+        set {_type} to data tag "itemstat:type" of {_item}
+        send "%{_type}%"
+        if {_type} is not "ore":
+            cancel event
+        stop
+    set {_temp} to data tag "item:id" of event-item
+    if {_temp} is "1":
+        cancel event
 
-        if {_cursor} is set:
-            set {_type} to data tag "itemstat:type" of {_cursor}
-            if {_type} is "ore":
-                set slot event-slot of event-inventory to {_cursor}
-                set cursor slot of player to air
-            else:
-                send "<red>You can only place ore items here!" to player
-
-        else if {_clicked} is set:
-            set cursor slot of player to {_clicked}
-            set slot event-slot of event-inventory to air
-
+    
 command /test1:
     trigger:
         craftgui(player)
-
+        
 command /test2:
     trigger:
         set {_item} to player's tool
         set {_type} to data tag "itemstat:type" of {_item}
-        set {_min} to number data tag "itemstat:min" of {_item}
-        set {_max} to number data tag "itemstat:max" of {_item}
+        set {_type2} to number data tag "itemstat:min" of {_item}
+        set {_type3} to number data tag "itemstat:max" of {_item}
         send "%{_type}% | %{_min}%/%{_max}%"
