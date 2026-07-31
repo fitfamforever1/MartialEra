@@ -83,6 +83,9 @@ on inventory click:
     name of event-inventory is "<##E9BF35>ꜱᴇʟᴇᴄᴛ ꜰᴏʀɢɪɴɢ ɪᴛᴇᴍ"
     cancel event
     
+    if event-slot is 10:
+        close player's inventory
+        open craftgui(player)
     
 command /test1:
     trigger:
