@@ -15,19 +15,19 @@ on inventory click:
     cancel event
 
     if event-slot is 10 or 12:
-        set {_cursor} to cursor slot
+        set {_cursor} to cursor slot of player
         set {_clicked} to event-item
 
         if {_cursor} is set:
             set {_type} to data tag "itemstat:type" of {_cursor}
             if {_type} is "ore":
                 set slot event-slot of event-inventory to {_cursor}
-                set cursor slot to air
+                set cursor slot of player to air
             else:
                 send "<red>You can only place ore items here!" to player
 
         else if {_clicked} is set:
-            set cursor slot to {_clicked}
+            set cursor slot of player to {_clicked}
             set slot event-slot of event-inventory to air
 
 command /test1:
