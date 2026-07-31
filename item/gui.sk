@@ -12,14 +12,12 @@ on inventory click:
     if name of event-inventory is not "<#E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ":
         stop
 
-    # block everything by default so nothing can be taken/moved illegally
     cancel event
 
     if event-slot is 10 or event-slot is 12:
         set {_cursor} to cursor slot
         set {_clicked} to event-item
 
-        # player is trying to place an item from their cursor into the slot
         if {_cursor} is set:
             set {_type} to data tag "itemstat:type" of {_cursor}
             if {_type} is "ore":
@@ -28,7 +26,6 @@ on inventory click:
             else:
                 send "<red>You can only place ore items here!" to player
 
-        # player is trying to pick the item back up out of the slot
         else if {_clicked} is set:
             set cursor slot to {_clicked}
             set slot event-slot of event-inventory to air
