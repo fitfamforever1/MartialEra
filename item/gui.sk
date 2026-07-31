@@ -98,9 +98,9 @@ on inventory click:
         close player's inventory
         open craftgui(player)
     
-command /test1:
-    trigger:
-        craft2gui(player)
+on right on anvil:
+    cancel event
+    craft2gui(player)
         
 function craft(p: player, mat1min: number, mat2max: number):: item:
     set {_temp} to data tag "craft:id" of {_p}
