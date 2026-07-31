@@ -31,8 +31,8 @@ on inventory click:
             set {_type4} to number data tag "itemstat:max" of {_temp1}
             send "%{_type3}% | %{_type4}%"
             set {_item} to sword({_type3}, {_type4})
-            remove 1 {_temp1} from event-inventory 
-            remove 1 {_temp2} from event-inventory
+            remove 1 of {_temp1} from event-inventory 
+            remove 1 of {_temp2} from event-inventory
             set slot 16 of event-inventory to {_item}
         else:
             send "&cInvalid"
