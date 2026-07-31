@@ -14,7 +14,7 @@ on inventory click:
 
     cancel event
 
-    if event-slot is 10 or event-slot is 12:
+    if event-slot is 10 or 12:
         set {_cursor} to cursor slot
         set {_clicked} to event-item
 
