@@ -32,16 +32,33 @@ on inventory click:
             set slot 16 of event-inventory to {_item}
         else:
             send "&cInvalid"
-            
-    if event-slot is 10 or 12:
+
+    if event-slot is 10 or 12 or 16:
         set {_cursor} to cursor slot of player
         if {_cursor} is not air:
-            set {_type} to data tag "itemstat:type" of {_cursor}
-            if {_type} is not "ore":
+            if event-slot is 16:
                 cancel event
+            else:
+                set {_type} to data tag "itemstat:type" of {_cursor}
+                if {_type} is not "ore":
+                    cancel event
+
     set {_temp} to data tag "item:id" of event-item
     if {_temp} is "1":
         cancel event
+
+on inventory close:
+    name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
+    set {_temp1} to item in slot 10 of event-inventory
+    set {_temp2} to item in slot 12 of event-inventory
+    set {_temp3} to item in slot 16 of event-inventory
+
+    if {_temp1} is not air:
+        give {_temp1} to player
+    if {_temp2} is not air:
+        give {_temp2} to player
+    if {_temp3} is not air:
+        give {_temp3} to player
     
 command /test1:
     trigger:
