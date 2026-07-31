@@ -33,8 +33,10 @@ on inventory click:
             remove 1 of {_temp1} from event-inventory 
             remove 1 of {_temp2} from event-inventory
             set slot 16 of event-inventory to {_item}
+            play sound "sound:sound.ui.click" for player
         else:
             send "&cInvalid"
+            play sound "sound:sound.ui.error" for player
 
     if event-slot is 10 or 12 or 16:
         set {_cursor} to cursor slot of player
@@ -95,6 +97,7 @@ on inventory click:
             set data tag "craft:id" of player to 5
         if event-slot is 16:
             set data tag "craft:id" of player to 6
+        play sound "sound:sound.ui.go_back" for player
         close player's inventory
         open craftgui(player)
     

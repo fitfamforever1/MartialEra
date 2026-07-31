@@ -161,7 +161,7 @@ function helmet(mat1min: number, mat2max: number):: item:
     set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
-    set {_colorId} to random integer between 1 and 2
+
     
     set {_health} to round((30 + ({_level} * 3)) * 1.15)
     set {_defense} to round(8 + ({_level} * 1.2))
@@ -215,7 +215,7 @@ function chestplate(mat1min: number, mat2max: number):: item:
     set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
-    set {_colorId} to random integer between 1 and 2
+
     
     set {_health} to round((40 + ({_level} * 3.5)) * 1.15)
     set {_defense} to round(12 + ({_level} * 1.8))
@@ -265,7 +265,7 @@ function leggings(mat1min: number, mat2max: number):: item:
     set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
-    set {_colorId} to random integer between 1 and 2
+
     
     set {_health} to round((35 + ({_level} * 3)) * 1.15)
     set {_damage} to round(3 + ({_level} * 0.8))
@@ -320,7 +320,7 @@ function boots(mat1min: number, mat2max: number):: item:
     set {_level} to random integer between {_mat1min} and {_mat2max}
     
     set {_modelId} to random integer between 1 and 51
-    set {_colorId} to random integer between 1 and 2
+
     
     set {_health} to round((25 + ({_level} * 2.5)) * 1.15)
     set {_speed} to round(2 + ({_level} * 0.15))
