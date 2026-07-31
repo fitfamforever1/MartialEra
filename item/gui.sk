@@ -79,6 +79,11 @@ function craft2gui(p: player):
 
     open {_gui} to {_p}
     
+on inventory click:
+    name of event-inventory is "<##E9BF35>ꜱᴇʟᴇᴄᴛ ꜰᴏʀɢɪɴɢ ɪᴛᴇᴍ"
+    cancel event
+    
+    
 command /test1:
     trigger:
         craft2gui(player)
