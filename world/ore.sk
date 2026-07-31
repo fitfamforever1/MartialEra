@@ -1,2 +1,17 @@
 on break of large amethyst bud:
-    send "Debug"
+    clear drops
+    set {_bx} to x-coordinate of event-block
+    set {_bz} to z-coordinate of event-block
+    set {_dist} to max(absolute value of {_bx}, absolute value of {_bz})
+    set {_maxDist} to 1024
+    if {_dist} > {_maxDist}:
+        set {_dist} to {_maxDist}
+    set {_level} to 18 - floor(({_dist} / {_maxDist}) * 17)
+    if {_level} < 1:
+        set {_level} to 1
+    else if {_level} > 18:
+        set {_level} to 18
+    if chance of 60%:
+        stop
+    set {_item} to material(arg-1)
+    give {_item} to player
