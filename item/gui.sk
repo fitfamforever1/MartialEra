@@ -20,8 +20,8 @@ on inventory click:
         set {_type1} to data tag "itemstat:type" of {_temp1}
         set {_type2} to data tag "itemstat:type" of {_temp2}
         
-        if {_temp1} is "ore":
-            if {_temp2} is "ore":
+        if {_type1} is "ore":
+            if {_type2} is "ore":
                 send "&aValid"
         else:
             send "&cInvalid"
