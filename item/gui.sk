@@ -19,8 +19,6 @@ on inventory click:
         set {_temp2} to item in slot 12 of event-inventory
         set {_type1} to data tag "itemstat:type" of {_temp1}
         set {_type2} to data tag "itemstat:type" of {_temp2}
-        give {_temp1} to player
-        
         if {_type1} is "ore":
             if {_type2} is "ore":
                 send "&aValid"
