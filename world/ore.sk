@@ -16,4 +16,4 @@ on break of large amethyst bud:
         set {_item} to material({_level})
         give {_item} to player
     wait 10 minutes
-    set block at {_loc} to large amethyst bud
+    set block at {_loc} to large amethyst bud   
