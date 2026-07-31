@@ -6,6 +6,7 @@ function craftgui(p: player):
         
     set slot 10 of {_gui} to air
     set slot 12 of {_gui} to air
+    set slot 14 of {_gui} to {item::craft}
     set slot 16 of {_gui} to air
 
     open {_gui} to {_p}
@@ -21,7 +22,6 @@ on inventory click:
     set {_temp} to data tag "item:id" of event-item
     if {_temp} is "1":
         cancel event
-
     
 command /test1:
     trigger:
