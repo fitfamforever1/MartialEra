@@ -22,6 +22,8 @@ on inventory click:
         if {_type1} is "ore":
             if {_type2} is "ore":
                 send "&aValid"
+            else:
+                send "&cInvalid"
         else:
             send "&cInvalid"
             
