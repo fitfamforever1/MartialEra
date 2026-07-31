@@ -103,8 +103,8 @@ command /test1:
         craft2gui(player)
         
 function craft(p: player, mat1min: number, mat2max: number):: item:
-    set {_temp} to data tag "craft:id" of {_player}
-    send "%{_temp}%" to {_p}
+    set {_temp} to data tag "craft:id" of {_p}
+    send "% {_temp}%" to {_p}
     switch {_temp}:
         case 1:
             set {_item} to sword({_mat1min}, {_mat2max})
