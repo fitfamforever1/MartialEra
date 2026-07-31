@@ -27,9 +27,6 @@ on break of large amethyst bud:
     else if {_level} > 18:
         set {_level} to 18
 
-    if chance of 40%:
+    if chance of 100%:
         set {_item} to material({_level})
         give {_item} to player
-
-    wait 10 minutes
-    set block at {_loc} to large amethyst bud
