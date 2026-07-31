@@ -3,7 +3,9 @@ on break of large amethyst bud:
     set {_loc} to location of event-block
     set {_bx} to x-coordinate of event-block
     set {_bz} to z-coordinate of event-block
-    set {_dist} to max(absolute value of {_bx}, absolute value of {_bz})
+    set {_absX} to absolute value of {_bx}
+    set {_absZ} to absolute value of {_bz}
+    set {_dist} to max({_absX}, {_absZ})
     set {_maxDist} to 1024
     if {_dist} > {_maxDist}:
         set {_dist} to {_maxDist}
