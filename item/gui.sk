@@ -31,12 +31,22 @@ on inventory click:
             set {_type4} to number data tag "itemstat:max" of {_temp1}
             send "%{_type3}% | %{_type4}%"
             set {_item} to sword({_type3}, {_type4})
-            set slot 10 of event-inventory to air
-            set slot 12 of event-inventory to air
+
+            if amount of {_temp1} is 1:
+                set slot 10 of event-inventory to air
+            else:
+                set {_temp1} to {_temp1} with amount ((amount of {_temp1}) - 1)
+                set slot 10 of event-inventory to {_temp1}
+
+            if amount of {_temp2} is 1:
+                set slot 12 of event-inventory to air
+            else:
+                set {_temp2} to {_temp2} with amount ((amount of {_temp2}) - 1)
+                set slot 12 of event-inventory to {_temp2}
+
             set slot 16 of event-inventory to {_item}
         else:
             send "&cInvalid"
-
     if event-slot is 10 or 12 or 16:
         set {_cursor} to cursor slot of player
         if {_cursor} is not air:
@@ -46,7 +56,6 @@ on inventory click:
                 set {_type} to data tag "itemstat:type" of {_cursor}
                 if {_type} is not "ore":
                     cancel event
-
     set {_temp} to data tag "item:id" of event-item
     if {_temp} is "1":
         cancel event
