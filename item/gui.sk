@@ -23,7 +23,11 @@ on inventory click:
             {_type1} is "ore"
             {_type2} is "ore"
         then:
-            send "&aValid"
+            set {_type3} to number data tag "itemstat:min" of {_temp1}
+            set {_type4} to number data tag "itemstat:max" of {_temp2}
+            set {_item} to sword({_type4}, {_temp3})
+            set slot 10 of event-inventory to air
+            set slot 12 of event-inventory to air
         else:
             send "&cInvalid"
             
