@@ -64,9 +64,24 @@ on inventory close:
     if {_temp3} is not air:
         give {_temp3} to player
     
+function craft2gui(p: player):
+    set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜱᴇʟᴇᴄᴛ ꜰᴏʀɢɪɴɢ ɪᴛᴇᴍ"
+
+    loop 27 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
+        
+    set slot 10 of {_gui} to {item::craft1}
+    set slot 11 of {_gui} to {item::craft2}
+    set slot 13 of {_gui} to {item::craft3}
+    set slot 14 of {_gui} to {item::craft4}
+    set slot 15 of {_gui} to {item::craft5}
+    set slot 16 of {_gui} to {item::craft6}
+
+    open {_gui} to {_p}
+    
 command /test1:
     trigger:
-        craftgui(player)
+        craft2gui(player)
         
 command /test2:
     trigger:
