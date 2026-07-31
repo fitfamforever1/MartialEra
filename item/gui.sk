@@ -28,6 +28,7 @@ on inventory click:
             set {_item} to sword({_type4}, {_temp3})
             set slot 10 of event-inventory to air
             set slot 12 of event-inventory to air
+            set slot 16 of event-inventory to {_item}
         else:
             send "&cInvalid"
             
