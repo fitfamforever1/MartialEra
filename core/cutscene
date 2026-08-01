@@ -1,0 +1,8 @@
+on join:
+    teleport player to location(135.5, -51, 22.5, "world", 90, -30)
+    set player's gamemode to spectator
+    set the player's fly speed to 0
+    wait 3 second
+    set player's gamemode to adventure
+    teleport player to location(-3.5, -54.5, 22.5, "world", -90, 0)
+    
