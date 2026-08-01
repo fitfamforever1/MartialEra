@@ -34,9 +34,9 @@ function spawn(loc: location, levelId: number) :: entity:
     set {_speed} to getCategoryStat("speed", {_level})
     set {_damage} to getCategoryStat("damage", {_level})
 
-    spawn skeleton at {_loc}
+    spawn wither skeleton at {_loc}
     set {_e} to last spawned entity
-    set tool of {_e} to bow
+    set tool of {_e} to air
 
     set {_chest} to leather chestplate
     dye {_chest} (33, 40, 61)
