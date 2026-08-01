@@ -28,7 +28,7 @@ function applyMobStats(e: entity, mobName: text, health: number, speed: number, 
     set text data tag "mobstat:id" of {_e} to "main"
     set number data tag "mob:levelId" of {_e} to {_levelId}
 
-function spawnGoblin2(loc: location, levelId: number) :: entity:
+function spawn(loc: location, levelId: number) :: entity:
     set {_level} to clampLevel({_levelId})
     set {_health} to getCategoryStat("health", {_level})
     set {_speed} to getCategoryStat("speed", {_level})
@@ -69,6 +69,6 @@ command /spawnboss <number>:
     permission: admin.mob
     trigger:
         if player is set:
-            spawnVoidReaper(player's location, arg-1)
+            spawn(player's location, arg-1)
         else:
             send "&cThis command can only be run by a player."
