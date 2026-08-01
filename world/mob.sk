@@ -1,12 +1,23 @@
+# Balance: stats grow in tiers of 5 levels.
+# Within a tier (e.g. 1-5) the increase per level is small and flat.
+# Crossing into a new tier is a large jump, but the jump itself
+# grows each time you cross into a new tier - so 5->6 is a real jump,
+# 10->11 is a bigger jump than that, 15->16 bigger still, and so on.
+# Base is tuned against a level 1 player (70 HP, 8 damage) so the
+# boss starts only slightly ahead instead of dwarfing an early player.
 function getCategoryStat(stat: text, level: number) :: number:
     set {_tier} to floor(({_level} - 1) / 5)
     set {_posInTier} to mod({_level} - 1, 5)
     if {_stat} is "health":
-        return 100 + ({_tier} * 2500) + ({_posInTier} * 100)
+        # each tier jump is 300 bigger than the previous tier jump (first jump = 2500)
+        set {_jumpSum} to ({_tier} * 2500) + (150 * {_tier} * ({_tier} - 1))
+        return 80 + {_jumpSum} + ({_posInTier} * 100)
     else if {_stat} is "speed":
         return 0.28
     else if {_stat} is "damage":
-        return 50 + ({_tier} * 125) + ({_posInTier} * 5)
+        # each tier jump is 15 bigger than the previous tier jump (first jump = 125)
+        set {_jumpSum} to ({_tier} * 125) + (7.5 * {_tier} * ({_tier} - 1))
+        return 10 + {_jumpSum} + ({_posInTier} * 5)
     return 0
 
 function clampLevel(level: number) :: number:
