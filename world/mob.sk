@@ -1,10 +1,12 @@
 function getCategoryStat(stat: text, level: number) :: number:
+    set {_tier} to floor(({_level} - 1) / 5)
+    set {_posInTier} to mod({_level} - 1, 5)
     if {_stat} is "health":
-        return 100 + (({_level} - 1) * 500)
+        return 100 + ({_tier} * 2500) + ({_posInTier} * 100)
     else if {_stat} is "speed":
         return 0.28
     else if {_stat} is "damage":
-        return 50 + (({_level} - 1) * 20)
+        return 50 + ({_tier} * 125) + ({_posInTier} * 5)
     return 0
 
 function clampLevel(level: number) :: number:
@@ -33,27 +35,21 @@ function spawn(loc: location, levelId: number) :: entity:
     set {_health} to getCategoryStat("health", {_level})
     set {_speed} to getCategoryStat("speed", {_level})
     set {_damage} to getCategoryStat("damage", {_level})
-
     spawn wither skeleton at {_loc}
     set {_e} to last spawned entity
     set tool of {_e} to air
-
     set {_chest} to leather chestplate
     dye {_chest} (33, 40, 61)
     set chestplate of {_e} to {_chest}
-
     set {_legs} to leather leggings
     dye {_legs} (33, 40, 61)
     set leggings of {_e} to {_legs}
-
     set {_boots} to leather boots
     dye {_boots} (33, 40, 61)
     set boots of {_e} to {_boots}
-
     set {_head} to a player head
     set the skull texture of {_head} to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDAyNjgzMzFhNzkxODA5OTQyNGUzN2IyNjYwOWY3OGE1ZTE1MmU0NjZlZDBkNTQ2ZmRlZjI2NDczZDYyYzdhZiJ9fX0="
     set helmet of {_e} to {_head}
-
     applyMobStats({_e}, "&cCorrupted", {_health}, {_speed}, {_damage}, {_levelId}, {_level})
     return {_e}
 
@@ -64,7 +60,7 @@ on death:
 on target:
     if entity's target is not a player:
         cancel event
-        
+
 command /spawnboss <number>:
     permission: admin.mob
     trigger:
