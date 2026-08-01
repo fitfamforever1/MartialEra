@@ -1,5 +1,5 @@
 on join:
-    if player have permisson "admin.bypass":
+    if player have permission "admin.bypass":
         stop
     teleport player to location(135.5, -51, 22.5, "world", 90, 30)
     set player's gamemode to spectator
