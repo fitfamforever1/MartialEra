@@ -5,27 +5,28 @@ command /sethome:
         set {_loc::3} to z-coord of player's location
         set {_loc::4} to yaw of player's location
         set {_loc::5} to pitch of player's location
-        send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 You have successfully set a home location."
+        send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ꜱᴇᴛ ᴀ ʜᴏᴍᴇ ʟᴏᴄᴀᴛɪᴏɴ."
         set number list data tag "home:loc" of player to {_loc::*}
         
 command /home:
     trigger:
         set {_loc::*} to number list data tag "home:loc" of player
         if {_loc::1} is not set:
-            send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&c You haven't set a home yet."
+            send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&c ʏᴏᴜ ʜᴀᴠᴇɴ'ᴛ ꜱᴇᴛ ᴀ ʜᴏᴍᴇ ʏᴇᴛ."
             stop trigger
         set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, player's world, {_loc::4}, {_loc::5})
         teleport player to {_home}
-        send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 Teleported to your home."
+        send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜʀ ʜᴏᴍᴇ."
         
 command /delhome [<player>]:
     trigger:
         if arg-1 is set:
+            set {_p} to SmallCaps(arg-1)
             if number list data tag "home:loc" of player is not set:
-                send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&c %arg-1% has no homes set."
+                send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&e %{_p}% &cʜᴀꜱ ɴᴏ ʜᴏᴍᴇꜱ ꜱᴇᴛ."
                 stop
             delete number list data tag "home:loc" of arg-1
-            send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 You have deleted&e %arg-1%&7's home."
+            send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴅᴇʟᴇᴛᴇᴅ&e %{_p}%&7'ꜱ ʜᴏᴍᴇ."
             stop
         delete number list data tag "home:loc" of player
-        send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 You have deleted your home."
+        send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&7 ʏᴏᴜ ʜᴀᴠᴇ ᴅᴇʟᴇᴛᴇᴅ ʏᴏᴜʀ ʜᴏᴍᴇ."
