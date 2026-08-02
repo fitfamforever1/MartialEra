@@ -80,7 +80,7 @@ command /gma:
 command /bcast <text>:
     permission: admin
     trigger:
-        set {_ann} to SmallCaps(arg-1)
+        set {_ann} to SmallCaps(%arg-1%)
         broadcast "&8[&cᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ&8] &f%{_ann}%"
         send title "&c&lᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ" with subtitle "&f%{_ann}%" to all players for 3 seconds with fade in 5 ticks and fade out 5 ticks
         loop all players:
