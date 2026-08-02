@@ -26,5 +26,6 @@ command /delhome [<player>]:
                 stop
             delete number list data tag "home:loc" of arg-1
             send "&cYou have deleted %arg-1% home."
+            stop
         delete number list data tag "home:loc" of player
         send "&cYou have deleted your home."
