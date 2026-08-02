@@ -17,3 +17,8 @@ command /home:
         set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, player's world, {_loc::4}, {_loc::5})
         teleport player to {_home}
         send "&aTeleported to your home."
+        
+command /delhome:
+    trigger:
+        delete number list data tag "home:loc" of player
+        send "&cYou have deleted your home."
