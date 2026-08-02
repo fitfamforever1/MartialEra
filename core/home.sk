@@ -1,4 +1,4 @@
 command /sethome:
     trigger:
         set {_loc} to player's location
-        send "%{_loc}%"
+        send "%{_loc::x}%"
