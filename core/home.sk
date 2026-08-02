@@ -1,9 +1,19 @@
 command /sethome:
     trigger:
-        set {_loc::x} to x-coord of player's location
-        set {_loc::y} to y-coord of player's location
-        set {_loc::z} to z-coord of player's location
-        set {_loc::yaw} to yaw of player's location
-        set {_loc::pitch} to pitch of player's location
-        send "&aYou have sucessfully set a home location."
-        set to number list data tag "home:loc" of player to {_loc::*}
+        set {_loc::1} to x-coord of player's location
+        set {_loc::2} to y-coord of player's location
+        set {_loc::3} to z-coord of player's location
+        set {_loc::4} to yaw of player's location
+        set {_loc::5} to pitch of player's location
+        send "&aYou have successfully set a home location."
+        set number list data tag "home:loc" of player to {_loc::*}
+        
+command /home:
+    trigger:
+        set {_loc::*} to number list data tag "home:loc" of player
+        if {_loc::1} is not set:
+            send "&cYou haven't set a home yet."
+            stop trigger
+        set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, player's world, {_loc::4}, {_loc::5})
+        teleport player to {_home}
+        send "&aTeleported to your home."
