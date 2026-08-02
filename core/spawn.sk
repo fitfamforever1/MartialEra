@@ -22,4 +22,3 @@ on respawn:
 on first join:
     wait 1 tick
     teleport player to location(-701.5, 54, 821.5, world "world", 180, 0)
-    send title "&4ᴄʜᴏᴏꜱᴇ ᴀ ʀᴀᴄᴇ." with subtittle "&cʏᴏᴜʀ ᴄʜᴏɪᴄᴇ ɪꜱ ᴘᴇʀᴍᴀɴᴇɴᴛ." to player for 1.6 seconds
