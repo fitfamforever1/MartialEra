@@ -5,5 +5,5 @@ command /sethome:
         set {home::%player%::z} to z-coord of player's location
         set {home::%player%::yaw} to yaw of player's location
         set {home::%player%::pitch} to pitch of player's location
-        send "Home set at %{home::%player%::x}%, %{home::%player%::y}%, %{home::%player%::z}% %%"
+        send "Home set at %{home::%player%::x}%, %{home::%player%::y}%, %{home::%player%::z}% %{home::%player%::yaw}% %{home::%player%::pitch}%"
         delete {home}
