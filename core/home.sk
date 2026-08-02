@@ -1,19 +1,46 @@
-command /sethome:
+command /sethome <text>:
     trigger:
+        set {_names::*} to string list data tag "home:names" of player
+        
+        if player doesn't have permission "admin.home":
+            if size of {_names::*} >= 3:
+                if "%arg-1%" is not in {_names::*}:
+                    send "&cYou can only set up to 3 homes. Delete one with /delhome first."
+                    stop trigger
+        
+        if "%arg-1%" is not in {_names::*}:
+            add "%arg-1%" to {_names::*}
+            set string list data tag "home:names" of player to {_names::*}
+        
         set {_loc::1} to x-coord of player's location
         set {_loc::2} to y-coord of player's location
         set {_loc::3} to z-coord of player's location
         set {_loc::4} to yaw of player's location
         set {_loc::5} to pitch of player's location
-        send "&aYou have successfully set a home location."
-        set number list data tag "home:loc" of player to {_loc::*}
+        set number list data tag "home:loc:%arg-1%" of player to {_loc::*}
+        set string data tag "home:world:%arg-1%" of player to player's world's name
         
-command /home:
+        send "&aHome ""%arg-1%"" has been set."
+
+command /home <text>:
     trigger:
-        set {_loc::*} to number list data tag "home:loc" of player
+        set {_loc::*} to number list data tag "home:loc:%arg-1%" of player
         if {_loc::1} is not set:
-            send "&cYou haven't set a home yet."
+            send "&cYou don't have a home named ""%arg-1%""."
             stop trigger
-        set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, player's world, {_loc::4}, {_loc::5})
+        set {_world} to string data tag "home:world:%arg-1%" of player
+        set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, world({_world}), {_loc::4}, {_loc::5})
         teleport player to {_home}
-        send "&aTeleported to your home."
+        send "&aTeleported to home ""%arg-1%""."
+
+command /delhome <text>:
+    trigger:
+        set {_names::*} to string list data tag "home:names" of player
+        if "%arg-1%" is not in {_names::*}:
+            send "&cYou don't have a home named ""%arg-1%""."
+            stop trigger
+        remove "%arg-1%" from {_names::*}
+        set string list data tag "home:names" of player to {_names::*}
+        delete number list data tag "home:loc:%arg-1%" of player
+        delete string data tag "home:world:%arg-1%" of player
+        send "&aHome ""%arg-1%"" deleted."
