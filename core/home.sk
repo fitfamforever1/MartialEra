@@ -5,7 +5,7 @@ command /sethome:
         set {_loc::3} to z-coord of player's location
         set {_loc::4} to yaw of player's location
         set {_loc::5} to pitch of player's location
-        send "&aYou have successfully set a home location."
+        send "&a✔ &8| &aYou have successfully set a home location."
         set number list data tag "home:loc" of player to {_loc::*}
         
 command /home:
@@ -16,16 +16,16 @@ command /home:
             stop trigger
         set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, player's world, {_loc::4}, {_loc::5})
         teleport player to {_home}
-        send "&aTeleported to your home."
+        send "&a✔ &8| &aTeleported to your home."
         
 command /delhome [<player>]:
     trigger:
         if arg-1 is set:
             if number list data tag "home:loc" of player is not set:
-                send "&c%arg-1% has no homes set."
+                send "&c✖ &8| &c%arg-1% has no homes set."
                 stop
             delete number list data tag "home:loc" of arg-1
-            send "&cYou have deleted %arg-1%'s home."
+            send "&c✔ &8| &cYou have deleted %arg-1%'s home."
             stop
         delete number list data tag "home:loc" of player
-        send "&cYou have deleted your home."
+        send "&c✔ &8| &cYou have deleted your home."
