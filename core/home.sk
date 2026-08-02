@@ -12,7 +12,7 @@ command /home:
     trigger:
         set {_loc::*} to number list data tag "home:loc" of player
         if {_loc::1} is not set:
-            send "&cYou haven't set a home yet."
+            send "&c✖ &8|&cYou haven't set a home yet."
             stop trigger
         set {_home} to location({_loc::1}, {_loc::2}, {_loc::3}, player's world, {_loc::4}, {_loc::5})
         teleport player to {_home}
