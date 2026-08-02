@@ -1,9 +1,8 @@
 command /sethome:
     trigger:
-        set {home::%player%::x} to x-coord of player's location
-        set {home::%player%::y} to y-coord of player's location
-        set {home::%player%::z} to z-coord of player's location
-        set {home::%player%::yaw} to yaw of player's location
-        set {home::%player%::pitch} to pitch of player's location
-        send "Home set at %{home::%player%::x}%, %{home::%player%::y}%, %{home::%player%::z}% %{home::%player%::yaw}% %{home::%player%::pitch}%"
-        delete {home}
+        set {_x} to x-coord of player's location
+        set {_y} to y-coord of player's location
+        set {_z} to z-coord of player's location
+        set {_yaw} to yaw of player's location
+        set {_pitch} to pitch of player's location
+        send "Home set at %{_x}%, %{_y}%, %{_z}% %{_yaw}% %{_pitch}%"
