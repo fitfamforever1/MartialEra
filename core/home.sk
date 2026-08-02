@@ -1,4 +1,6 @@
 command /sethome:
     trigger:
-        set {_loc} to player's location
-        send "%{_loc::x}%"
+        set {home::%player%::x} to x-coord of player's location
+        set {home::%player%::y} to y-coord of player's location
+        set {home::%player%::z} to z-coord of player's location
+        send "Home set at %{home::%player%::x}%, %{home::%player%::y}%, %{home::%player%::z}%"
