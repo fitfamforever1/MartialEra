@@ -5,4 +5,5 @@ command /sethome:
         set {_loc::z} to z-coord of player's location
         set {_loc::yaw} to yaw of player's location
         set {_loc::pitch} to pitch of player's location
-        send "Home set at %{_loc::x}%, %{_loc::y}%, %{_loc::z}% %{_loc::yaw}% %{_loc::pitch}%"
+        send "&aYou have sucessfully set a home location."
+        set to number list data tag "home:loc" of player to {_loc::*}
