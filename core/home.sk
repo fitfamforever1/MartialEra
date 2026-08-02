@@ -18,7 +18,13 @@ command /home:
         teleport player to {_home}
         send "&aTeleported to your home."
         
-command /delhome:
+command /delhome [<player>]:
     trigger:
+        if arg-1 is set:
+            if number list data tag "home:loc" of player is not set:
+                send "&c%arg-1% has no homes set."
+                stop
+            delete number list data tag "home:loc" of arg-1
+            send "&cYou have deleted %arg-1% home."
         delete number list data tag "home:loc" of player
         send "&cYou have deleted your home."
