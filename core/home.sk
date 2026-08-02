@@ -1,8 +1,8 @@
 command /sethome:
     trigger:
-        set {_x} to x-coord of player's location
-        set {_y} to y-coord of player's location
-        set {_z} to z-coord of player's location
-        set {_yaw} to yaw of player's location
-        set {_pitch} to pitch of player's location
-        send "Home set at %{_x}%, %{_y}%, %{_z}% %{_yaw}% %{_pitch}%"
+        set {_loc::x} to x-coord of player's location
+        set {_loc::y} to y-coord of player's location
+        set {_loc::z} to z-coord of player's location
+        set {_loc::yaw} to yaw of player's location
+        set {_loc::pitch} to pitch of player's location
+        send "Home set at %{_loc::x}%, %{_loc::y}%, %{_loc::z}% %{_loc::yaw}% %{_loc::pitch}%"
