@@ -75,10 +75,10 @@ function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: t
     if {_mover} is online:
         teleport {_mover} to {_dest}
         if {_type} is "tpa":
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʀᴇǫᴜᴇꜱᴛ ᴀᴄᴄᴇᴘᴛᴇᴅ — ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_acceptorSC}%&7." to {_mover}
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_acceptorSC}%&7." to {_mover}
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_requesterSC}% &7ʜᴀꜱ ʙᴇᴇɴ ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜ." to {_dest}
         else if {_type} is "tpahere":
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʀᴇǫᴜᴇꜱᴛ ᴀᴄᴄᴇᴘᴛᴇᴅ — ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_requesterSC}%&7." to {_mover}
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_requesterSC}%&7." to {_mover}
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_acceptorSC}% &7ʜᴀꜱ ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜ." to {_dest}
 
 command /tpaaccept:
