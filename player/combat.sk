@@ -18,7 +18,8 @@ function displayDamage(victim: entity, damage: number):
     set color of {_display} to rgb(0,0,0,0)
     set billboard of {_display} to center
     set interpolation duration of {_display} to 2 ticks
-
+    
+    set {_damage} to {_damage} * 2
     set text of {_display} to "<##FF2400>%{_damage}%"
 
     wait 1 second
