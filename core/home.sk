@@ -21,7 +21,8 @@ command /home:
 command /delhome [<player>]:
     trigger:
         if arg-1 is set:
-            set {_p} to SmallCaps(%arg-1%)
+            set {_p} to arg-1
+            set {_p} to SmallCaps(%{_p}%)
             set {_check::*} to number list data tag "home:loc" of arg-1
             if {_check::*} is not set:
                 send "&8[<##54ab7a>ʜᴏᴍᴇ&8]&e %{_p}% &cʜᴀꜱ ɴᴏ ʜᴏᴍᴇꜱ ꜱᴇᴛ."
