@@ -200,12 +200,12 @@ on inventory click:
         stop
     cancel event
 
-    set {_slot} to raw slot
+    set {_slot} to index of event-slot
     if {_slot} >= 9:
         stop
 
-    set {_clicked} to clicked item
-    if {_clicked} is not set or {_clicked} is air:
+    set {_clicked} to event-item
+    if {_clicked} is not set or is air:
         stop
 
     set {_key} to itemKeyFromStack({_clicked})
