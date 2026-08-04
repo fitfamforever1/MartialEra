@@ -35,6 +35,7 @@ on chat:
     if {_check} is "true":
         set {_name} to the placeholder "betterteams_name" from player
         set {_color} to the placeholder "betterteams_color" from player
+        set {_sender} to SmallCaps("%name%")
         set {_prefix} to "%{_color}%%{_name}% "
     if player has permission "team.owner":
         broadcast "%{_prefix}%<##e74c3c>&lᴏᴡɴᴇʀ &7%player%&8: &f%message%"
