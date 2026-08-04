@@ -130,6 +130,8 @@ on inventory click:
     if name of event-inventory is "<##E9BF35>ꜱᴇʟᴇᴄᴛ ᴄᴀᴛᴇɢᴏʀʏ":
         cancel event
         set {_temp} to data tag "shop:id" of event-item
+        if {_temp} is "3":
+            openFood(player)
         if {_temp} is "4":
             openOre(player)
     
@@ -151,7 +153,26 @@ function openOre(p: player):
     set slot 27 of {_gui} to {item::shopinfo}
 
     open {_gui} to {_p}
+   
+function openFood(p: player):
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ"
+
+    loop 36 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
     
+    set slot 10 of {_gui} to item(bread, 10, 10)
+    set slot 11 of {_gui} to item(baked_potato, 10, 10)
+    set slot 12 of {_gui} to item(cooked_chicken, 10, 10)
+    set slot 13 of {_gui} to item(cooked_mutton, 10, 10)
+    set slot 14 of {_gui} to item(cooked_porkchop, 10, 10)
+    set slot 15 of {_gui} to item(steak, 10, 10)
+    set slot 16 of {_gui} to item(golden_carrot, 10, 10)
+    
+    set slot 35 of {_gui} to {item::goback}
+    set slot 27 of {_gui} to {item::shopinfo}
+
+    open {_gui} to {_p}
+   
 command /test:
     trigger:
         openShop(player)
