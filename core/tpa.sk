@@ -61,6 +61,7 @@ command /tpa <text>:
         set {_targetSC} to SmallCaps("%arg-1%")
 
         if {_target} is not online:
+            send "%{_target}%"
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
             stop
 
