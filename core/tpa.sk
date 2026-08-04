@@ -150,6 +150,7 @@ command /tpadeny:
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &cʏᴏᴜ ᴅᴇɴɪᴇᴅ ᴛʜᴇ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requesterSC}%&7."
 
         if {_requester} parsed as offline player is online:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%player's name%'ꜱ SmallCaps &cᴅᴇɴɪᴇᴅ &7ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to ({_requester} parsed as player)
+            set {_p} to SmallCaps("%player's name%")
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_p}%'ꜱ &cᴅᴇɴɪᴇᴅ &7ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to ({_requester} parsed as player)
             
             
