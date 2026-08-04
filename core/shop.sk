@@ -11,7 +11,7 @@ on script load:
     set {shop::maxmult} to 4           # price never exceeds 400% of base
     set {shop::sellmargin} to 0.85     # currentbuy = currentsell * this (keeps a spread)
     set {shop::maxtransaction} to 6400 # hard cap on amount per single buy/sell call
-    set {shop::guisize} to 54          # GUI inventory size (must be multiple of 9)
+    set {shop::guititle} to "Shop (temp)" # must match exactly - used to identify the GUI
 
 
 ########################################
@@ -167,11 +167,6 @@ function shopStatus(p: player, item: text):
     send "&7Current Buy: &a%{shop::currentbuy::%{_item}%}% &7| Current Sell: &c%{shop::currentsell::%{_item}%}%" to {_p}
 
 
-########################################
-# 5. TEMP GUI (fixed 4-item test layout - replace with your own)
-########################################
-
-# Builds a single display item (icon + live lore) for a shop entry.
 function buildShopItemStack(item: text) :: itemtype:
     set {_type} to {_item} parsed as item type
     if {_type} is not set:
@@ -182,64 +177,50 @@ function buildShopItemStack(item: text) :: itemtype:
     set the lore of {_stack} to "&7Stock: &f%{shop::stock::%{_item}%}%&7/&f%{shop::defaultstock::%{_item}%}%" and " " and "&aLeft-click&7: buy 1 for &f%{shop::currentsell::%{_item}%}%" and "&cRight-click&7: sell 1 for &f%{shop::currentbuy::%{_item}%}%"
     return {_stack}
 
-# Opens the temp test GUI with the 4 sample items in fixed slots.
+function itemKeyFromStack(stack: itemtype) :: text:
+    loop {shop::items::*}:
+        set {_key} to loop-value
+        set {_type} to {_key} parsed as item type
+        if {_type} is set:
+            if {_stack} is {_type}:
+                return {_key}
+
 function openShopGUI(p: player):
-    set {_inv} to chest inventory with 1 rows named "&8Shop (temp)"
-    set {shop::guiinv::%{_p}%} to {_inv}
-    delete {shop::guislot::%{_p}%::*}
+    set {_inv} to chest inventory with 1 rows named "%{shop::guititle}%"
 
     set slot 2 of {_inv} to buildShopItemStack("DIAMOND")
-    set {shop::guislot::%{_p}%::2} to "DIAMOND"
     set slot 3 of {_inv} to buildShopItemStack("IRON_INGOT")
-    set {shop::guislot::%{_p}%::3} to "IRON_INGOT"
     set slot 4 of {_inv} to buildShopItemStack("EMERALD")
-    set {shop::guislot::%{_p}%::4} to "EMERALD"
     set slot 5 of {_inv} to buildShopItemStack("GOLD_INGOT")
-    set {shop::guislot::%{_p}%::5} to "GOLD_INGOT"
 
     open {_inv} to {_p}
 
-# Re-stamps lore on the currently open GUI in place after a transaction.
-function refreshShopGUI(p: player):
-    if {shop::guiinv::%{_p}%} is not set:
-        stop
-    set {_inv} to {shop::guiinv::%{_p}%}
-    loop {shop::guislot::%{_p}%::*}:
-        set {_key} to loop-value
-        set {_slotnum} to (loop-index parsed as integer)
-        set slot {_slotnum} of {_inv} to buildShopItemStack({_key})
-
 on inventory click:
-    if {shop::guiinv::%player%} is not set:
-        stop
-    if event-inventory is not {shop::guiinv::%player%}:
+    if name of event-inventory is not {shop::guititle}:
         stop
     cancel event
 
-    set {_slot} to index of event-slot
+    set {_slot} to raw slot
     if {_slot} >= 9:
         stop
 
-    set {_key} to {shop::guislot::%player%::%{_slot}%}
+    set {_clicked} to clicked item
+    if {_clicked} is not set or {_clicked} is air:
+        stop
+
+    set {_key} to itemKeyFromStack({_clicked})
     if {_key} is not set:
         stop
 
     if click type is left mouse button:
         shopBuyItem(player, {_key}, 1)
-        refreshShopGUI(player)
     else if click type is right mouse button:
         shopSellItem(player, {_key}, 1)
-        refreshShopGUI(player)
-on inventory close:
-    if {shop::guiinv::%player%} is set:
-        if event-inventory is {shop::guiinv::%player%}:
-            delete {shop::guiinv::%player%}
-            delete {shop::guislot::%player%::*}
+    else:
+        stop
 
+    set slot {_slot} of event-inventory to buildShopItemStack({_key})
 
-########################################
-# 6. TEMP TEST COMMANDS
-########################################
 
 command /shop:
     trigger:
