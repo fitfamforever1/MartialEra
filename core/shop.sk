@@ -110,11 +110,6 @@ on inventory click:
                 sellItem(player, event-item, {_amount})
             else:
                 send "&cYou don't have any to sell!"
-
-on inventory close:
-    set {_temp} to data tag "shop:status" of player
-    if {_temp} is set:
-        delete data tag "shop:status" of player
     
 function openShop(p: player):
     set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜱᴇʟᴇᴄᴛ ᴄᴀᴛᴇɢᴏʀʏ"
@@ -154,8 +149,7 @@ function openOre(p: player):
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
-        
-    set data tag "shop:status" of {_p} to true
+
     open {_gui} to {_p}
     
 command /test:
