@@ -19,7 +19,7 @@ function displayDamage(victim: entity, damage: number):
     set billboard of {_display} to center
     set interpolation duration of {_display} to 2 ticks
 
-    set text of {_display} to "<##FF2400>%round({_damage})%"
+    set text of {_display} to "<##FF2400>%{_damage}%"
 
     wait 1 second
     kill {_display}
