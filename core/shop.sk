@@ -6,6 +6,13 @@ function openOre(p: player):
         
     open {_gui} to {_p}
     
+on inventory click:
+    name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
+    set {_temp} to data tag "item:id" of event-item
+    if {_temp} is "1":
+        cancel event
+        stop
+    
 command /test:
     trigger:
         openOre(player)
