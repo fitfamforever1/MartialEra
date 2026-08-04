@@ -55,8 +55,10 @@ command /tpa <player>:
 
         set {_sender} to player's name
         set {_targetOff} to {_target} parsed as offline player
-        wait 40 seconds
+        wait 4 seconds
+        send "debug1"
         if text data tag "tpa:sender" of {_targetOff} is "%{_sender}%":
+            send "debug2"
             delete data tag "tpa:sender" of {_targetOff}
             delete data tag "tpa:id" of {_targetOff}
             if {_sender} parsed as offline player is online:
