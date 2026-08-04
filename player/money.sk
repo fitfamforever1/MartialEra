@@ -2,6 +2,7 @@ on join:
     set number data tag "money:amm" of player to 100
     
 command /bal [<player>]:
+    aliases: balance
     trigger:
         if arg-1 is set:
             if player has permission "admin.bal":
@@ -14,12 +15,31 @@ command /bal [<player>]:
         
 command /pay [<player>] [<number>]:
     trigger:
-        if arg-1 is not set:
+        if arg-1 is not set or arg-2 is not set:
             send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c /ᴘᴀʏ <ᴘʟᴀʏᴇʀ> <ᴍᴏɴᴇʏ>"
+            stop
+
         if arg-1 is offline:
             send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴄᴀɴ'ᴛ ꜱᴇɴᴅ ᴍᴏɴᴇʏ ᴛᴏ ᴏꜰꜰʟɪɴᴇ ᴘʟᴀʏᴇʀꜱ."
             stop
+
+        if arg-1 is player:
+            send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴄᴀɴ'ᴛ ꜱᴇɴᴅ ᴍᴏɴᴇʏ ᴛᴏ ʏᴏᴜʀꜱᴇʟꜰ."
+            stop
+
         if arg-2 <= 0:
             send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴄᴀɴ'ᴛ ꜱᴇɴᴅ ᴍᴏɴᴇʏ ᴇǫᴜᴀʟ ᴏʀ ʟᴇꜱꜱ ᴛʜᴇɴ ᴢᴇʀᴏ."
             stop
-        send "work"
+
+        set {_senderBal} to number data tag "money:amm" of player
+        set {_receiverBal} to number data tag "money:amm" of arg-1
+
+        if {_senderBal} < arg-2:
+            send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴇɴᴏᴜɢʜ ᴍᴏɴᴇʏ."
+            stop
+
+        set number data tag "money:amm" of player to {_senderBal} - arg-2
+        set number data tag "money:amm" of arg-1 to {_receiverBal} + arg-2
+
+        send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&a ʏᴏᴜ ꜱᴇɴᴛ &f%arg-2%&a ᴛᴏ &f%arg-1%&a." to player
+        send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&a ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ &f%arg-2%&a ꜰʀᴏᴍ &f%player%&a." to arg-1
