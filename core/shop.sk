@@ -189,13 +189,13 @@ function openFarm(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(potato, 6600, 2200)
-    set slot 11 of {_gui} to item(pumpkin_seeds, 4200, 1400)
-    set slot 12 of {_gui} to item(red_mushroom, 9600, 3200)
-    set slot 13 of {_gui} to item(brown_mushroom, 9600, 3200)
-    set slot 14 of {_gui} to item(pumpkin, 7800, 2600)
-    set slot 15 of {_gui} to item(nether_wart, 15600, 5200)
-    set slot 16 of {_gui} to item(sugar_cane, 7200, 2400)
+    set slot 10 of {_gui} to item(potato, 6000, 800)
+    set slot 11 of {_gui} to item(pumpkin_seeds, 4500, 600)
+    set slot 12 of {_gui} to item(red_mushroom, 21000, 7000)
+    set slot 13 of {_gui} to item(brown_mushroom, 21000, 7000)
+    set slot 14 of {_gui} to item(pumpkin, 10500, 3500)
+    set slot 15 of {_gui} to item(nether_wart, 15000, 5000)
+    set slot 16 of {_gui} to item(sugar_cane, 7500, 2500)
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
