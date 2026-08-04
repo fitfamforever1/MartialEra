@@ -48,8 +48,8 @@ command /tpa <text>:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_targetSC}%&7."
             stop
 
-        set data tag "tpa:id" of {_target} to "tpa"
-        set data tag "tpa:sender" of {_target} to "%{_sender}%"
+        set text data tag "tpa:id" of {_target} to "tpa"
+        set text data tag "tpa:sender" of {_target} to "%{_sender}%"
 
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_targetSC}%&7."
 
@@ -88,12 +88,12 @@ function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: t
 command /tpaaccept:
     prefix: minecraft
     trigger:
-        set {_requester} to data tag "tpa:sender" of player
+        set {_requester} to text data tag "tpa:sender" of player
         send "%{_requester}%" to player
         if {_requester} is not set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ."
             stop
-        set {_type} to data tag "tpa:id" of player
+        set {_type} to text data tag "tpa:id" of player
         set {_requesterSC} to SmallCaps("%{_requester}%")
         delete data tag "tpa:sender" of player
         delete data tag "tpa:id" of player
