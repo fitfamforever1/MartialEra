@@ -224,9 +224,11 @@ on inventory click:
         stop # empty slot
 
     if click type = left mouse button:
+        send "buy"
         shopBuyItem(player, {_key}, 1)
         refreshShopGUI(player)
     else if click type = right mouse button:
+        send "sell"
         shopSellItem(player, {_key}, 1)
         refreshShopGUI(player)
 
