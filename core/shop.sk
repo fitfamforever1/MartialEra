@@ -216,7 +216,6 @@ on inventory click:
         stop
     cancel event
 
-    set {_slot} to raw slot
     if {_slot} >= 9:
         stop # click landed in the player's own inventory, ignore
 
@@ -224,10 +223,10 @@ on inventory click:
     if {_key} is not set:
         stop # empty slot
 
-    if click type is left click:
+    if click action is left click:
         shopBuyItem(player, {_key}, 1)
         refreshShopGUI(player)
-    else if click type is right click:
+    else if click action is right click:
         shopSellItem(player, {_key}, 1)
         refreshShopGUI(player)
 
