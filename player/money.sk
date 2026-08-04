@@ -11,3 +11,13 @@ command /bal [<player>]:
                 stop
         set {_bal} to number data tag "money:amm" of player
         send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7 ʏᴏᴜʀ ᴄᴜʀʀᴇɴᴛ ʙᴀʟᴀɴᴄᴇ ɪꜱ &e%{_bal}%&7."
+        
+command /pay <player> <number>:
+    trigger:
+        if arg-1 is offline:
+            send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴄᴀɴ'ᴛ ꜱᴇɴᴅ ᴍᴏɴᴇʏ ᴛᴏ ᴏꜰꜰʟɪɴᴇ ᴘʟᴀʏᴇʀꜱ."
+            stop
+        if arg-2 <= 0:
+            send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴄᴀɴ'ᴛ ꜱᴇɴᴅ ᴍᴏɴᴇʏ ᴇǫᴜᴀʟ ᴏʀ ʟᴇꜱꜱ ᴛʜᴇɴ ᴢᴇʀᴏ."
+            stop
+        send "work"
