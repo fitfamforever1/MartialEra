@@ -27,3 +27,28 @@ on death of player:
             set death message to "&8[&4☠&8] &c%{_a}% &7ᴇɴᴅᴇᴅ &c%{_v}%'s &7ʟɪꜰᴇ."
     else:
         set death message to "&8[&4☠&8] &c%{_v}% &7ʜᴀꜱ ᴅɪᴇᴅ."
+        
+on chat:
+    cancel event
+    set {_check} to the placeholder "betterteams_inTeam" from player
+    set {_prefix} to ""
+    if {_check} is true:
+        set {_name} to the placeholder "betterteams_name" from player
+        set {_color} to the placeholder "betterteams_color" from player
+        set {_prefix} to "&8[%{_color}%%{_name}%&8] "
+    if player has permission "team.owner":
+        broadcast "%{_prefix}%<##e74c3c>&lᴏᴡɴᴇʀ &7%player%&8: &f%message%"
+    else if player has permission "team.coowner":
+        broadcast "%{_prefix}%<##e67e22>&lᴄᴏ ᴏᴡɴᴇʀ &7%player%&8: &f%message%"
+    else if player has permission "team.manager":
+        broadcast "%{_prefix}%<##9b59b6>&lᴍᴀɴᴀɢᴇʀ &7%player%&8: &f%message%"
+    else if player has permission "team.admin":
+        broadcast "%{_prefix}%<##3498db>&lᴀᴅᴍɪɴ &7%player%&8: &f%message%"
+    else if player has permission "team.mod":
+        broadcast "%{_prefix}%<##2ecc71>&lᴍᴏᴅ &7%player%&8: &f%message%"
+    else if player has permission "team.helper":
+        broadcast "%{_prefix}%<##f1c40f>&lʜᴇʟᴘᴇʀ &7%player%&8: &f%message%"
+    else if player has permission "team.trial":
+        broadcast "%{_prefix}%<##1e8449>&lᴛʀɪᴀʟ &7%player%&8: &f%message%"
+    else:
+        broadcast "%{_prefix}%<##1abc9c>&lᴘʟᴀʏᴇʀ &7%player%&8: &f%message%"
