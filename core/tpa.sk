@@ -54,7 +54,7 @@ command /tpa <player>:
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &8[&a/ᴛᴘᴀᴀᴄᴄᴇᴘᴛ&8] &8[&c/ᴛᴘᴀᴅᴇɴʏ&8]" to {_target}
 
         set {_sender} to player's name
-        set {_targetOff} to {_target} parsed as offline player
+        set {_targetOff} to {_target}
         wait 4 seconds
         send "debug1"
         send "tag: %text data tag "tpa:sender" of {_targetOff}%"
