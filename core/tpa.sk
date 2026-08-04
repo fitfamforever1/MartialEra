@@ -51,7 +51,7 @@ command /tpa <player>:
 
         set {_senderSC} to SmallCaps("%player%")
 
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &8[&a/tpaaccept&8] &8[&c/tpadeny&8]" to {_target}
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &8[&a/ᴛᴘᴀᴀᴄᴄᴇᴘᴛ&8] &8[&c/ᴛᴘᴀᴅᴇɴʏ&8]" to {_target}
         
 function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: text, type: text):
     set data tag "tpa:froze" of {_mover} to true
@@ -85,7 +85,6 @@ command /tpaaccept:
     prefix: minecraft
     trigger:
         set {_requester} to text data tag "tpa:sender" of player
-        send "%{_requester}%" to player
         if {_requester} is not set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ."
             stop
@@ -132,7 +131,7 @@ command /tpahere <player>:
 
         set {_senderSC} to SmallCaps("%player%")
 
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ʏᴏᴜ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇᴍ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ʏᴏᴜ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇᴍ. &8[&a/ᴛᴘᴀᴀᴄᴄᴇᴘᴛ&8] &8[&c/ᴛᴘᴀᴅᴇɴʏ&8]" to {_target}
 
 
 command /tpadeny:
