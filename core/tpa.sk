@@ -90,11 +90,16 @@ command /tpaaccept:
             stop
         set {_type} to text data tag "tpa:id" of player
         set {_requesterSC} to SmallCaps("%{_requester}%")
+        set {_acceptorSC} to SmallCaps("%player%")
         delete data tag "tpa:sender" of player
         delete data tag "tpa:id" of player
         if {_requester} parsed as offline player is not online:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_requesterSC}% &7ɪꜱ ɴᴏ ʟᴏɴɢᴇʀ ᴏɴʟɪɴᴇ."
             stop
+
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀᴄᴄᴇᴘᴛᴇᴅ &e%{_requesterSC}%'ꜱ &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ."
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_acceptorSC}% &7ʜᴀꜱ ᴀᴄᴄᴇᴘᴛᴇᴅ ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to ({_requester} parsed as player)
+
         if {_type} is "tpa":
             tpaDoTeleport({_requester} parsed as player, player, {_requester}, player's name, "tpa")
         else if {_type} is "tpahere":
