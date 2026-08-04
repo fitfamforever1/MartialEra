@@ -55,12 +55,8 @@ command /tpa <player>:
 
         set {_sender} to player's name
         set {_targetOff} to {_target}
-        wait 4 seconds
-        send "debug1"
-        send "tag: %text data tag "tpa:sender" of {_targetOff}%"
-        send "sender: %{_sender}%"
+        wait 40 seconds
         if text data tag "tpa:sender" of {_targetOff} is "%{_sender}%":
-            send "debug2"
             delete data tag "tpa:sender" of {_targetOff}
             delete data tag "tpa:id" of {_targetOff}
             if {_sender} parsed as offline player is online:
@@ -102,7 +98,7 @@ command /tpahere <player>:
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ʏᴏᴜ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇᴍ. &8[&a/ᴛᴘᴀᴀᴄᴄᴇᴘᴛ&8] &8[&c/ᴛᴘᴀᴅᴇɴʏ&8]" to {_target}
 
         set {_sender} to player's name
-        set {_targetOff} to {_target} parsed as offline player
+        set {_targetOff} to {_target}
         wait 40 seconds
         if text data tag "tpa:sender" of {_targetOff} is "%{_sender}%":
             delete data tag "tpa:sender" of {_targetOff}
