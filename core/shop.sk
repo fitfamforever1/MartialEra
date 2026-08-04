@@ -10,6 +10,7 @@ on script load:
     set {shop::minmult} to 0.25        # price never drops below 25% of base
     set {shop::maxmult} to 4           # price never exceeds 400% of base
     set {shop::sellmargin} to 0.85     # currentbuy = currentsell * this (keeps a spread)
+    set {shop::maxtransaction} to 6400 # hard cap on amount per single buy/sell call
 
 
 ########################################
@@ -35,27 +36,34 @@ function generateShopItems():
 
 
 ########################################
-# 2. INTERNAL PRICE UPDATE (called automatically, don't call directly)
+# 2. PRICE CALCULATION
 ########################################
 
-function updateShopPrices(item: text):
+# Pure calculation: returns what the sell price WOULD be at a given
+# hypothetical stock level, without touching any stored values.
+# Used both for the live price and for simulating per-unit price shifts.
+function calcSellPrice(item: text, stock: number) :: number:
     set {_default} to {shop::defaultstock::%{_item}%}
-    set {_stock} to {shop::stock::%{_item}%}
+    set {_base} to {shop::basesell::%{_item}%}
 
     # ratio > 0 when stock is scarce (below default), < 0 when oversupplied
     set {_ratio} to ({_default} - {_stock}) / {_default}
-
-    set {_base} to {shop::basesell::%{_item}%}
-    set {_newsell} to {_base} + ({_ratio} * {_base} * {shop::sensitivity})
+    set {_price} to {_base} + ({_ratio} * {_base} * {shop::sensitivity})
 
     # clamp between min/max multiplier of base sell price
     set {_min} to {_base} * {shop::minmult}
     set {_max} to {_base} * {shop::maxmult}
-    if {_newsell} < {_min}:
-        set {_newsell} to {_min}
-    else if {_newsell} > {_max}:
-        set {_newsell} to {_max}
+    if {_price} < {_min}:
+        set {_price} to {_min}
+    else if {_price} > {_max}:
+        set {_price} to {_max}
 
+    return {_price}
+
+# Recomputes and stores the live current buy/sell for an item based on
+# its ACTUAL current stock. Called automatically after every buy/sell.
+function updateShopPrices(item: text):
+    set {_newsell} to calcSellPrice({_item}, {shop::stock::%{_item}%})
     set {shop::currentsell::%{_item}%} to {_newsell}
     set {shop::currentbuy::%{_item}%} to {_newsell} * {shop::sellmargin}
 
@@ -65,9 +73,16 @@ function updateShopPrices(item: text):
 ########################################
 
 # Player buys FROM the shop (spends money, stock goes down, price rises).
+# Each unit is priced against the stock level AFTER the previous units in
+# this same purchase were accounted for, so buying e.g. 5 at once costs
+# progressively more per unit than buying 1 at a time, five times.
 function shopBuyItem(p: player, item: text, amount: number) :: boolean:
     if {shop::items::*} does not contain {_item}:
         send "&cThat item isn't sold here." to {_p}
+        return false
+
+    if {_amount} > {shop::maxtransaction}:
+        send "&cYou can only buy up to %{shop::maxtransaction}% at once." to {_p}
         return false
 
     if {shop::stock::%{_item}%} < {_amount}:
@@ -79,24 +94,36 @@ function shopBuyItem(p: player, item: text, amount: number) :: boolean:
         send "&cInvalid item: %{_item}%." to {_p}
         return false
 
+    # simulate the transaction unit-by-unit to get the true marginal cost
+    set {_simstock} to {shop::stock::%{_item}%}
+    set {_totalcost} to 0
+    loop {_amount} times:
+        add calcSellPrice({_item}, {_simstock}) to {_totalcost}
+        remove 1 from {_simstock}
+
     set {_senderBal} to number data tag "money:amm" of {_p}
-    set {_cost} to {shop::currentsell::%{_item}%} * {_amount}
-    if {_senderBal} < {_cost}:
-        send "&cYou need %{_cost}% but only have %{_senderBal}%." to {_p}
+    if {_senderBal} < {_totalcost}:
+        send "&cYou need %{_totalcost}% but only have %{_senderBal}%." to {_p}
         return false
 
-    set number data tag "money:amm" of {_p} to {_senderBal} - {_cost}
-    set {shop::stock::%{_item}%} to {shop::stock::%{_item}%} - {_amount}
+    set number data tag "money:amm" of {_p} to {_senderBal} - {_totalcost}
+    set {shop::stock::%{_item}%} to {_simstock}
     updateShopPrices({_item})
     give ({_amount} of {_itemtype}) to {_p}
 
-    send "&aBought %{_amount}%x %{_item}% for &f%{_cost}%&a." to {_p}
+    send "&aBought %{_amount}%x %{_item}% for &f%{_totalcost}%&a." to {_p}
     return true
 
 # Player sells TO the shop (earns money, stock goes up, price falls).
+# Same per-unit simulation as buying, in reverse: each unit sold pushes the
+# simulated stock up, so later units in a bulk sale earn progressively less.
 function shopSellItem(p: player, item: text, amount: number) :: boolean:
     if {shop::items::*} does not contain {_item}:
         send "&cThat item isn't accepted here." to {_p}
+        return false
+
+    if {_amount} > {shop::maxtransaction}:
+        send "&cYou can only sell up to %{shop::maxtransaction}% at once." to {_p}
         return false
 
     set {_itemtype} to {_item} parsed as item type
@@ -108,14 +135,19 @@ function shopSellItem(p: player, item: text, amount: number) :: boolean:
         send "&cYou don't have %{_amount}%x %{_item}%." to {_p}
         return false
 
+    set {_simstock} to {shop::stock::%{_item}%}
+    set {_totalearn} to 0
+    loop {_amount} times:
+        add (calcSellPrice({_item}, {_simstock}) * {shop::sellmargin}) to {_totalearn}
+        add 1 to {_simstock}
+
     set {_senderBal} to number data tag "money:amm" of {_p}
-    set {_earnings} to {shop::currentbuy::%{_item}%} * {_amount}
-    set number data tag "money:amm" of {_p} to {_senderBal} + {_earnings}
-    set {shop::stock::%{_item}%} to {shop::stock::%{_item}%} + {_amount}
+    set number data tag "money:amm" of {_p} to {_senderBal} + {_totalearn}
+    set {shop::stock::%{_item}%} to {_simstock}
     updateShopPrices({_item})
     remove ({_amount} of {_itemtype}) from {_p}'s inventory
 
-    send "&aSold %{_amount}%x %{_item}% for &f%{_earnings}%&a." to {_p}
+    send "&aSold %{_amount}%x %{_item}% for &f%{_totalearn}%&a." to {_p}
     return true
 
 
