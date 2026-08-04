@@ -79,7 +79,7 @@ function sellItem(p: player, item: item, amount: number):
     send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e%{_name}% &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
-    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ", "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
+    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ", "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ", "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ", "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
         cancel event
 
         if data tag "item:id" of event-item is "2":
@@ -197,7 +197,26 @@ function openFarm(p: player):
     open {_gui} to {_p}
     
 function openMob(p: player):
-    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ"
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ"
+
+    loop 36 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
+    
+    set slot 10 of {_gui} to item(water_bucket, 10, 10)
+    set slot 11 of {_gui} to item(lava_bucket, 10, 10)
+    set slot 12 of {_gui} to item(flint_and_steel, 10, 10)
+    set slot 13 of {_gui} to item(wind_charge, 10, 10)
+    set slot 14 of {_gui} to item(nametag, 10, 10)
+    set slot 15 of {_gui} to item(book, 10, 10)
+    set slot 16 of {_gui} to item(shulker_shell, 10, 10)
+    
+    set slot 35 of {_gui} to {item::goback}
+    set slot 27 of {_gui} to {item::shopinfo}
+
+    open {_gui} to {_p}
+  
+function openMics(p: player):
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ"
 
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
@@ -214,7 +233,7 @@ function openMob(p: player):
     set slot 27 of {_gui} to {item::shopinfo}
 
     open {_gui} to {_p}
-    
+  
 command /shop:
     trigger:
         openShop(player)
