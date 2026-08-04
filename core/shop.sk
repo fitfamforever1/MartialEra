@@ -54,8 +54,12 @@ function buyItem(p: player, item: item, amount: number):
 
     remove {_price} from {_bal}
     set number data tag "money:amm" of {_p} to {_bal}
-
+    
     give {_amount} of {_id} parsed as item to {_p}
+    
+    set {_name} to SmallCaps("%{_id}%")
+    send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ʙᴏᴜɢʜ &e%{_amount}%x &f%{_name}% &7ғᴏʀ &6$%{_price}%&7." to {_p}
+
 
 function sellItem(p: player, item: item, amount: number):
     set {_id} to string data tag "item:id" of {_item}
@@ -70,6 +74,10 @@ function sellItem(p: player, item: item, amount: number):
     set {_bal} to number data tag "money:amm" of {_p}
     add {_price} to {_bal}
     set number data tag "money:amm" of {_p} to {_bal}
+    
+    set {_name} to SmallCaps("%{_id}%")
+    send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &f%{_name}% &7ғᴏʀ &6$%{_price}%&7." to {_p}
+
 
     
 function openOre(p: player):
