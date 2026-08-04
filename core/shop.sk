@@ -79,7 +79,7 @@ function sellItem(p: player, item: item, amount: number):
     send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e%{_name}% &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
-    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ":
+    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
         cancel event
 
         if data tag "item:id" of event-item is "2":
