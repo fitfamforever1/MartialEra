@@ -44,12 +44,12 @@ command /tpa <text>:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
             stop
 
-        if data tag "tpa:sender" of {_target} is "%{_sender}%":
+        if text data tag "tpa:sender" of {_target} is "%player's name%":
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_targetSC}%&7."
             stop
 
         set text data tag "tpa:id" of {_target} to "tpa"
-        set text data tag "tpa:sender" of {_target} to "%{_sender}%"
+        set text data tag "tpa:sender" of {_target} to "%player's name%"
 
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_targetSC}%&7."
 
