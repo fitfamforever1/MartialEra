@@ -79,8 +79,7 @@ function sellItem(p: player, item: item, amount: number):
     send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e%{_name}% &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
-    set {_temp} to data tag "shop:status" of player
-    if {_temp} is set:
+    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ":
         cancel event
 
         if data tag "item:id" of event-item is "2":
@@ -137,7 +136,6 @@ on inventory click:
         cancel event
         set {_temp} to data tag "shop:id" of event-item
         if {_temp} is "4":
-            wait 1 tick
             openOre(player)
     
 function openOre(p: player):
