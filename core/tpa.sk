@@ -78,11 +78,11 @@ command /tpa <text>:
 
         set {_senderSC} to SmallCaps("%player%")
 
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to ({_target} parsed as player)
 
         set {_sender} to player's name
         wait 60 seconds
-        tpaExpire({_target}, {_sender})
+        tpaExpire(({_target} parsed as player), {_sender})
 
 command /tpahere <text>:
     prefix: minecraft
