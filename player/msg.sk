@@ -37,4 +37,4 @@ on chat:
         set {_color} to the placeholder "betterteams_color" from player
         set {_name} to SmallCaps("%{_name}%")
         set {_prefix} to "&8[%{_color}%%{_name}%&8] "
-    broadcast "%{_prefix}%&7%player%&8: &f%message%"
+    broadcast "%{_prefix}%&7%player%&8: &f%message% <sprite:"minecraft:items":item/porkchop>"
