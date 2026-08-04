@@ -79,7 +79,7 @@ function sellItem(p: player, item: item, amount: number):
     send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e%{_name}% &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
-    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ", "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ", "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ", "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
+    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ", "<##E9BF35>ʙʟᴏᴄᴋ ꜱʜᴏᴘ", "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ", "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ", "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
         cancel event
 
         if data tag "item:id" of event-item is "2":
@@ -130,6 +130,8 @@ on inventory click:
     if name of event-inventory is "<##E9BF35>ꜱᴇʟᴇᴄᴛ ᴄᴀᴛᴇɢᴏʀʏ":
         cancel event
         set {_temp} to data tag "shop:id" of event-item
+        if {_temp} is "1":
+            openBlock(player)
         if {_temp} is "2":
             openMics(player)
         if {_temp} is "3":
@@ -236,7 +238,7 @@ function openMob(p: player):
 
     open {_gui} to {_p}
   
-function openMics(p: player):
+function openBlock(p: player):
     set {_gui} to chest inventory with 4 rows named "<##E9BF35>ʙʟᴏᴄᴋ ꜱʜᴏᴘ"
 
     loop 36 times:
