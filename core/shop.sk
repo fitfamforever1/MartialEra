@@ -165,7 +165,7 @@ function openFood(p: player):
     set slot 12 of {_gui} to item(cooked_chicken, 10, 10)
     set slot 13 of {_gui} to item(cooked_mutton, 10, 10)
     set slot 14 of {_gui} to item(cooked_porkchop, 10, 10)
-    set slot 15 of {_gui} to item(steak, 10, 10)
+    set slot 15 of {_gui} to item(cooked_beef, 10, 10)
     set slot 16 of {_gui} to item(golden_carrot, 10, 10)
     
     set slot 35 of {_gui} to {item::goback}
