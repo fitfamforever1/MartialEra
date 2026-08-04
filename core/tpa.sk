@@ -179,4 +179,20 @@ command /tpadeny:
             set {_p} to SmallCaps("%player's name%")
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_p}%'ꜱ &cᴅᴇɴɪᴇᴅ &7ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to ({_requester} parsed as player)
             
-            
+on death of player:
+    set {_victim} to victim
+    set data tag "tpa:deathloc" of {_victim} to location of {_victim}
+
+
+command /back:
+    prefix: minecraft
+    trigger:
+        if data tag "tpa:deathloc" of player is not set:
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ʜᴀᴠᴇ ɴᴏ ᴅᴇᴀᴛʜ ʟᴏᴄᴀᴛɪᴏɴ ᴛᴏ ʀᴇᴛᴜʀɴ ᴛᴏ."
+            stop
+
+        set {_loc} to data tag "tpa:deathloc" of player
+        delete data tag "tpa:deathloc" of player
+
+        teleport player to {_loc}
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜʀ ʟᴀꜱᴛ ᴅᴇᴀᴛʜ ʟᴏᴄᴀᴛɪᴏɴ."
