@@ -130,6 +130,8 @@ on inventory click:
     if name of event-inventory is "<##E9BF35>ꜱᴇʟᴇᴄᴛ ᴄᴀᴛᴇɢᴏʀʏ":
         cancel event
         set {_temp} to data tag "shop:id" of event-item
+        if {_temp} is "2":
+            openMics(player)
         if {_temp} is "3":
             openFood(player)
         if {_temp} is "4":
@@ -196,8 +198,8 @@ function openFarm(p: player):
 
     open {_gui} to {_p}
     
-function openMob(p: player):
-    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ"
+function openMics(p: player):
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ"
 
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
@@ -215,8 +217,8 @@ function openMob(p: player):
 
     open {_gui} to {_p}
   
-function openMics(p: player):
-    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ"
+function openMob(p: player):
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ"
 
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
