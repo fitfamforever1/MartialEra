@@ -211,28 +211,23 @@ function refreshShopGUI(p: player):
 
 on inventory click:
     if {shop::guiinv::%player%} is not set:
-        send "debug1"
         stop
     if event-inventory is not {shop::guiinv::%player%}:
-        send "debug2"
         stop
     cancel event
 
     set {_slot} to index of event-slot
-    send "%{_slot}%"
     if {_slot} >= 9:
         stop
 
     set {_key} to {shop::guislot::%player%::%{_slot}%}
     if {_key} is not set:
-        stop # empty slot
+        stop
 
     if click type is left mouse button:
-        send "buy"
         shopBuyItem(player, {_key}, 1)
         refreshShopGUI(player)
     else if click type is right mouse button:
-        send "sell"
         shopSellItem(player, {_key}, 1)
         refreshShopGUI(player)
 on inventory close:
