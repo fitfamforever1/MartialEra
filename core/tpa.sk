@@ -57,6 +57,8 @@ command /tpa <player>:
         set {_targetOff} to {_target} parsed as offline player
         wait 4 seconds
         send "debug1"
+        send "tag: %text data tag "tpa:sender" of {_targetOff}%"
+        send "sender: %{_sender}%"
         if text data tag "tpa:sender" of {_targetOff} is "%{_sender}%":
             send "debug2"
             delete data tag "tpa:sender" of {_targetOff}
