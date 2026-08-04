@@ -97,7 +97,7 @@ function openOre(p: player):
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
         
-    set data tag "shop:status" of player to true
+    set data tag "shop:status" of {_p} to true
     open {_gui} to {_p}
     
 on inventory click:
