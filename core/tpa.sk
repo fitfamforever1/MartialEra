@@ -52,7 +52,7 @@ command /tpa <text>:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7/ᴛᴘᴀ <ᴘʟᴀʏᴇʀ>"
             stop
 
-        set {_target} to arg-1
+        set ({_target} parsed as player) to arg-1
 
         if {_target} is player's name:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cʏᴏᴜ ᴄᴀɴ'ᴛ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜʀꜱᴇʟꜰ!"
@@ -60,7 +60,7 @@ command /tpa <text>:
 
         set {_targetSC} to SmallCaps("%arg-1%")
 
-        if ({_target} parsed as player) is not online:
+        if {_target} is not online:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
             stop
 
@@ -91,7 +91,7 @@ command /tpahere <text>:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7/ᴛᴘᴀʜᴇʀᴇ <ᴘʟᴀʏᴇʀ>"
             stop
 
-        set {_target} to arg-1
+        set ({_target} parsed as player) to arg-1
 
         if {_target} is player's name:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cʏᴏᴜ ᴄᴀɴ'ᴛ ᴛᴇʟᴇᴘᴏʀᴛ ʏᴏᴜʀꜱᴇʟꜰ ᴛᴏ ʏᴏᴜʀꜱᴇʟꜰ!"
