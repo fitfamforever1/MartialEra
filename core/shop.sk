@@ -33,8 +33,8 @@ function item(base: item, name: text, buy: number, sell: number):: item:
     set number data tag "item:buy" of {_item} to {_buy}
     set number data tag "item:sell" of {_item} to {_sell}
     set line 1 of lore of {_item} to "&8┃ &7» ꜱᴀʟᴇ ɪɴꜰᴏ"
-    set line 9 of lore of {_item} to "&8┃ &7ʙᴜʏ ᴘʀɪᴄᴇ &8» &e+%{_buy}%"
-    set line 9 of lore of {_item} to "&8┃ &7ꜱᴇʟʟ ᴘʀɪᴄᴇ &8» &e%{_sell}%"
+    set line 2 of lore of {_item} to "&8┃ &7ʙᴜʏ ᴘʀɪᴄᴇ &8» &e+%{_buy}%"
+    set line 3 of lore of {_item} to "&8┃ &7ꜱᴇʟʟ ᴘʀɪᴄᴇ &8» &e%{_sell}%"
     
     return {_item}
     
