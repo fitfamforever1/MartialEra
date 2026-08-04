@@ -33,6 +33,7 @@ on chat:
     set {_check} to the placeholder "betterteams_inTeam" from player
     set {_prefix} to ""
     if {_check} is true:
+        send "test"
         set {_name} to the placeholder "betterteams_name" from player
         set {_color} to the placeholder "betterteams_color" from player
         set {_prefix} to "&8[%{_color}%%{_name}%&8] "
