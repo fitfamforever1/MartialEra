@@ -49,7 +49,7 @@ function buyItem(p: player, item: item, amount: number):
     set {_bal} to number data tag "money:amm" of {_p}
 
     if {_bal} < {_price}:
-        send "&cYou don't have enough money!" to {_p}
+        send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &cʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴇɴᴏᴜɢʜ ᴍᴏɴᴇʏ!" to {_p}
         stop
 
     remove {_price} from {_bal}
@@ -62,7 +62,7 @@ function sellItem(p: player, item: item, amount: number):
     set {_price} to (number data tag "item:sell" of {_item}) * {_amount}
 
     if {_p} doesn't have {_amount} of {_id} parsed as item:
-        send "&cYou don't have enough items!" to {_p}
+        send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &cʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴇɴᴏᴜɢʜ ɪᴛᴇᴍꜱ!" to {_p}
         stop
 
     remove {_amount} of {_id} parsed as item from {_p}
@@ -73,9 +73,9 @@ function sellItem(p: player, item: item, amount: number):
 
     
 function openOre(p: player):
-    set {_gui} to chest inventory with 3 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
 
-    loop 27 times:
+    loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
     set slot 10 of {_gui} to item(netherite_ingot, 10, 10)
@@ -85,6 +85,8 @@ function openOre(p: player):
     set slot 14 of {_gui} to item(iron_ingot, 10, 10)
     set slot 15 of {_gui} to item(copper_ingot, 10, 10)
     set slot 16 of {_gui} to item(coal, 10, 10)
+    
+    set slot 35 of {_gui} to {item::goback}
         
     open {_gui} to {_p}
     
@@ -92,6 +94,9 @@ on inventory click:
     if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ":
         cancel event
 
+        if data tag "item:id" of event-item is "2":
+            send "placeholder"
+        
         if data tag "item:sale" of event-item is not true:
             stop
 
