@@ -223,10 +223,10 @@ on inventory click:
     if {_key} is not set:
         stop # empty slot
 
-    if click type = left click:
+    if click type = left mouse button:
         shopBuyItem(player, {_key}, 1)
         refreshShopGUI(player)
-    else if click type = right click:
+    else if click type = right mouse button:
         shopSellItem(player, {_key}, 1)
         refreshShopGUI(player)
 
