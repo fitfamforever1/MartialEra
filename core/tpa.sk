@@ -21,7 +21,7 @@ command /tpaopen:
 
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏᴡ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
         
-command /tpa <text>:
+command /tpa <player>:
     prefix: minecraft
     trigger:
         if arg-1 is not set:
@@ -30,17 +30,13 @@ command /tpa <text>:
 
         set {_target} to arg-1
 
-        if {_target} is player's name:
+        if {_target} is player:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cʏᴏᴜ ᴄᴀɴ'ᴛ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜʀꜱᴇʟꜰ!"
             stop
 
-        set {_targetSC} to SmallCaps("%arg-1%")
+        set {_targetSC} to SmallCaps("%{_target}%")
 
-        if ({_target} parsed as player) is not online:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
-            stop
-
-        if data tag "tpa:blocked" of ({_target} parsed as offline player) is set:
+        if data tag "tpa:blocked" of {_target} is set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
             stop
 
@@ -48,14 +44,14 @@ command /tpa <text>:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_targetSC}%&7."
             stop
 
-        set text data tag "tpa:id" of {_target} to "tpa"
-        set text data tag "tpa:sender" of {_target} to "%player's name%"
+        set text data tag "tpa:id" of arg-1 to "tpa"
+        set text data tag "tpa:sender" of arg-1 to "%player's name%"
 
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_targetSC}%&7."
 
         set {_senderSC} to SmallCaps("%player%")
 
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to ({_target} parsed as player)
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
         
 function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: text, type: text):
     set data tag "tpa:froze" of {_mover} to true
