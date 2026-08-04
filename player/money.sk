@@ -15,7 +15,7 @@ command /bal [<player>]:
         
 command /pay [<player>] [<number>]:
     trigger:
-        if arg-1 is not set or arg-2 is not set:
+        if arg-1 or arg-2 is not set:
             send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c /ᴘᴀʏ <ᴘʟᴀʏᴇʀ> <ᴍᴏɴᴇʏ>"
             stop
 
