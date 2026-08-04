@@ -27,7 +27,7 @@ command /pdcset [<text>] [<text>]:
         send "&aSet &e%{_key}% &a= &e%{_val}%&a on held item."
 
 function openOre(p: player):
-    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
 
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
@@ -35,7 +35,7 @@ function openOre(p: player):
     open {_gui} to {_p}
     
 on inventory click:
-    name of event-inventory is "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
+    name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
     set {_temp} to data tag "item:id" of event-item
     if {_temp} is "1":
         cancel event
