@@ -205,7 +205,7 @@ on inventory click:
         stop
 
     set {_clicked} to event-item
-    if {_clicked} is not set or is air:
+    if {_clicked} is not set:
         stop
 
     set {_key} to itemKeyFromStack({_clicked})
