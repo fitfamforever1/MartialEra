@@ -6,6 +6,8 @@ command /bal [<player>]:
         if arg-1 is set:
             if player has permission "admin.bal":
                 set {_bal} to number data tag "money:amm" of arg-1
-                send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7 ʏᴏᴜʀ ᴄᴜʀʀᴇɴᴛ ʙᴀʟᴀɴᴄᴇ ɪꜱ &e%{_bal}%&7."
+                set {_p} to SmallCaps("%arg-1%")
+                send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&e {_p}'s &7ᴄᴜʀʀᴇɴᴛ ʙᴀʟᴀɴᴄᴇ ɪꜱ &e%{_bal}%&7."
+                stop
         set {_bal} to number data tag "money:amm" of player
         send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7 ʏᴏᴜʀ ᴄᴜʀʀᴇɴᴛ ʙᴀʟᴀɴᴄᴇ ɪꜱ &e%{_bal}%&7."
