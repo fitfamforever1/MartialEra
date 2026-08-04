@@ -97,10 +97,12 @@ function openOre(p: player):
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
         
+    set data tag "shop:status" of player to true
     open {_gui} to {_p}
     
 on inventory click:
-    if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ":
+    set {_temp} to data tag "shop:status" of player
+    if {_temp} is set:
         cancel event
 
         if data tag "item:id" of event-item is "2":
@@ -132,6 +134,10 @@ on inventory click:
             else:
                 send "&cYou don't have any to sell!"
 
+on inventory close:
+    set {_temp} to data tag "shop:status" of player
+    if {_temp} is set:
+        delete data tag "shop:status" of player
     
 command /test:
     trigger:
