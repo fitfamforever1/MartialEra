@@ -1,9 +1,22 @@
-on script load:
-    set {shop::sensitivity} to 0.5     
-    set {shop::minmult} to 0.25        
-    set {shop::maxmult} to 4          
-    set {shop::sellmargin} to 0.85
+########################################
+# Dynamic Shop - Skript
+# Stock-based pricing: price rises as stock falls below equilibrium,
+# and falls as stock rises above it.
+########################################
 
+on script load:
+    # tuning knobs
+    set {shop::sensitivity} to 0.5     # how aggressively price reacts to stock changes
+    set {shop::minmult} to 0.25        # price never drops below 25% of base
+    set {shop::maxmult} to 4           # price never exceeds 400% of base
+    set {shop::sellmargin} to 0.85     # currentbuy = currentsell * this (keeps a spread)
+
+
+########################################
+# 1. GENERATOR
+########################################
+
+# Registers a single item into the shop with its starting values.
 function createShopItem(item: text, stock: number, basebuy: number, basesell: number):
     add {_item} to {shop::items::*}
     set {shop::stock::%{_item}%} to {_stock}
@@ -12,21 +25,30 @@ function createShopItem(item: text, stock: number, basebuy: number, basesell: nu
     set {shop::basesell::%{_item}%} to {_basesell}
     updateShopPrices({_item})
 
+# Convenience helper: sets up a small sample catalog for testing.
+# Call this once (e.g. via /shopgen) to populate the shop.
 function generateShopItems():
     createShopItem("DIAMOND", 64, 50, 60)
     createShopItem("IRON_INGOT", 128, 5, 8)
     createShopItem("EMERALD", 32, 40, 50)
     createShopItem("GOLD_INGOT", 96, 10, 14)
 
+
+########################################
+# 2. INTERNAL PRICE UPDATE (called automatically, don't call directly)
+########################################
+
 function updateShopPrices(item: text):
     set {_default} to {shop::defaultstock::%{_item}%}
     set {_stock} to {shop::stock::%{_item}%}
 
+    # ratio > 0 when stock is scarce (below default), < 0 when oversupplied
     set {_ratio} to ({_default} - {_stock}) / {_default}
 
     set {_base} to {shop::basesell::%{_item}%}
     set {_newsell} to {_base} + ({_ratio} * {_base} * {shop::sensitivity})
 
+    # clamp between min/max multiplier of base sell price
     set {_min} to {_base} * {shop::minmult}
     set {_max} to {_base} * {shop::maxmult}
     if {_newsell} < {_min}:
@@ -37,6 +59,12 @@ function updateShopPrices(item: text):
     set {shop::currentsell::%{_item}%} to {_newsell}
     set {shop::currentbuy::%{_item}%} to {_newsell} * {shop::sellmargin}
 
+
+########################################
+# 3. BUY / SELL
+########################################
+
+# Player buys FROM the shop (spends money, stock goes down, price rises).
 function shopBuyItem(p: player, item: text, amount: number) :: boolean:
     if {shop::items::*} does not contain {_item}:
         send "&cThat item isn't sold here." to {_p}
@@ -44,6 +72,11 @@ function shopBuyItem(p: player, item: text, amount: number) :: boolean:
 
     if {shop::stock::%{_item}%} < {_amount}:
         send "&cNot enough stock (only %{shop::stock::%{_item}%}% left)." to {_p}
+        return false
+
+    set {_itemtype} to {_item} parsed as item type
+    if {_itemtype} is not set:
+        send "&cInvalid item: %{_item}%." to {_p}
         return false
 
     set {_senderBal} to number data tag "money:amm" of {_p}
@@ -55,13 +88,24 @@ function shopBuyItem(p: player, item: text, amount: number) :: boolean:
     set number data tag "money:amm" of {_p} to {_senderBal} - {_cost}
     set {shop::stock::%{_item}%} to {shop::stock::%{_item}%} - {_amount}
     updateShopPrices({_item})
+    give ({_amount} of {_itemtype}) to {_p}
 
     send "&aBought %{_amount}%x %{_item}% for &f%{_cost}%&a." to {_p}
     return true
 
+# Player sells TO the shop (earns money, stock goes up, price falls).
 function shopSellItem(p: player, item: text, amount: number) :: boolean:
     if {shop::items::*} does not contain {_item}:
         send "&cThat item isn't accepted here." to {_p}
+        return false
+
+    set {_itemtype} to {_item} parsed as item type
+    if {_itemtype} is not set:
+        send "&cInvalid item: %{_item}%." to {_p}
+        return false
+
+    if {_p} does not have ({_amount} of {_itemtype}):
+        send "&cYou don't have %{_amount}%x %{_item}%." to {_p}
         return false
 
     set {_senderBal} to number data tag "money:amm" of {_p}
@@ -69,11 +113,15 @@ function shopSellItem(p: player, item: text, amount: number) :: boolean:
     set number data tag "money:amm" of {_p} to {_senderBal} + {_earnings}
     set {shop::stock::%{_item}%} to {shop::stock::%{_item}%} + {_amount}
     updateShopPrices({_item})
+    remove ({_amount} of {_itemtype}) from {_p}'s inventory
 
     send "&aSold %{_amount}%x %{_item}% for &f%{_earnings}%&a." to {_p}
     return true
 
 
+########################################
+# 4. STATUS CHECK
+########################################
 
 function shopStatus(p: player, item: text):
     if {shop::items::*} does not contain {_item}:
@@ -84,6 +132,11 @@ function shopStatus(p: player, item: text):
     send "&7Stock: &f%{shop::stock::%{_item}%}% &7(default: %{shop::defaultstock::%{_item}%}%)" to {_p}
     send "&7Base Buy: &f%{shop::basebuy::%{_item}%}% &7| Base Sell: &f%{shop::basesell::%{_item}%}%" to {_p}
     send "&7Current Buy: &a%{shop::currentbuy::%{_item}%}% &7| Current Sell: &c%{shop::currentsell::%{_item}%}%" to {_p}
+
+
+########################################
+# 5. TEMP TEST COMMANDS
+########################################
 
 command /shopgen:
     trigger:
@@ -104,9 +157,7 @@ command /shopstatus <text>:
 
 command /shopbalance:
     trigger:
-        if {shop::balance::%player%} is not set:
-            set {shop::balance::%player%} to {shop::startbalance}
-        send "&7Balance: &f%{shop::balance::%player%}%" to player
+        send "&7Balance: &f%number data tag "money:amm" of player%" to player
 
 command /shoplist:
     trigger:
