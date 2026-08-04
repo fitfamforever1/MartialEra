@@ -135,7 +135,7 @@ on inventory click:
         if {_temp} is "4":
             openOre(player)
         if {_temp} is "6":
-            openFood(player)
+            openFarm(player)
     
 function openOre(p: player):
     set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
