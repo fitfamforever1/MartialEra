@@ -55,7 +55,7 @@ function buyItem(p: player, item: item, amount: number):
     remove {_price} from {_bal}
     set number data tag "money:amm" of {_p} to {_bal}
     
-    send "%{_id}%"
+    send "%{_id}%" to {_p}
     give {_amount} of {_id} parsed as item to {_p}
     
     set {_name} to SmallCaps("%{_id}%")
