@@ -1,0 +1,113 @@
+on script load:
+    set {shop::sensitivity} to 0.5     
+    set {shop::minmult} to 0.25        
+    set {shop::maxmult} to 4          
+    set {shop::sellmargin} to 0.85
+
+function createShopItem(item: text, stock: number, basebuy: number, basesell: number):
+    add {_item} to {shop::items::*}
+    set {shop::stock::%{_item}%} to {_stock}
+    set {shop::defaultstock::%{_item}%} to {_stock}
+    set {shop::basebuy::%{_item}%} to {_basebuy}
+    set {shop::basesell::%{_item}%} to {_basesell}
+    updateShopPrices({_item})
+
+function generateShopItems():
+    createShopItem("DIAMOND", 64, 50, 60)
+    createShopItem("IRON_INGOT", 128, 5, 8)
+    createShopItem("EMERALD", 32, 40, 50)
+    createShopItem("GOLD_INGOT", 96, 10, 14)
+
+function updateShopPrices(item: text):
+    set {_default} to {shop::defaultstock::%{_item}%}
+    set {_stock} to {shop::stock::%{_item}%}
+
+    set {_ratio} to ({_default} - {_stock}) / {_default}
+
+    set {_base} to {shop::basesell::%{_item}%}
+    set {_newsell} to {_base} + ({_ratio} * {_base} * {shop::sensitivity})
+
+    set {_min} to {_base} * {shop::minmult}
+    set {_max} to {_base} * {shop::maxmult}
+    if {_newsell} < {_min}:
+        set {_newsell} to {_min}
+    else if {_newsell} > {_max}:
+        set {_newsell} to {_max}
+
+    set {shop::currentsell::%{_item}%} to {_newsell}
+    set {shop::currentbuy::%{_item}%} to {_newsell} * {shop::sellmargin}
+
+function shopBuyItem(p: player, item: text, amount: number) :: boolean:
+    if {shop::items::*} does not contain {_item}:
+        send "&cThat item isn't sold here." to {_p}
+        return false
+
+    if {shop::stock::%{_item}%} < {_amount}:
+        send "&cNot enough stock (only %{shop::stock::%{_item}%}% left)." to {_p}
+        return false
+
+    set {_senderBal} to number data tag "money:amm" of {_p}
+    set {_cost} to {shop::currentsell::%{_item}%} * {_amount}
+    if {_senderBal} < {_cost}:
+        send "&cYou need %{_cost}% but only have %{_senderBal}%." to {_p}
+        return false
+
+    set number data tag "money:amm" of {_p} to {_senderBal} - {_cost}
+    set {shop::stock::%{_item}%} to {shop::stock::%{_item}%} - {_amount}
+    updateShopPrices({_item})
+
+    send "&aBought %{_amount}%x %{_item}% for &f%{_cost}%&a." to {_p}
+    return true
+
+function shopSellItem(p: player, item: text, amount: number) :: boolean:
+    if {shop::items::*} does not contain {_item}:
+        send "&cThat item isn't accepted here." to {_p}
+        return false
+
+    set {_senderBal} to number data tag "money:amm" of {_p}
+    set {_earnings} to {shop::currentbuy::%{_item}%} * {_amount}
+    set number data tag "money:amm" of {_p} to {_senderBal} + {_earnings}
+    set {shop::stock::%{_item}%} to {shop::stock::%{_item}%} + {_amount}
+    updateShopPrices({_item})
+
+    send "&aSold %{_amount}%x %{_item}% for &f%{_earnings}%&a." to {_p}
+    return true
+
+
+
+function shopStatus(p: player, item: text):
+    if {shop::items::*} does not contain {_item}:
+        send "&cThat item isn't sold here." to {_p}
+        stop
+
+    send "&6--- %{_item}% ---" to {_p}
+    send "&7Stock: &f%{shop::stock::%{_item}%}% &7(default: %{shop::defaultstock::%{_item}%}%)" to {_p}
+    send "&7Base Buy: &f%{shop::basebuy::%{_item}%}% &7| Base Sell: &f%{shop::basesell::%{_item}%}%" to {_p}
+    send "&7Current Buy: &a%{shop::currentbuy::%{_item}%}% &7| Current Sell: &c%{shop::currentsell::%{_item}%}%" to {_p}
+
+command /shopgen:
+    trigger:
+        generateShopItems()
+        send "&aShop generated with sample items (DIAMOND, IRON_INGOT, EMERALD, GOLD_INGOT)." to player
+
+command /shopbuy <text> <number>:
+    trigger:
+        shopBuyItem(player, arg-1, arg-2)
+
+command /shopsell <text> <number>:
+    trigger:
+        shopSellItem(player, arg-1, arg-2)
+
+command /shopstatus <text>:
+    trigger:
+        shopStatus(player, arg-1)
+
+command /shopbalance:
+    trigger:
+        if {shop::balance::%player%} is not set:
+            set {shop::balance::%player%} to {shop::startbalance}
+        send "&7Balance: &f%{shop::balance::%player%}%" to player
+
+command /shoplist:
+    trigger:
+        send "&6Items: &f%{shop::items::*}%" to player

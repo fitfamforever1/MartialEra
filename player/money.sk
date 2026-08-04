@@ -46,3 +46,8 @@ command /pay [<player>] [<number>]:
 
         send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7 ʏᴏᴜ ꜱᴇɴᴛ &e$%arg-2%&7 ᴛᴏ &e%{_receiver}%&7." to player
         send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7 ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ &e$%arg-2%&7 ꜰʀᴏᴍ &e%{_sender}%&7." to arg-1
+        
+on death of player:
+    if attacker is player:
+        set number data tag "money:amm" of victim to {_temp1}
+        set number data tag "money:amm" of attacker to {_temp2}
