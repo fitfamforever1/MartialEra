@@ -14,6 +14,8 @@ command /bal [<player>]:
         
 command /pay <player> <number>:
     trigger:
+        if arg-1 is not set:
+            send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c /ᴘᴀʏ <ᴘʟᴀʏᴇʀ> <ᴍᴏɴᴇʏ>"
         if arg-1 is offline:
             send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&c ʏᴏᴜ ᴄᴀɴ'ᴛ ꜱᴇɴᴅ ᴍᴏɴᴇʏ ᴛᴏ ᴏꜰꜰʟɪɴᴇ ᴘʟᴀʏᴇʀꜱ."
             stop
