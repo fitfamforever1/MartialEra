@@ -211,8 +211,10 @@ function refreshShopGUI(p: player):
 
 on inventory click:
     if {shop::guiinv::%player%} is not set:
+        send "debug1"
         stop
     if event-inventory is not {shop::guiinv::%player%}:
+        send "debug2"
         stop
     cancel event
 
