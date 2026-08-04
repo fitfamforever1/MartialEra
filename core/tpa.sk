@@ -82,7 +82,7 @@ command /tpa <text>:
 
         set {_sender} to player's name
         wait 60 seconds
-        tpaExpire(({_target} parsed as player), {_sender})
+        tpaExpire({_target}, {_sender})
 
 command /tpahere <text>:
     prefix: minecraft
