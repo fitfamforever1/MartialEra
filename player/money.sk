@@ -41,5 +41,8 @@ command /pay [<player>] [<number>]:
         set number data tag "money:amm" of player to {_senderBal} - arg-2
         set number data tag "money:amm" of arg-1 to {_receiverBal} + arg-2
 
-        send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&a ʏᴏᴜ ꜱᴇɴᴛ &f%arg-2%&a ᴛᴏ &f%arg-1%&a." to player
-        send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&a ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ &f%arg-2%&a ꜰʀᴏᴍ &f%player%&a." to arg-1
+        set {_sender} to SmallCaps("%player%")
+        set {_receiver} to SmallCaps("%arg-1%")
+
+        send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7ʏᴏᴜ ꜱᴇɴᴛ &e%arg-2%&7 ᴛᴏ &e%{_receiver}%&7." to player
+        send "&8[<##65b9d3>ᴍᴏɴᴇʏ&8]&7ʏᴏᴜ ʀᴇᴄᴇɪᴠᴇᴅ &e%arg-2%&7 ꜰʀᴏᴍ &e%{_sender}%&7." to arg-1
