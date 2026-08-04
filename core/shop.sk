@@ -218,13 +218,14 @@ on inventory click:
         stop
     cancel event
 
+    set {_slot} to slot
     if {_slot} >= 9:
-        stop # click landed in the player's own inventory, ignore
+        stop
 
     set {_key} to {shop::guislot::%player%::%{_slot}%}
     if {_key} is not set:
         stop # empty slot
-    
+
     if click type is left mouse button:
         send "buy"
         shopBuyItem(player, {_key}, 1)
@@ -233,7 +234,6 @@ on inventory click:
         send "sell"
         shopSellItem(player, {_key}, 1)
         refreshShopGUI(player)
-
 on inventory close:
     if {shop::guiinv::%player%} is set:
         if event-inventory is {shop::guiinv::%player%}:
