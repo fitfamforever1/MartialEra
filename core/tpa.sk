@@ -89,6 +89,7 @@ command /tpaaccept:
     prefix: minecraft
     trigger:
         set {_requester} to data tag "tpa:sender" of player
+        send "%{_requester}%"
         if {_requester} is not set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ."
             stop
