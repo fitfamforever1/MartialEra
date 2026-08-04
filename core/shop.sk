@@ -98,16 +98,16 @@ on inventory click:
         if click type is left mouse button:
             buyItem(player, event-item, 1)
 
-        else if click type is shift left mouse button:
+        else if click type is left mouse button with shift:
             buyItem(player, event-item, 64)
 
-        else if click type is right mouse button with shift:
+        else if click type is right mouse button:
             sellItem(player, event-item, 1)
 
         else if click type is right mouse button with shift:
             sellItem(player, event-item, 64)
 
-        else if click type is mouse button:
+        else if click type is middle mouse:
             set {_id} to string data tag "item:id" of event-item
             set {_mat} to {_id} parsed as item
 
