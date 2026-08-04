@@ -41,4 +41,4 @@ on chat:
 
 command /test:
     trigger:
-        send formatted "<sprite:blocks:block/stone>" to player
+        send formatted "<sprite:items:item/porkchop>" to player
