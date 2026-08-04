@@ -87,6 +87,7 @@ function openOre(p: player):
     set slot 16 of {_gui} to item(coal, 10, 10)
     
     set slot 35 of {_gui} to {item::goback}
+    set slot 27 of {_gui} to {item::shopinfo}
         
     open {_gui} to {_p}
     
