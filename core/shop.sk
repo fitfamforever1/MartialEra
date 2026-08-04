@@ -77,28 +77,6 @@ function sellItem(p: player, item: item, amount: number):
     
     set {_name} to SmallCaps("%{_id}%")
     send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e%{_name}% &7ғᴏʀ &e$%{_price}%&7." to {_p}
-
-
-    
-function openOre(p: player):
-    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
-
-    loop 36 times:
-        set slot (loop-number - 1) of {_gui} to {item::space}
-    
-    set slot 10 of {_gui} to item(netherite_ingot, 10, 10)
-    set slot 11 of {_gui} to item(emerald, 10, 10)
-    set slot 12 of {_gui} to item(diamond, 10, 10)
-    set slot 13 of {_gui} to item(gold_ingot, 10, 10)
-    set slot 14 of {_gui} to item(iron_ingot, 10, 10)
-    set slot 15 of {_gui} to item(copper_ingot, 10, 10)
-    set slot 16 of {_gui} to item(coal, 10, 10)
-    
-    set slot 35 of {_gui} to {item::goback}
-    set slot 27 of {_gui} to {item::shopinfo}
-        
-    set data tag "shop:status" of {_p} to true
-    open {_gui} to {_p}
     
 on inventory click:
     set {_temp} to data tag "shop:status" of player
@@ -139,6 +117,37 @@ on inventory close:
     if {_temp} is set:
         delete data tag "shop:status" of player
     
+function openShop(p: player):
+    set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜱᴇʟᴇᴄᴛ ᴄᴀᴛᴇɢᴏʀʏ"
+
+    loop 27 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
+
+    
+    set slot 27 of {_gui} to {item::close}
+
+    open {_gui} to {_p}
+    
+function openOre(p: player):
+    set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
+
+    loop 36 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
+    
+    set slot 10 of {_gui} to item(netherite_ingot, 10, 10)
+    set slot 11 of {_gui} to item(emerald, 10, 10)
+    set slot 12 of {_gui} to item(diamond, 10, 10)
+    set slot 13 of {_gui} to item(gold_ingot, 10, 10)
+    set slot 14 of {_gui} to item(iron_ingot, 10, 10)
+    set slot 15 of {_gui} to item(copper_ingot, 10, 10)
+    set slot 16 of {_gui} to item(coal, 10, 10)
+    
+    set slot 35 of {_gui} to {item::goback}
+    set slot 27 of {_gui} to {item::shopinfo}
+        
+    set data tag "shop:status" of {_p} to true
+    open {_gui} to {_p}
+    
 command /test:
     trigger:
-        openOre(player)
+        openShop(player)
