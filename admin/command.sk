@@ -1,4 +1,4 @@
-global function SmallCaps(input: text) :: text:
+function SmallCaps(input: text) :: text:
     set {_result} to ""
     set {_chars::*} to {_input} split at ""
     set {_map::a} to "ᴀ"
