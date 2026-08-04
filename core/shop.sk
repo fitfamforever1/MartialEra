@@ -26,11 +26,25 @@ command /pdcset [<text>] [<text>]:
         set player's held item to {_item}
         send "&aSet &e%{_key}% &a= &e%{_val}%&a on held item."
 
+function item(base: item, name: text, buy: number, sell: number):: item:
+    set {_item} to {_base}
+    set name of {_item} to "%{_name}%"
+    set data tag "item:sale" of {_item} to true
+    set number data tag "item:buy" of {_item} to {_buy}
+    set number data tag "item:sell" of {_item} to {_sell}
+    set line 1 of lore of {_item} to "&8┃ &7» ꜱᴀʟᴇ ɪɴꜰᴏ"
+    set line 9 of lore of {_item} to "&8┃ &7ʙᴜʏ ᴘʀɪᴄᴇ &8» &e+%{_buy}%"
+    set line 9 of lore of {_item} to "&8┃ &7ꜱᴇʟʟ ᴘʀɪᴄᴇ &8» &e%{_sell}%"
+    
+    return {_item}
+    
 function openOre(p: player):
     set {_gui} to chest inventory with 3 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
 
     loop 27 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
+        
+    set slot 10 of {_gui} to item(iron_ingot, "&fɪʀᴏɴ ɪɴɢᴏᴛ", 10, 10)
         
     open {_gui} to {_p}
     
