@@ -167,6 +167,11 @@ function shopStatus(p: player, item: text):
     send "&7Current Buy: &a%{shop::currentbuy::%{_item}%}% &7| Current Sell: &c%{shop::currentsell::%{_item}%}%" to {_p}
 
 
+########################################
+# 5. TEMP GUI (fixed 4-item test layout - replace with your own)
+########################################
+
+# Builds a single display item (icon + live lore) for a shop entry.
 function buildShopItemStack(item: text) :: itemtype:
     set {_type} to {_item} parsed as item type
     if {_type} is not set:
@@ -177,6 +182,10 @@ function buildShopItemStack(item: text) :: itemtype:
     set the lore of {_stack} to "&7Stock: &f%{shop::stock::%{_item}%}%&7/&f%{shop::defaultstock::%{_item}%}%" and " " and "&aLeft-click&7: buy 1 for &f%{shop::currentsell::%{_item}%}%" and "&cRight-click&7: sell 1 for &f%{shop::currentbuy::%{_item}%}%"
     return {_stack}
 
+# Matches a real item stack back to its registered shop key by material,
+# ignoring the custom name/lore we stamped on it. A plain parsed item type
+# carries no meta, so comparing it against the clicked stack matches on
+# material alone - no slot bookkeeping required.
 function itemKeyFromStack(stack: itemtype) :: text:
     loop {shop::items::*}:
         set {_key} to loop-value
@@ -185,6 +194,7 @@ function itemKeyFromStack(stack: itemtype) :: text:
             if {_stack} is {_type}:
                 return {_key}
 
+# Opens the temp test GUI with the 4 sample items in fixed slots.
 function openShopGUI(p: player):
     set {_inv} to chest inventory with 1 rows named "%{shop::guititle}%"
 
@@ -202,7 +212,7 @@ on inventory click:
 
     set {_slot} to index of event-slot
     if {_slot} >= 9:
-        stop
+        stop # click landed in the player's own inventory, ignore
 
     set {_clicked} to event-item
     if {_clicked} is not set:
@@ -210,7 +220,7 @@ on inventory click:
 
     set {_key} to itemKeyFromStack({_clicked})
     if {_key} is not set:
-        stop
+        stop # clicked item isn't a recognized shop item
 
     if click type is left mouse button:
         shopBuyItem(player, {_key}, 1)
@@ -221,6 +231,10 @@ on inventory click:
 
     set slot {_slot} of event-inventory to buildShopItemStack({_key})
 
+
+########################################
+# 6. TEMP TEST COMMANDS
+########################################
 
 command /shop:
     trigger:
@@ -242,10 +256,6 @@ command /shopsell <text> <number>:
 command /shopstatus <text>:
     trigger:
         shopStatus(player, arg-1)
-
-command /shopbalance:
-    trigger:
-        send "&7Balance: &f%number data tag "money:amm" of player%" to player
 
 command /shoplist:
     trigger:
