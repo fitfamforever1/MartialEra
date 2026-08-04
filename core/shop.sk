@@ -124,7 +124,7 @@ function openShop(p: player):
         set slot (loop-number - 1) of {_gui} to {item::space}
 
     
-    set slot 27 of {_gui} to {item::close}
+    set slot 26 of {_gui} to {item::close}
 
     open {_gui} to {_p}
     
