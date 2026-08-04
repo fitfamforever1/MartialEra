@@ -1,0 +1,11 @@
+function openOre(p: player):
+    set {_gui} to chest inventory with 3 rows named "<##E9BF35>ꜰᴏʀɢɪɴɢ ɢᴜɪ"
+
+    loop 27 times:
+        set slot (loop-number - 1) of {_gui} to {item::space}
+        
+    open {_gui} to {_p}
+    
+command /test:
+    trigger:
+        openOre(player)
