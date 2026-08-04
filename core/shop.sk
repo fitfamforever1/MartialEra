@@ -224,7 +224,8 @@ on inventory click:
     set {_key} to {shop::guislot::%player%::%{_slot}%}
     if {_key} is not set:
         stop # empty slot
-
+    
+    send "buy"
     if click type = left mouse button:
         send "buy"
         shopBuyItem(player, {_key}, 1)
