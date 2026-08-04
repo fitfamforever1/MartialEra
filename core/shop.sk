@@ -149,13 +149,14 @@ function openOre(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(netherite_ingot, 10, 10)
-    set slot 11 of {_gui} to item(emerald, 10, 10)
-    set slot 12 of {_gui} to item(diamond, 10, 10)
-    set slot 13 of {_gui} to item(gold_ingot, 10, 10)
-    set slot 14 of {_gui} to item(iron_ingot, 10, 10)
-    set slot 15 of {_gui} to item(copper_ingot, 10, 10)
-    set slot 16 of {_gui} to item(coal, 10, 10)
+    set slot 10 of {_gui} to item(netherite_ingot, 135000, 45000)
+    set slot 11 of {_gui} to item(emerald, 48000, 16000)
+    set slot 12 of {_gui} to item(diamond, 36000, 12000)
+    set slot 13 of {_gui} to item(gold_ingot, 9000, 3000)
+    set slot 14 of {_gui} to item(iron_ingot, 5400, 1800)
+    set slot 15 of {_gui} to item(copper_ingot, 2700, 900)
+    set slot 16 of {_gui} to item(coal, 1500, 500)
+
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
@@ -168,13 +169,14 @@ function openFood(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(bread, 10, 10)
-    set slot 11 of {_gui} to item(baked_potato, 10, 10)
-    set slot 12 of {_gui} to item(cooked_chicken, 10, 10)
-    set slot 13 of {_gui} to item(cooked_mutton, 10, 10)
-    set slot 14 of {_gui} to item(cooked_porkchop, 10, 10)
-    set slot 15 of {_gui} to item(cooked_beef, 10, 10)
-    set slot 16 of {_gui} to item(golden_carrot, 10, 10)
+    set slot 10 of {_gui} to item(bread, 900, 300)
+    set slot 11 of {_gui} to item(baked_potato, 1050, 350)
+    set slot 12 of {_gui} to item(cooked_chicken, 1500, 500)
+    set slot 13 of {_gui} to item(cooked_mutton, 1650, 550)
+    set slot 14 of {_gui} to item(cooked_porkchop, 1800, 600)
+    set slot 15 of {_gui} to item(cooked_beef, 2100, 700)
+    set slot 16 of {_gui} to item(golden_carrot, 3600, 1200)
+
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
@@ -187,13 +189,13 @@ function openFarm(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(potato, 10, 10)
-    set slot 11 of {_gui} to item(pumpkin_seeds, 10, 10)
-    set slot 12 of {_gui} to item(red_mushroom, 10, 10)
-    set slot 13 of {_gui} to item(brown_mushroom, 10, 10)
-    set slot 14 of {_gui} to item(pumpkin, 10, 10)
-    set slot 15 of {_gui} to item(nether_wart, 10, 10)
-    set slot 16 of {_gui} to item(sugar_cane, 10, 10)
+    set slot 10 of {_gui} to item(potato, 6600, 2200)
+    set slot 11 of {_gui} to item(pumpkin_seeds, 4200, 1400)
+    set slot 12 of {_gui} to item(red_mushroom, 9600, 3200)
+    set slot 13 of {_gui} to item(brown_mushroom, 9600, 3200)
+    set slot 14 of {_gui} to item(pumpkin, 7800, 2600)
+    set slot 15 of {_gui} to item(nether_wart, 15600, 5200)
+    set slot 16 of {_gui} to item(sugar_cane, 7200, 2400)
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
@@ -206,13 +208,14 @@ function openMics(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(water_bucket, 10, 10)
-    set slot 11 of {_gui} to item(lava_bucket, 10, 10)
-    set slot 12 of {_gui} to item(flint_and_steel, 10, 10)
-    set slot 13 of {_gui} to item(wind_charge, 10, 10)
-    set slot 14 of {_gui} to item(name_tag, 10, 10)
-    set slot 15 of {_gui} to item(book, 10, 10)
-    set slot 16 of {_gui} to item(shulker_shell, 10, 10)
+    set slot 10 of {_gui} to item(water_bucket, 900, 300)
+    set slot 11 of {_gui} to item(lava_bucket, 1500, 500)
+    set slot 12 of {_gui} to item(flint_and_steel, 2700, 900)
+    set slot 13 of {_gui} to item(wind_charge, 7500, 2500)
+    set slot 14 of {_gui} to item(name_tag, 15000, 5000)
+    set slot 15 of {_gui} to item(book, 3000, 1000)
+    set slot 16 of {_gui} to item(shulker_shell, 36000, 12000)
+
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
@@ -225,13 +228,14 @@ function openMob(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(leather, 10, 10)
-    set slot 11 of {_gui} to item(glow_ink_sac, 10, 10)
-    set slot 12 of {_gui} to item(spider_eye, 10, 10)
-    set slot 13 of {_gui} to item(string, 10, 10)
-    set slot 14 of {_gui} to item(bone, 10, 10)
-    set slot 15 of {_gui} to item(blaze_rod, 10, 10)
-    set slot 16 of {_gui} to item(ender_pearl, 10, 10)
+    set slot 10 of {_gui} to item(oak_log, 750, 250)
+    set slot 11 of {_gui} to item(cobblestone, 300, 100)
+    set slot 12 of {_gui} to item(cobbled_deepslate, 360, 120)
+    set slot 13 of {_gui} to item(dirt, 240, 80)
+    set slot 14 of {_gui} to item(sand, 540, 180)
+    set slot 15 of {_gui} to item(soul_sand, 1350, 450)
+    set slot 16 of {_gui} to item(netherrack, 600, 200)
+
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
