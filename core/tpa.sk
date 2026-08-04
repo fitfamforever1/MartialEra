@@ -2,14 +2,22 @@ function tpaExpire(target: text, requester: text) :: boolean:
     if {tpa::pending::%{_target}%::%{_requester}%::type} is not set:
         return false
     delete {tpa::pending::%{_target}%::%{_requester}%::type}
+
+    set {_targetSC} to SmallCaps("%{_target}%")
+    set {_requesterSC} to SmallCaps("%{_requester}%")
+
     if {_requester} parsed as offline player is online:
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_target}% &7ʜᴀꜱ ᴇxᴘɪʀᴇᴅ." to {_requester} parsed as player
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_targetSC}% &7ʜᴀꜱ ᴇxᴘɪʀᴇᴅ." to {_requester} parsed as player
     if {_target} parsed as offline player is online:
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requester}% &7ʜᴀꜱ ᴇxᴘɪʀᴇᴅ." to {_target} parsed as player
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requesterSC}% &7ʜᴀꜱ ᴇxᴘɪʀᴇᴅ." to {_target} parsed as player
     return true
 
 function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: text, type: text):
     set {tpa::frozen::%{_mover}%} to true
+
+    set {_requesterSC} to SmallCaps("%{_requester}%")
+    set {_acceptorSC} to SmallCaps("%{_acceptor}%")
+
     set {_loc} to location of {_mover}
     loop 3 times:
         wait 1 second
@@ -23,15 +31,19 @@ function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: t
         set {_remaining} to 3 - loop-number
         if {_remaining} > 0:
             send action bar "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛɪɴɢ ɪɴ &a%{_remaining}%&7..." to {_mover}
+
     delete {tpa::frozen::%{_mover}%}
+
     if {_mover} is online:
         teleport {_mover} to {_dest}
+
         if {_type} is "tpa":
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʀᴇǫᴜᴇꜱᴛ ᴀᴄᴄᴇᴘᴛᴇᴅ — ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_acceptor}%&7." to {_mover}
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_requester}% &7ʜᴀꜱ ʙᴇᴇɴ ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜ." to {_dest}
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʀᴇǫᴜᴇꜱᴛ ᴀᴄᴄᴇᴘᴛᴇᴅ — ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_acceptorSC}%&7." to {_mover}
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_requesterSC}% &7ʜᴀꜱ ʙᴇᴇɴ ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜ." to {_dest}
+
         else if {_type} is "tpahere":
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʀᴇǫᴜᴇꜱᴛ ᴀᴄᴄᴇᴘᴛᴇᴅ — ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_requester}%&7." to {_mover}
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_acceptor}% &7ʜᴀꜱ ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜ." to {_dest}
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʀᴇǫᴜᴇꜱᴛ ᴀᴄᴄᴇᴘᴛᴇᴅ — ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ &e%{_requesterSC}%&7." to {_mover}
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_acceptorSC}% &7ʜᴀꜱ ᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ʏᴏᴜ." to {_dest}
 
 command /tpa <text>:
     prefix: minecraft
@@ -39,22 +51,35 @@ command /tpa <text>:
         if arg-1 is not set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7/ᴛᴘᴀ <ᴘʟᴀʏᴇʀ>"
             stop
+
         set {_target} to arg-1
+
         if {_target} is player's name:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cʏᴏᴜ ᴄᴀɴ'ᴛ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜʀꜱᴇʟꜰ!"
             stop
+
+        set {_targetSC} to SmallCaps("%arg-1%")
+
         if {_target} is not online:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_target}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
             stop
+
         if data tag "tpa:blocked" of ({_target} parsed as offline player) is set:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_target}% &7ɪꜱ ɴᴏᴛ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
             stop
+
         if {tpa::pending::%{_target}%::%player's name%::type} is set:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_target}%&7."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_targetSC}%&7."
             stop
+
         set {tpa::pending::%{_target}%::%player's name%::type} to "tpa"
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_target}%&7."
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%player's name% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
+
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_targetSC}%&7."
+
+        set {_senderSC} to SmallCaps("%player%")
+
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ʏᴏᴜ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
+
         set {_sender} to player's name
         wait 60 seconds
         tpaExpire({_target}, {_sender})
@@ -65,26 +90,38 @@ command /tpahere <text>:
         if arg-1 is not set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7/ᴛᴘᴀʜᴇʀᴇ <ᴘʟᴀʏᴇʀ>"
             stop
+
         set {_target} to arg-1
+
         if {_target} is player's name:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cʏᴏᴜ ᴄᴀɴ'ᴛ ᴛᴇʟᴇᴘᴏʀᴛ ʏᴏᴜʀꜱᴇʟꜰ ᴛᴏ ʏᴏᴜʀꜱᴇʟꜰ!"
             stop
+
+        set {_targetSC} to SmallCaps("%arg-1%")
+
         if {_target} is not online:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_target}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴏɴʟɪɴᴇ."
             stop
+
         if data tag "tpa:blocked" of ({_target} parsed as offline player) is set:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_target}% &7ɪꜱ ɴᴏᴛ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_targetSC}% &7ɪꜱ ɴᴏᴛ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
             stop
+
         if {tpa::pending::%{_target}%::%player's name%::type} is set:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_target}%&7."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʟʀᴇᴀᴅʏ ʜᴀᴠᴇ ᴀ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ᴛᴏ &e%{_targetSC}%&7."
             stop
+
         set {tpa::pending::%{_target}%::%player's name%::type} to "tpahere"
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ-ʜᴇʀᴇ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_target}%&7."
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%player's name% &7ᴡᴀɴᴛꜱ ʏᴏᴜ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇᴍ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
+
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴛᴇʟᴇᴘᴏʀᴛ-ʜᴇʀᴇ ʀᴇǫᴜᴇꜱᴛ ꜱᴇɴᴛ ᴛᴏ &e%{_targetSC}%&7."
+
+        set {_senderSC} to SmallCaps("%player%")
+
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_senderSC}% &7ᴡᴀɴᴛꜱ ʏᴏᴜ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴛᴏ ᴛʜᴇᴍ. &7[&a/tpaaccept %player's name%&7] &7[&c/tpadeny %player's name%&7]" to {_target}
+
         set {_sender} to player's name
         wait 60 seconds
         tpaExpire({_target}, {_sender})
-
 
 command /tpaaccept [<text>]:
     prefix: minecraft
@@ -92,62 +129,85 @@ command /tpaaccept [<text>]:
         if arg-1 is not set:
             set {_found} to false
             loop {tpa::pending::%player's name%::*}:
-                # loop-index gives the requester name (the * key)
                 set {_req} to loop-index
+                set {_reqSC} to SmallCaps("%{_req}%")
                 set {_type} to loop-value
                 set {_found} to true
                 delete {tpa::pending::%player's name%::%{_req}%::type}
+
                 if {_req} parsed as offline player is not online:
-                    send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_req}% &7ɪꜱ ɴᴏ ʟᴏɴɢᴇʀ ᴏɴʟɪɴᴇ. ꜱᴋɪᴘᴘɪɴɢ."
+                    send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_reqSC}% &7ɪꜱ ɴᴏ ʟᴏɴɢᴇʀ ᴏɴʟɪɴᴇ. ꜱᴋɪᴘᴘɪɴɢ."
                     continue
+
                 if {_type} is "tpa":
                     tpaDoTeleport({_req} parsed as player, player, {_req}, player's name, "tpa")
                 else if {_type} is "tpahere":
                     tpaDoTeleport(player, {_req} parsed as player, {_req}, player's name, "tpahere")
+
             if {_found} is false:
                 send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ʜᴀᴠᴇ ɴᴏ ᴘᴇɴᴅɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
             stop
 
-        # ── accept specific ──────────────────────────────────────────────────
         set {_requester} to arg-1
+        set {_requesterSC} to SmallCaps("%{_requester}%")
+
         set {_type} to {tpa::pending::%player's name%::%{_requester}%::type}
+
         if {_type} is not set:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requester}%&7."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requesterSC}%&7."
             stop
+
         if {_requester} parsed as offline player is not online:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_requester}% &7ɪꜱ ɴᴏ ʟᴏɴɢᴇʀ ᴏɴʟɪɴᴇ."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_requesterSC}% &7ɪꜱ ɴᴏ ʟᴏɴɢᴇʀ ᴏɴʟɪɴᴇ."
             delete {tpa::pending::%player's name%::%{_requester}%::type}
             stop
+
         delete {tpa::pending::%player's name%::%{_requester}%::type}
+
         if {_type} is "tpa":
             tpaDoTeleport({_requester} parsed as player, player, {_requester}, player's name, "tpa")
         else if {_type} is "tpahere":
             tpaDoTeleport(player, {_requester} parsed as player, {_requester}, player's name, "tpahere")
-            
+
+
 command /tpadeny [<text>]:
     prefix: minecraft
     trigger:
         if arg-1 is not set:
             set {_found} to false
+
             loop {tpa::pending::%player's name%::*}:
                 set {_req} to loop-index
+                set {_reqSC} to SmallCaps("%{_req}%")
+                set {_playerSC} to SmallCaps("%player%")
+
                 set {_found} to true
                 delete {tpa::pending::%player's name%::%{_req}%::type}
-                send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴅᴇɴɪᴇᴅ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_req}%&7."
+
+                send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ᴅᴇɴɪᴇᴅ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_reqSC}%&7."
+
                 if {_req} parsed as offline player is online:
-                    send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%player's name% &7ᴅᴇɴɪᴇᴅ ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to {_req} parsed as player
+                    send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_playerSC}% &7ᴅᴇɴɪᴇᴅ ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to {_req} parsed as player
+
             if {_found} is false:
                 send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ʜᴀᴠᴇ ɴᴏ ᴘᴇɴᴅɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
             stop
 
         set {_requester} to arg-1
+        set {_requesterSC} to SmallCaps("%{_requester}%")
+        set {_playerSC} to SmallCaps("%player%")
+
         if {tpa::pending::%player's name%::%{_requester}%::type} is not set:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requester}%&7."
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ɴᴏ ᴘᴇɴᴅɪɴɢ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requesterSC}%&7."
             stop
+
         delete {tpa::pending::%player's name%::%{_requester}%::type}
-        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴅᴇɴɪᴇᴅ ᴛʜᴇ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requester}%&7."
+
+        send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴅᴇɴɪᴇᴅ ᴛʜᴇ ʀᴇǫᴜᴇꜱᴛ ꜰʀᴏᴍ &e%{_requesterSC}%&7."
+
         if {_requester} parsed as offline player is online:
-            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%player's name% &7ᴅᴇɴɪᴇᴅ ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to {_requester} parsed as player
+            send "&8[<##AA00FF>ᴛᴘᴀ&8] &e%{_playerSC}% &7ᴅᴇɴɪᴇᴅ ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛ." to {_requester} parsed as player
+
 
 command /tpaclose:
     prefix: minecraft
@@ -155,8 +215,11 @@ command /tpaclose:
         if data tag "tpa:blocked" of player is set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛꜱ ᴀʀᴇ ᴀʟʀᴇᴀᴅʏ &cᴄʟᴏꜱᴇᴅ&7."
             stop
+
         set data tag "tpa:blocked" of player to true
+
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ. ᴜꜱᴇ &a/tpaopen &7ᴛᴏ ʀᴇ-ᴇɴᴀʙʟᴇ."
+
 
 command /tpaopen:
     prefix: minecraft
@@ -164,5 +227,8 @@ command /tpaopen:
         if data tag "tpa:blocked" of player is not set:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜʀ ᴛᴇʟᴇᴘᴏʀᴛꜱ ᴀʀᴇ ᴀʟʀᴇᴀᴅʏ &aᴏᴘᴇɴ&7."
             stop
+
         delete data tag "tpa:blocked" of player
+
         send "&8[<##AA00FF>ᴛᴘᴀ&8] &7ʏᴏᴜ ᴀʀᴇ ɴᴏᴡ ᴀᴄᴄᴇᴘᴛɪɴɢ ᴛᴇʟᴇᴘᴏʀᴛ ʀᴇǫᴜᴇꜱᴛꜱ."
+
