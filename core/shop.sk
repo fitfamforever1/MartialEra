@@ -137,6 +137,7 @@ on inventory click:
         cancel event
         set {_temp} to data tag "shop:id" of event-item
         if {_temp} is "4":
+            wait 1 tick
             openOre(player)
     
 function openOre(p: player):
