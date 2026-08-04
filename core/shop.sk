@@ -132,6 +132,13 @@ function openShop(p: player):
     
     open {_gui} to {_p}
     
+on inventory click:
+    if name of event-inventory is "<##E9BF35>ꜱᴇʟᴇᴄᴛ ᴄᴀᴛᴇɢᴏʀʏ"
+        cancel event
+        set {_temp} to data tag "shop:id" of event-item
+        if {_temp} is "4":
+            openOre(player)
+    
 function openOre(p: player):
     set {_gui} to chest inventory with 4 rows named "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ"
 
