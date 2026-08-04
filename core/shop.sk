@@ -218,7 +218,7 @@ on inventory click:
         stop
     cancel event
 
-    set {_slot} to slot
+    set {_slot} to index of event-slot
     send "%{_slot}%"
     if {_slot} >= 9:
         stop
