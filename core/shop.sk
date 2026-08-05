@@ -74,7 +74,7 @@ function sellItem(p: player, item: item, amount: number):
     add {_price} to {_bal}
     set number data tag "money:amm" of {_p} to {_bal}
 
-    send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e<sprite:items:item/%{_id}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
+    send formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}%x &e<sprite:items:item/%{_id}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
     if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ", "<##E9BF35>ʙʟᴏᴄᴋ ꜱʜᴏᴘ", "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ", "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ", "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
