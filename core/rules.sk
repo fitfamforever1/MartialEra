@@ -31,5 +31,5 @@ function openRules(p: audience):
 
 on async player connection configure:
     if data tag "server:rule" of event-audience is not true:
-        (event-audience)
+        openRules(event-audience)
         freeze connection event-playerconnection
