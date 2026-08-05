@@ -30,7 +30,6 @@ function openRules(p: audience):
                     unfreeze connection event-playerconnection and disconnect due to "&cOk fine... bye!"
 
 on async player connection configure:
-    if data tag "server:rule" of event-audience is true:
-        stop
-    openRules(event-audience)
-    freeze connection event-playerconnection
+    if data tag "server:rule" of event-audience is not true:
+        (event-audience)
+        freeze connection event-playerconnection
