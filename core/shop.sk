@@ -54,7 +54,8 @@ function buyItem(p: player, item: item, amount: number):
     set number data tag "money:amm" of {_p} to {_bal}
     give {_amount} of {_id} parsed as item to {_p}
 
-    set {_spriteid} to replace all " " with "_" in ({_id})
+    set {_spriteid} to {_id}
+    replace all " " with "_" in {_spriteid}
     send formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ʙᴏᴜɢʜ &e%{_amount}% &e<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
 
 function sellItem(p: player, item: item, amount: number):
@@ -68,7 +69,8 @@ function sellItem(p: player, item: item, amount: number):
     add {_price} to {_bal}
     set number data tag "money:amm" of {_p} to {_bal}
 
-    set {_spriteid} to replace all " " with "_" in ({_id})
+    set {_spriteid} to {_id}
+    replace all " " with "_" in {_spriteid}
     send formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}% &e<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
