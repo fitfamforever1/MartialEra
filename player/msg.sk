@@ -47,7 +47,7 @@ placeholderapi placeholder with the prefix "name":
             set {_name} to the placeholder "betterteams_name" from player
             set {_color} to the placeholder "betterteams_color" from player
             set {_name} to SmallCaps("%{_name}%")
-            set {_prefix} to "&8[%{_color}%%{_name}%&8] "
+            set {_prefix} to "&8[%{_color}%%{_name}%&8] &r"
             set the result to {_prefix}
         else:
             set the result to ""
