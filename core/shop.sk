@@ -56,9 +56,8 @@ function buyItem(p: player, item: item, amount: number):
     set number data tag "money:amm" of {_p} to {_bal}
 
     give {_amount} of {_id} parsed as item to {_p}
-    
-    set {_name} to SmallCaps("%{_id}%")
-    send "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ʙᴏᴜɢʜ &e%{_amount}%x &e%{_name}% &7ғᴏʀ &e$%{_price}%&7." to {_p}
+
+    send formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &aʏᴏᴜ ʙᴏᴜɢʜ &e%{_amount}%x &e<sprite:items:item/%{_id}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
 
 
 function sellItem(p: player, item: item, amount: number):
