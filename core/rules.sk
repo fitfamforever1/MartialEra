@@ -9,13 +9,13 @@ function openRules(p: audience):
             add plain message body:
                 contents: "&8&m-------------------------"
             add plain message body:
-                contents: "&a&l#1 &8» &fɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ."
+                contents: "&a#1 &8» &fɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ."
             add plain message body:
-                contents: "&a&l#2 &8» &fɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs."
+                contents: "&a#2 &8» &fɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs."
             add plain message body:
-                contents: "&a&l#3 &8» &fɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀᴇᴀʟ ʟɪꜰᴇ ᴛʜʀᴇᴀᴛs."
+                contents: "&a#3 &8» &fɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀʟ ᴛʜʀᴇᴀᴛs."
             add plain message body:
-                contents: "&a&l#4 &8» &fɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ."
+                contents: "&a#4 &8» &fɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ."
             add plain message body:
                 contents: "&8&m-------------------------"
         actions:
