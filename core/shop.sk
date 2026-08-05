@@ -233,13 +233,13 @@ function openMob(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(oak_log, 750, 250)
-    set slot 11 of {_gui} to item(cobblestone, 300, 100)
-    set slot 12 of {_gui} to item(cobbled_deepslate, 360, 120)
-    set slot 13 of {_gui} to item(dirt, 240, 80)
-    set slot 14 of {_gui} to item(sand, 540, 180)
-    set slot 15 of {_gui} to item(soul_sand, 1350, 450)
-    set slot 16 of {_gui} to item(netherrack, 600, 200)
+    set slot 10 of {_gui} to item(leather, 750, 250)
+    set slot 11 of {_gui} to item(glow_ink_sac, 1800, 600)
+    set slot 12 of {_gui} to item(spider_eye, 600, 200)
+    set slot 13 of {_gui} to item(string, 450, 150)
+    set slot 14 of {_gui} to item(bone, 450, 150)
+    set slot 15 of {_gui} to item(blaze_rod, 10500, 3500)
+    set slot 16 of {_gui} to item(ender_pearl, 6000, 2000)
 
     
     set slot 35 of {_gui} to {item::goback}
@@ -253,13 +253,13 @@ function openBlock(p: player):
     loop 36 times:
         set slot (loop-number - 1) of {_gui} to {item::space}
     
-    set slot 10 of {_gui} to item(oak_log, 10, 10)
-    set slot 11 of {_gui} to item(cobblestone, 10, 10)
-    set slot 12 of {_gui} to item(cobbled_deepslate, 10, 10)
-    set slot 13 of {_gui} to item(dirt, 10, 10)
-    set slot 14 of {_gui} to item(sand, 10, 10)
-    set slot 15 of {_gui} to item(soul_sand, 10, 10)
-    set slot 16 of {_gui} to item(netherrack, 10, 10)
+    set slot 10 of {_gui} to item(oak_log, 1200, 400)
+    set slot 11 of {_gui} to item(cobblestone, 300, 100)
+    set slot 12 of {_gui} to item(cobbled_deepslate, 450, 150)
+    set slot 13 of {_gui} to item(dirt, 150, 50)
+    set slot 14 of {_gui} to item(sand, 225, 75)
+    set slot 15 of {_gui} to item(soul_sand, 900, 300)
+    set slot 16 of {_gui} to item(netherrack, 450, 150)
     
     set slot 35 of {_gui} to {item::goback}
     set slot 27 of {_gui} to {item::shopinfo}
