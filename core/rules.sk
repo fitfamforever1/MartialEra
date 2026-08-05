@@ -18,19 +18,11 @@ function openRules(p: audience):
                 contents: mini message from "<green><bold>#4 <dark_gray>» <white>ɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ."
             add plain message body:
                 contents: mini message from "<gray><strikethrough>-------------------------"
-        inputs:
-            add text input:
-                key: "name_input"
-                label: "Input your name to confirm:"
-                initial: "name"
         actions:
             add callback action button:
                 label: "Accept"
                 trigger:
-                    if string tag "name_input" of event-nbt = event-string:
-                        unfreeze connection event-playerconnection
-                    else:
-                        openDialog(event-audience)
+                    unfreeze connection event-playerconnection
             add callback action button:
                 label: "Decline"
                 trigger:
