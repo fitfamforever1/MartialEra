@@ -118,7 +118,7 @@ function tpaDoTeleport(mover: player, dest: player, requester: text, acceptor: t
         if data tag "tpa:froze" of {_mover} is not true:
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cᴛᴇʟᴇᴘᴏʀᴛ ᴄᴀɴᴄᴇʟʟᴇᴅ — ʏᴏᴜ ᴍᴏᴠᴇᴅ!" to {_mover}
             stop
-        if location of {_mover} is not {_loc}:
+        if distance between location of {_mover} and {_loc} > 0.05:
             set data tag "tpa:froze" of {_mover} to false
             send "&8[<##AA00FF>ᴛᴘᴀ&8] &cᴛᴇʟᴇᴘᴏʀᴛ ᴄᴀɴᴄᴇʟʟᴇᴅ — ʏᴏᴜ ᴍᴏᴠᴇᴅ!" to {_mover}
             stop
