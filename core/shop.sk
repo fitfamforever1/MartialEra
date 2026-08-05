@@ -56,6 +56,9 @@ function buyItem(p: player, item: item, amount: number):
 
     set {_spriteid} to {_id}
     replace all " " with "_" in {_spriteid}
+    if {_id} is "dirt", "cobblestone", "cobbled deepslate", "sand", "soul sand", "netherrack" or "pumpkin":
+        send action bar formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}% &f<sprite:blocks:block/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
+        stop
     send action bar formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ʙᴏᴜɢʜᴛ &e%{_amount}% &f<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
 
 function sellItem(p: player, item: item, amount: number):
@@ -71,6 +74,9 @@ function sellItem(p: player, item: item, amount: number):
 
     set {_spriteid} to {_id}
     replace all " " with "_" in {_spriteid}
+    if {_id} is "dirt", "cobblestone", "cobbled deepslate", "sand", "soul sand", "netherrack" or "pumpkin":
+        send action bar formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}% &f<sprite:blocks:block/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
+        stop
     send action bar formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}% &f<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
