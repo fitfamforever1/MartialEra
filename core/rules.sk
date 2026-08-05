@@ -20,14 +20,17 @@ function openRules(p: audience):
                 contents: "&8&m-------------------------"
         actions:
             add callback action button:
-                label: "Accept"
+                label: "ᴀᴄᴄᴇᴘᴛ"
                 trigger:
                     unfreeze connection event-playerconnection
+                    set data tag "server:rule" of {_p} to true
             add callback action button:
-                label: "Decline"
+                label: "ᴅᴇᴄʟɪɴᴇ"
                 trigger:
                     unfreeze connection event-playerconnection and disconnect due to "&cOk fine... bye!"
 
-command /test:
-    trigger:
-        openRules(player)
+on async player connection configure:
+    if data tag "server:rule" of event-audience is true:
+        stop
+    openRules(event-audience)
+    freeze connection event-playerconnection
