@@ -7,7 +7,7 @@ command /spawn [<player>]:
                 stop
             teleport arg-1 to location(-699.5, 69, 822.5, world "world", 180, 0)
             play sound "entity.enderman.teleport" at arg-1 for arg-1
-            send title "&a✔ &aᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ꜱᴘᴀᴡɴ!" with subtitle "&7ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ!" to player for 1.6 seconds
+            send title "&a✔ &aᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ꜱᴘᴀᴡɴ!" with subtitle "&cʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ!" to player for 1.6 seconds
             send "&a✔ &8| &aTeleported &e%arg-1% &ato spawn!" to player
             stop
         teleport player to location(-699.5, 69, 822.5, world "world", 180, 0)
