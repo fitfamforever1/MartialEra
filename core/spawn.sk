@@ -11,6 +11,7 @@ command /spawn [<player>]:
 
 function spawn(mover: player):
     set data tag "spawn:froze" of {_mover} to true
+    set {_loc} to location of {_mover}
     loop 5 times:
         wait 1 second
         if data tag "spawn:froze" of {_mover} is not true:
@@ -18,7 +19,6 @@ function spawn(mover: player):
             send "&8[<##578cbf>ꜱᴘᴀᴡɴ&8] &cᴛᴇʟᴇᴘᴏʀᴛ ᴄᴀɴᴄᴇʟʟᴇᴅ — ʏᴏᴜ ᴍᴏᴠᴇᴅ!" to {_mover}
             stop
         if location of {_mover} is not {_loc}:
-            send "debug2" to {_mover}
             set data tag "spawn:froze" of {_mover} to false
             send "&8[<##578cbf>ꜱᴘᴀᴡɴ&8] &cᴛᴇʟᴇᴘᴏʀᴛ ᴄᴀɴᴄᴇʟʟᴇᴅ — ʏᴏᴜ ᴍᴏᴠᴇᴅ!" to {_mover}
             stop
