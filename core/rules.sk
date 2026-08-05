@@ -5,7 +5,7 @@ function openRules(p: audience):
         columns: 1
         body:
             add plain message body:
-                contents: mini message from "<dark_red><bold>ᴘʟᴇᴀꜱᴇ ʀᴇᴀᴅ ᴏᴜʀ ꜱᴇʀᴠᴇʀ ʀᴜles!"
+                contents: mini message from "<green><bold>ᴘʟᴇᴀꜱᴇ ʀᴇᴀᴅ ᴏᴜʀ ꜱᴇʀᴠᴇʀ ʀᴜles!"
             add plain message body:
                 contents: mini message from "<gray><strikethrough>-------------------------"
             add plain message body:
