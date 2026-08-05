@@ -1,15 +1,41 @@
-command /rules:
+function openRules(p: audience):
+    open multi action dialog to {_p}:
+        title: "Server Rules"
+        can_close_with_escape: false
+        columns: 1
+        body:
+            add plain message body:
+                contents: mini message from "<bold>Please read our server rules!"
+            add plain message body:
+                contents: mini message from "<gray><strikethrough>-------------------------"
+            add plain message body:
+                contents: mini message from "<green><bold>#1 <dark_gray>» <white>ɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ."
+            add plain message body:
+                contents: mini message from "<green><bold>#2 <dark_gray>» <white>ɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs."
+            add plain message body:
+                contents: mini message from "<green><bold>#3 <dark_gray>» <white>ɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀᴇᴀʟ-ʟɪꜰᴇ ᴛʜʀᴇᴀᴛs."
+            add plain message body:
+                contents: mini message from "<green><bold>#4 <dark_gray>» <white>ɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ."
+            add plain message body:
+                contents: mini message from "<gray><strikethrough>-------------------------"
+        inputs:
+            add text input:
+                key: "name_input"
+                label: "Input your name to confirm:"
+                initial: "name"
+        actions:
+            add callback action button:
+                label: "Accept"
+                trigger:
+                    if string tag "name_input" of event-nbt = event-string:
+                        unfreeze connection event-playerconnection
+                    else:
+                        openDialog(event-audience)
+            add callback action button:
+                label: "Decline"
+                trigger:
+                    unfreeze connection event-playerconnection and disconnect due to mini message from "<red>Ok fine... bye!"
+                    
+command /test:
     trigger:
-        send "" to player
-        send "&8&m-------------------------" to player
-        send "                &a[ʀᴜʟᴇs]                " to player
-        send "&8&m-------------------------" to player
-        send "" to player
-        send "&a&l#1 &8» &fɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ." to player
-        send "" to player
-        send "&a&l#2 &8» &fɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs." to player
-        send "" to player
-        send "&a&l#3 &8» &fɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀᴇᴀʟ-ʟɪꜰᴇ ᴛʜʀᴇᴀᴛs." to player
-        send "" to player
-        send "&a&l#4 &8» &fɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ." to player
-        send "" to player
+        openRules(player)
