@@ -41,7 +41,6 @@ on chat:
 
 placeholderapi placeholder with the prefix "name":
     if the identifier is "team":
-        send "test"
         set {_check} to the placeholder "betterteams_inTeam" from player
         set {_prefix} to ""
         if {_check} is "true":
@@ -50,3 +49,5 @@ placeholderapi placeholder with the prefix "name":
             set {_name} to SmallCaps("%{_name}%")
             set {_prefix} to "&8[%{_color}%%{_name}%&8] "
             set the result to {_prefix}
+        else:
+            set the result to ""
