@@ -1,23 +1,23 @@
 function openRules(p: audience):
     open multi action dialog to {_p}:
-        title: "ꜱᴇʀᴠᴇʀ ʀᴜʟᴇꜱ"
+        title: "&aꜱᴇʀᴠᴇʀ ʀᴜʟᴇꜱ"
         can_close_with_escape: false
         columns: 1
         body:
             add plain message body:
-                contents: mini message from "<green><bold>ᴘʟᴇᴀꜱᴇ ʀᴇᴀᴅ ᴏᴜʀ ꜱᴇʀᴠᴇʀ ʀᴜles!"
+                contents: "&a&lᴘʟᴇᴀꜱᴇ ʀᴇᴀᴅ ᴏᴜʀ ꜱᴇʀᴠᴇʀ ʀᴜʟᴇꜱ!"
             add plain message body:
-                contents: mini message from "<gray><strikethrough>-------------------------"
+                contents: "&8&m-------------------------"
             add plain message body:
-                contents: mini message from "<green><bold>#1 <dark_gray>» <white>ɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ."
+                contents: "&a&l#1 &8» &fɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ."
             add plain message body:
-                contents: mini message from "<green><bold>#2 <dark_gray>» <white>ɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs."
+                contents: "&a&l#2 &8» &fɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs."
             add plain message body:
-                contents: mini message from "<green><bold>#3 <dark_gray>» <white>ɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀʟ ᴛʜʀᴇᴀᴛs."
+                contents: "&a&l#3 &8» &fɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀʟ ᴛʜʀᴇᴀᴛs."
             add plain message body:
-                contents: mini message from "<green><bold>#4 <dark_gray>» <white>ɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ."
+                contents: "&a&l#4 &8» &fɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ."
             add plain message body:
-                contents: mini message from "<gray><strikethrough>-------------------------"
+                contents: "&8&m-------------------------"
         actions:
             add callback action button:
                 label: "Accept"
@@ -26,8 +26,8 @@ function openRules(p: audience):
             add callback action button:
                 label: "Decline"
                 trigger:
-                    unfreeze connection event-playerconnection and disconnect due to mini message from "<red>Ok fine... bye!"
-                    
+                    unfreeze connection event-playerconnection and disconnect due to "&cOk fine... bye!"
+
 command /test:
     trigger:
         openRules(player)
