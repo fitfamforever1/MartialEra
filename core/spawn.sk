@@ -3,21 +3,21 @@ command /spawn [<player>]:
     trigger:
         if arg-1 is set:
             if player does not have permission "admin.spawn":
-                send "&c✖ &8| &cYou do not have permission to teleport others!" to player
+                send "&c✖ &8| &cʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪꜱꜱɪᴏɴ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ ᴏᴛʜᴇʀꜱ!" to player
                 stop
             teleport arg-1 to location(-699.5, 69, 822.5, world "world", 180, 0)
             play sound "entity.enderman.teleport" at arg-1 for arg-1
-            send title "&a✔ &aTeleported to spawn!" with subtitle "&7By administrator!" to player for 1.6 seconds
+            send title "&a✔ &aᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ꜱᴘᴀᴡɴ!" with subtitle "&7ʙʏ ᴀᴅᴍɪɴɪꜱᴛʀᴀᴛᴏʀ!" to player for 1.6 seconds
             send "&a✔ &8| &aTeleported &e%arg-1% &ato spawn!" to player
             stop
         teleport player to location(-699.5, 69, 822.5, world "world", 180, 0)
         play sound "entity.enderman.teleport" at player for player
-        send title "&a✔ &aTeleported to spawn!" to player for 1.6 seconds
+        send title "&a✔ &aᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ꜱᴘᴀᴡɴ!" to player for 1.6 seconds
 
 on respawn:
     wait 20 ticks
     teleport player to location(-699.5, 69, 822.5, world "world", 180, 0)
-    send title "&a✔ &aTeleported to spawn!" with subtitle "&4You have died!" to player for 1.6 seconds
+    send title "&a✔ &aᴛᴇʟᴇᴘᴏʀᴛᴇᴅ ᴛᴏ ꜱᴘᴀᴡɴ!" with subtitle "&4ʏᴏᴜ ʜᴀᴠᴇ ᴅɪᴇᴅ!" to player for 1.6 seconds
 
 on first join:
     wait 1 tick

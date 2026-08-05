@@ -1,6 +1,3 @@
-on first join:
-    set number data tag "money:amm" of player to 100
-    
 command /bal [<player>]:
     aliases: balance
     trigger:
