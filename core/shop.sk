@@ -56,7 +56,7 @@ function buyItem(p: player, item: item, amount: number):
 
     set {_spriteid} to {_id}
     replace all " " with "_" in {_spriteid}
-    send formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ʙᴏᴜɢʜᴛ &e%{_amount}% &f<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
+    send formatted action bar "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ʙᴏᴜɢʜᴛ &e%{_amount}% &f<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
 
 function sellItem(p: player, item: item, amount: number):
     set {_id} to string data tag "item:id" of {_item}
@@ -71,7 +71,7 @@ function sellItem(p: player, item: item, amount: number):
 
     set {_spriteid} to {_id}
     replace all " " with "_" in {_spriteid}
-    send formatted "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}% &f<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
+    send formatted action bar "&8[<##E9BF35>ꜱʜᴏᴘ&8] &7ʏᴏᴜ ꜱᴏʟᴅ &e%{_amount}% &f<sprite:items:item/%{_spriteid}%> &7ғᴏʀ &e$%{_price}%&7." to {_p}
     
 on inventory click:
     if name of event-inventory is "<##E9BF35>ᴏʀᴇ ꜱʜᴏᴘ", "<##E9BF35>ʙʟᴏᴄᴋ ꜱʜᴏᴘ", "<##E9BF35>ꜰᴀʀᴍ ꜱʜᴏᴘ", "<##E9BF35>ᴍᴏʙ ꜱʜᴏᴘ", "<##E9BF35>ᴍɪᴄꜱ ꜱʜᴏᴘ" or "<##E9BF35>ꜰᴏᴏᴅ ꜱʜᴏᴘ":
