@@ -1,15 +1,15 @@
 command /rules:
     trigger:
         send "" to player
-        send "&8&m----------------------------------------" to player
+        send "&8&m-------------------------" to player
         send "                &a[ʀᴜʟᴇs]                " to player
-        send "&8&m----------------------------------------" to player
+        send "&8&m-------------------------" to player
         send "" to player
-        send "&e&l#1 &8» &fɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ." to player
+        send "&a&l#1 &8» &fɴᴏ ᴜɴꜰᴀɪʀ ᴀᴅᴠᴀɴᴛᴀɢᴇ." to player
         send "" to player
-        send "&e&l#2 &8» &fɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs." to player
+        send "&a&l#2 &8» &fɴᴏ ᴅᴜᴘʟɪᴄᴀᴛɪᴏɴ ɢʟɪᴛᴄʜᴇs." to player
         send "" to player
-        send "&e&l#3 &8» &fɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀᴇᴀʟ-ʟɪꜰᴇ ᴛʜʀᴇᴀᴛs." to player
+        send "&a&l#3 &8» &fɴᴏ ᴅᴏxxɪɴɢ ᴏʀ ʀᴇᴀʟ-ʟɪꜰᴇ ᴛʜʀᴇᴀᴛs." to player
         send "" to player
-        send "&e&l#4 &8» &fɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ." to player
+        send "&a&l#4 &8» &fɴᴏ sᴘᴀᴡɴ ᴄᴀᴍᴘɪɴɢ." to player
         send "" to player
