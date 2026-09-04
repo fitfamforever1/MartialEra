@@ -67,7 +67,7 @@ command /killall:
         loop all entities:
             if loop-entity is player:
                 continue
-            kill loop-entity
+            delete loop-entity
             add 1 to {_count}
         if {_count} is not set:
             set {_count} to 0
