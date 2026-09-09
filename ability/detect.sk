@@ -49,10 +49,10 @@ on left click:
         
         cancel event
 
-function clear(p):
+function clear(p: player):
     message "&c[Casting] Sequence expired" to {p}
     delete data tag "casting:sequence" of {p}
 
-function cast_spell(p):
+function cast_spell(p: player):
     set {_seq} to data tag "casting:sequence" of {p}
     message "&6[Casting] Cast spell: &b%{_seq}%" to {p}
