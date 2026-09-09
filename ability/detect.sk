@@ -1,50 +1,103 @@
 function clear(p: player):
-    send "&c[Casting] Sequence expired" to {p}
-    delete data tag "casting:sequence" of {p}
+    send "&c[DEBUG] clear() called | Player: %{_p}%" to {_p}
+    send "&c[DEBUG] Clearing sequence: %data tag "casting:sequence" of {_p}%" to {_p}
+
+    send "&c[Casting] Sequence expired" to {_p}
+    delete data tag "casting:sequence" of {_p}
+
+    send "&c[DEBUG] Sequence deleted." to {_p}
+
 
 function clearlater(p: player):
+    send "&e[DEBUG] clearlater() started | Waiting 3 seconds..." to {_p}
+
     wait 3 seconds
-    send "&c[Casting] Sequence expired" to {p}
-    delete data tag "casting:sequence" of {p}
+
+    send "&e[DEBUG] clearlater() finished waiting." to {_p}
+    send "&e[DEBUG] Current sequence: %data tag "casting:sequence" of {_p}%" to {_p}
+
+    send "&c[Casting] Sequence expired" to {_p}
+    delete data tag "casting:sequence" of {_p}
+
+    send "&e[DEBUG] Sequence deleted by clearlater()." to {_p}
+
 
 function cast(p: player):
-    set {_seq} to data tag "casting:sequence" of {p}
-    send "&6[Casting] Cast spell: &b%{_seq}%" to {p}
-    
+    set {_seq} to data tag "casting:sequence" of {_p}
+
+    send "&a[DEBUG] cast() called." to {_p}
+    send "&a[DEBUG] Sequence being cast: &f%{_seq}%" to {_p}
+
+    send "&6[Casting] Cast spell: &b%{_seq}%" to {_p}
+
+
 function add(p: player, t: string):
-    set {_seq} to {_seq} + " " + {_t}
+    send "&b[DEBUG] add() called | Input: %{_t}%" to {_p}
+
+    set {_seq} to data tag "casting:sequence" of {_p}
+
+    send "&b[DEBUG] Existing sequence: &f%{_seq}%" to {_p}
+
+    if {_seq} is not set:
+        set {_seq} to {_t}
+    else:
+        set {_seq} to {_seq} + " " + {_t}
+
+    send "&b[DEBUG] New sequence: &f%{_seq}%" to {_p}
+
     set data tag "casting:sequence" of {_p} to {_seq}
+
     send action bar "&b[Casting] &7%{_seq}%" to {_p}
-        
+
     if size of {_seq} is 7:
+        send "&d[DEBUG] Sequence reached length 7 → casting." to {_p}
         cast({_p})
         clear({_p})
-    
+
+
 on right click on air:
     set {_seq} to data tag "casting:sequence" of player
-    
+
+    send "&9[DEBUG] RIGHT CLICK | Current sequence: &f%{_seq}%" to player
+    send "&9[DEBUG] Sequence length: &f%size of {_seq}%" to player
+
     if {_seq} is not set:
+        send "&9[DEBUG] No sequence → starting with R." to player
+
         set data tag "casting:sequence" of player to "R"
         send action bar "&b[Casting] &7R" to player
-        
+
         clearlater(player)
-    
+
     else if size of {_seq} < 7:
+        send "&9[DEBUG] Sequence < 7 → adding R." to player
         add(player, "R")
-    
+
     else:
+        send "&9[DEBUG] Sequence already length 7 → casting." to player
         cast(player)
         clear(player)
 
-    
+
 on left click on air:
     set {_seq} to data tag "casting:sequence" of player
-    
-    if size of {_seq} < 7:
+
+    send "&5[DEBUG] LEFT CLICK | Current sequence: &f%{_seq}%" to player
+    send "&5[DEBUG] Sequence length: &f%size of {_seq}%" to player
+
+    if {_seq} is not set:
+        send "&5[DEBUG] No sequence → starting with L." to player
+
+        set data tag "casting:sequence" of player to "L"
+        send action bar "&b[Casting] &7L" to player
+
+        clearlater(player)
+
+    else if size of {_seq} < 7:
+        send "&5[DEBUG] Sequence < 7 → adding L." to player
         add(player, "L")
-    
+
     else:
+        send "&5[DEBUG] Sequence already length 7 → casting." to player
         cast(player)
         clear(player)
-        
-    
