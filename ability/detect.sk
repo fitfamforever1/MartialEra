@@ -20,7 +20,7 @@ function add(p: player, t: string):
         cast({_p})
         clear({_p})
     
-on right click on air:
+on right click:
     set {_seq} to data tag "casting:sequence" of player
     
     send "%{_seq}%" to player
