@@ -1,10 +1,10 @@
 function clear(p: player):
     send "&c[Casting] Sequence expired" to {_p}
     delete data tag "casting:sequence" of {_p}
-    delete data tag "casting:timer" of {_p}
 
 function clearlater(p: player):
     wait 5 seconds
+    
     if data tag "casting:sequence" of {_p} is set:
         send "&c[Casting] Sequence expired" to {_p}
         delete data tag "casting:sequence" of {_p}
@@ -12,7 +12,7 @@ function clearlater(p: player):
 function cast(p: player):
     set {_seq} to data tag "casting:sequence" of {_p}
     send "&6[Casting] Cast spell: &b%{_seq}%" to {_p}
-  
+
 function add(p: player, t: string):
     set {_seq} to data tag "casting:sequence" of {_p}
     set {_seq} to {_seq} + " " + {_t}
@@ -23,14 +23,13 @@ function add(p: player, t: string):
     if size of {_seq} is 7:
         cast({_p})
         clear({_p})
-  
+
 on right click:
     set {_seq} to data tag "casting:sequence" of player
 
     if {_seq} is not set:
         set data tag "casting:sequence" of player to "R"
         send action bar "&b[Casting] &7R" to player
-
         clearlater(player)
 
     else if size of {_seq} < 7:
