@@ -13,7 +13,7 @@ on right click:
         
         # Set 3 second timeout
         schedule 3 seconds later as "cast_timeout_%uuid of player%":
-            clear_sequence(player)
+            clear(player)
     
     # Add to existing sequence if not full
     else if size of {_seq} < 7:
@@ -24,12 +24,12 @@ on right click:
         # Check if sequence is complete (4 inputs)
         if size of {_seq} == 7:
             cast_spell(player)
-            clear_sequence(player)
+            clear(player)
     
     # Sequence full - cast the spell
     else:
         cast_spell(player)
-        clear_sequence(player)
+        clear(player)
     
     cancel event
 
@@ -45,23 +45,14 @@ on left click:
         # Check if sequence is complete (4 inputs)
         if size of {_seq} == 7:
             cast_spell(player)
-            clear_sequence(player)
+            clear(player)
         
         cancel event
 
-function clear_sequence(p):
+function clear(p):
     message "&c[Casting] Sequence expired" to {p}
     delete data tag "casting:sequence" of {p}
 
 function cast_spell(p):
     set {_seq} to data tag "casting:sequence" of {p}
     message "&6[Casting] Cast spell: &b%{_seq}%" to {p}
-    
-    # Spell mapping - add your spells here!
-    # Example:
-    # if {_seq} == "R L":
-    #     apply potion of fire_resistance to {p}
-    # else if {_seq} == "R L L":
-    #     strike {p} with lightning
-    # else if {_seq} == "R L R":
-    #     push {p} upwards with force 2
