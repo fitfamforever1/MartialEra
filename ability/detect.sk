@@ -35,7 +35,7 @@ function add(p: player, t: string):
     else:
         clearlater({_p}, {_id})
 
-on right click:
+on right click on air:
     set {_seq} to data tag "casting:sequence" of player
     
     if {_seq} is not set:
