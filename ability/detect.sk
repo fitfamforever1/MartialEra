@@ -16,8 +16,8 @@ function add(p: player, t: string):
     set data tag "casting:sequence" of {_p} to {_seq}
     send action bar "&b[Casting] &7%{_seq}%" to {_p}
         
-    if size of {_seq} == 7:
-        cast_spell({_p})
+    if size of {_seq} is 7:
+        cast({_p})
         clear({_p})
     
 on right click:
@@ -40,7 +40,7 @@ on right click:
 on left click:
     set {_seq} to data tag "casting:sequence" of player
     
-    else if size of {_seq} < 7:
+    if size of {_seq} < 7:
         add(player, "L")
     
     else:
