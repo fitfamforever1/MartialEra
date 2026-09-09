@@ -1,49 +1,57 @@
 function clear(p: player):
     send "&c[Casting] Sequence expired" to {_p}
     delete data tag "casting:sequence" of {_p}
+    delete data tag "casting:timer" of {_p}
 
-function clearlater(p: player):
+function clearlater(p: player, id: number):
     wait 3 seconds
-    send "&c[Casting] Sequence expired" to {_p}
-    delete data tag "casting:sequence" of {_p}
+    
+    set {_current} to data tag "casting:timer" of {_p}
+    
+    if {_current} is {_id}:
+        send "&c[Casting] Sequence expired" to {_p}
+        delete data tag "casting:sequence" of {_p}
+        delete data tag "casting:timer" of {_p}
 
 function cast(p: player):
     set {_seq} to data tag "casting:sequence" of {_p}
     send "&6[Casting] Cast spell: &b%{_seq}%" to {_p}
-
+    
 function add(p: player, t: string):
     set {_seq} to data tag "casting:sequence" of {_p}
     
     set {_seq} to {_seq} + " " + {_t}
     set data tag "casting:sequence" of {_p} to {_seq}
     
+    # New timer ID
+    set {_id} to random integer between 1 and 999999
+    set data tag "casting:timer" of {_p} to {_id}
+    
     send action bar "&b[Casting] &7%{_seq}%" to {_p}
     
     if size of {_seq} is 7:
         cast({_p})
         clear({_p})
+    else:
+        clearlater({_p}, {_id})
 
 on right click:
     set {_seq} to data tag "casting:sequence" of player
     
     if {_seq} is not set:
         set data tag "casting:sequence" of player to "R"
+        
+        set {_id} to random integer between 1 and 999999
+        set data tag "casting:timer" of player to {_id}
+        
         send action bar "&b[Casting] &7R" to player
-        clearlater(player)
-    
-    else if size of {_seq} < 7:
-        add(player, "R")
+        clearlater(player, {_id})
     
     else:
-        cast(player)
-        clear(player)
+        add(player, "R")
 
 on left click on air:
     set {_seq} to data tag "casting:sequence" of player
     
-    if size of {_seq} < 7:
+    if {_seq} is set:
         add(player, "L")
-    
-    else:
-        cast(player)
-        clear(player)
