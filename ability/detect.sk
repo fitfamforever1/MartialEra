@@ -1,68 +1,67 @@
-on right click:
+# Click Casting System
+# Detects Right Click sequences followed by 1-3 Left/Right clicks
+# Expires after 3 seconds
+# Uses data tags (PDC) for storage
+
+on player right click:
     set {_seq} to data tag "casting:sequence" of player
-    set {_timeout} to data tag "casting:timeout" of player
     
     # Start new sequence if none exists
     if {_seq} is not set:
         set data tag "casting:sequence" of player to "R"
         send action bar "&b[Casting] &7R" to player
         
-        # Cancel existing timeout if any
-        if {_timeout} is set:
-            cancel task {_timeout}
-        
-        # Set 3 second timeout and store task ID
-        set {_task} to (delay 3 seconds: clear-sequence(player))
-        set data tag "casting:timeout" of player to {_task}
+        # Set 3 second timeout
+        schedule 3 seconds later as "cast_timeout_%uuid of player%":
+            clear_sequence(player)
     
-    # Add to existing sequence if not full (max 4 inputs = "R L L L")
-    else if length of {_seq} < 7:
+    # Add to existing sequence if not full
+    else if size of {_seq} < 7:
         set {_seq} to {_seq} + " R"
         set data tag "casting:sequence" of player to {_seq}
         send action bar "&b[Casting] &7%{_seq}%" to player
         
         # Check if sequence is complete (4 inputs)
-        if length of {_seq} == 7:
-            cast-spell(player, {_seq})
-            clear-sequence(player)
+        if size of {_seq} == 7:
+            cast_spell(player)
+            clear_sequence(player)
     
     # Sequence full - cast the spell
     else:
-        cast-spell(player, {_seq})
-        clear-sequence(player)
+        cast_spell(player)
+        clear_sequence(player)
     
     cancel event
 
-on left click:
+on player left click:
     set {_seq} to data tag "casting:sequence" of player
     
     # Only accept if sequence exists and not full
-    if {_seq} is set and length of {_seq} < 7:
+    if {_seq} is set and size of {_seq} < 7:
         set {_seq} to {_seq} + " L"
         set data tag "casting:sequence" of player to {_seq}
         send action bar "&b[Casting] &7%{_seq}%" to player
         
         # Check if sequence is complete (4 inputs)
-        if length of {_seq} == 7:
-            cast-spell(player, {_seq})
-            clear-sequence(player)
+        if size of {_seq} == 7:
+            cast_spell(player)
+            clear_sequence(player)
         
         cancel event
 
-function clear-sequence(p: player):
+function clear_sequence(p):
     message "&c[Casting] Sequence expired" to {p}
     delete data tag "casting:sequence" of {p}
-    delete data tag "casting:timeout" of {p}
 
-function cast-spell(p: player, sequence: string):
-    delete data tag "casting:timeout" of {p}
-    message "&6[Casting] Cast spell: &b%{sequence}%" to {p}
+function cast_spell(p):
+    set {_seq} to data tag "casting:sequence" of {p}
+    message "&6[Casting] Cast spell: &b%{_seq}%" to {p}
     
     # Spell mapping - add your spells here!
     # Example:
-    # if {sequence} == "R L":
+    # if {_seq} == "R L":
     #     apply potion of fire_resistance to {p}
-    # else if {sequence} == "R L L":
+    # else if {_seq} == "R L L":
     #     strike {p} with lightning
-    # else if {sequence} == "R L R":
+    # else if {_seq} == "R L R":
     #     push {p} upwards with force 2
