@@ -55,7 +55,7 @@ function add(p: player, t: string):
         clear({_p})
 
 
-on right click on air:
+on right click:
     set {_seq} to data tag "casting:sequence" of player
 
     send "&9[DEBUG] RIGHT CLICK | Current sequence: &f%{_seq}%" to player
