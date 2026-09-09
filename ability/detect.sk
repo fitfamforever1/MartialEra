@@ -59,10 +59,9 @@ on right click on air:
     set {_seq} to data tag "casting:sequence" of player
 
     send "&9[DEBUG] RIGHT CLICK | Current sequence: &f%{_seq}%" to player
-    send "&9[DEBUG] Sequence length: &f%size of {_seq}%" to player
 
     if {_seq} is not set:
-        send "&9[DEBUG] No sequence → starting with R." to player
+        send "&9[DEBUG] Starting sequence with R." to player
 
         set data tag "casting:sequence" of player to "R"
         send action bar "&b[Casting] &7R" to player
@@ -70,11 +69,11 @@ on right click on air:
         clearlater(player)
 
     else if size of {_seq} < 7:
-        send "&9[DEBUG] Sequence < 7 → adding R." to player
+        send "&9[DEBUG] Sequence active → adding R." to player
         add(player, "R")
 
     else:
-        send "&9[DEBUG] Sequence already length 7 → casting." to player
+        send "&9[DEBUG] Sequence complete → casting." to player
         cast(player)
         clear(player)
 
@@ -83,21 +82,14 @@ on left click on air:
     set {_seq} to data tag "casting:sequence" of player
 
     send "&5[DEBUG] LEFT CLICK | Current sequence: &f%{_seq}%" to player
-    send "&5[DEBUG] Sequence length: &f%size of {_seq}%" to player
 
-    if {_seq} is not set:
-        send "&5[DEBUG] No sequence → starting with L." to player
-
-        set data tag "casting:sequence" of player to "L"
-        send action bar "&b[Casting] &7L" to player
-
-        clearlater(player)
-
-    else if size of {_seq} < 7:
-        send "&5[DEBUG] Sequence < 7 → adding L." to player
-        add(player, "L")
-
+    if {_seq} is set:
+        if size of {_seq} < 7:
+            send "&5[DEBUG] Sequence active → adding L." to player
+            add(player, "L")
+        else:
+            send "&5[DEBUG] Sequence already complete → casting." to player
+            cast(player)
+            clear(player)
     else:
-        send "&5[DEBUG] Sequence already length 7 → casting." to player
-        cast(player)
-        clear(player)
+        send "&5[DEBUG] No active sequence → LEFT CLICK ignored." to player
