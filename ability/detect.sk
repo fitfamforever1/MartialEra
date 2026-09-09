@@ -12,7 +12,18 @@ function clearlater(p: player):
 function cast(p: player):
     set {_seq} to data tag "casting:sequence" of {_p}
     send "&6[Casting] Cast spell: &b%{_seq}%" to {_p}
-    
+  
+function add(p: player, t: string):
+    set {_seq} to data tag "casting:sequence" of {_p}
+    set {_seq} to {_seq} + " " + {_t}
+    set data tag "casting:sequence" of {_p} to {_seq}
+
+    send action bar "&b[Casting] &7%{_seq}%" to {_p}
+
+    if size of {_seq} is 7:
+        cast({_p})
+        clear({_p})
+  
 on right click:
     set {_seq} to data tag "casting:sequence" of player
 
