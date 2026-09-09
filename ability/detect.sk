@@ -15,6 +15,9 @@ function cast(p: player):
 
 function add(p: player, t: string):
     set {_seq} to data tag "casting:sequence" of {_p}
+
+    send "&eDEBUG ADD: [%{_seq}%] + [%{_t}%]" to {_p}
+
     set {_seq} to {_seq} + " " + {_t}
     set data tag "casting:sequence" of {_p} to {_seq}
 
@@ -26,6 +29,8 @@ function add(p: player, t: string):
 
 on right click:
     set {_seq} to data tag "casting:sequence" of player
+
+    send "&eDEBUG: [%{_seq}%] SIZE: %size of {_seq}%" to player
 
     if {_seq} is not set:
         set data tag "casting:sequence" of player to "R"
