@@ -20,7 +20,7 @@ function add(p: player, t: string):
         cast({_p})
         clear({_p})
     
-on right click:
+on right click on air:
     set {_seq} to data tag "casting:sequence" of player
     
     if {_seq} is not set:
@@ -37,7 +37,7 @@ on right click:
         clear(player)
 
     
-on left click:
+on left click on air:
     set {_seq} to data tag "casting:sequence" of player
     
     if size of {_seq} < 7:
