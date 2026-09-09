@@ -1,25 +1,25 @@
 function clear(p: player):
     send "&c[Casting] Sequence expired" to {_p}
-    delete data tag "casting:sequence" of {_p}
+    delete text data tag "casting:sequence" of {_p}
 
 function clearlater(p: player):
     wait 5 seconds
     
-    if data tag "casting:sequence" of {_p} is set:
+    if text data tag "casting:sequence" of {_p} is set:
         send "&c[Casting] Sequence expired" to {_p}
-        delete data tag "casting:sequence" of {_p}
+        delete text data tag "casting:sequence" of {_p}
 
 function cast(p: player):
-    set {_seq} to data tag "casting:sequence" of {_p}
+    set {_seq} to text data tag "casting:sequence" of {_p}
     send "&6[Casting] Cast spell: &b%{_seq}%" to {_p}
 
 function add(p: player, t: string):
-    set {_seq} to data tag "casting:sequence" of {_p}
+    set {_seq} to text data tag "casting:sequence" of {_p}
 
     send "&eDEBUG ADD: [%{_seq}%] + [%{_t}%]" to {_p}
 
     set {_seq} to {_seq} + " " + {_t}
-    set data tag "casting:sequence" of {_p} to {_seq}
+    set text data tag "casting:sequence" of {_p} to {_seq}
 
     send action bar "&b[Casting] &7%{_seq}%" to {_p}
 
@@ -28,12 +28,12 @@ function add(p: player, t: string):
         clear({_p})
 
 on right click:
-    set {_seq} to data tag "casting:sequence" of player
+    set {_seq} to text data tag "casting:sequence" of player
 
     send "&eDEBUG: [%{_seq}%] SIZE: %size of {_seq}%" to player
 
     if {_seq} is not set:
-        set data tag "casting:sequence" of player to "R"
+        set text data tag "casting:sequence" of player to "R"
         send action bar "&b[Casting] &7R" to player
         clearlater(player)
 
@@ -45,7 +45,7 @@ on right click:
         clear(player)
 
 on left click on air:
-    set {_seq} to data tag "casting:sequence" of player
+    set {_seq} to text data tag "casting:sequence" of player
 
     if {_seq} is set:
         if size of {_seq} < 7:
