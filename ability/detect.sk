@@ -3,7 +3,7 @@
 # Expires after 3 seconds
 # Uses data tags (PDC) for storage
 
-on player right click:
+on right click:
     set {_seq} to data tag "casting:sequence" of player
     
     # Start new sequence if none exists
@@ -33,7 +33,7 @@ on player right click:
     
     cancel event
 
-on player left click:
+on left click:
     set {_seq} to data tag "casting:sequence" of player
     
     # Only accept if sequence exists and not full
