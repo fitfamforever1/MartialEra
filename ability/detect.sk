@@ -33,7 +33,7 @@ on right click:
         add(player, "R")
     
     else:
-        cast_spell(player)
+        cast(player)
         clear(player)
 
     
@@ -44,7 +44,7 @@ on left click:
         add(player, "L")
     
     else:
-        cast_spell(player)
+        cast(player)
         clear(player)
         
     
